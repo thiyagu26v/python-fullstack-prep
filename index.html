@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Full Stack Prep - Thiyagarajan Varadharajan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffa3;
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --border: #30363d;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #00ffa3, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #8b949e;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .author {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 255, 163, 0.1);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .card p { color: #8b949e; font-size: 0.95rem; }
+        
+        .section-title {
+            color: var(--primary);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: #8b949e;
+        }
+        
+        footer strong { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐍 Python Full Stack Prep</h1>
+        <p class="subtitle">Comprehensive Interview Preparation Resources</p>
+        <p class="author">✨ Created by Thiyagarajan Varadharajan ✨</p>
+        
+        <h2 class="section-title">📚 Python & SQL Resources</h2>
+        <div class="cards">
+            <a href="python_sql_orm%20cheat%20sheet/PYTHON_INTERVIEW_CHEATSHEET_PRINT.html" class="card">
+                <h3>🐍 Python Cheat Sheet</h3>
+                <p>Complete Python reference - Keywords, Built-in Functions, Methods</p>
+            </a>
+            <a href="python_sql_orm%20cheat%20sheet/SQL_ORM_MASTERCLASS.html" class="card">
+                <h3>🗄️ SQL & ORM Masterclass</h3>
+                <p>Comprehensive SQL and Django ORM guide with examples</p>
+            </a>
+        </div>
+        
+        <h2 class="section-title">🎯 Python Questions</h2>
+        <div class="cards">
+            <a href="task%20based%20main/python_interview_questions_top_50.html" class="card">
+                <h3>🔥 Python Top 50</h3>
+                <p>Top 50 practical Python questions with multiple approaches</p>
+            </a>
+            <a href="task%20based%20main/python_interview_questions_level_2.html" class="card">
+                <h3>📈 Python Level 2</h3>
+                <p>Advanced Python questions and patterns</p>
+            </a>
+            <a href="task%20based%20main/python_interview_questions_part_2.html" class="card">
+                <h3>📝 Python Part 2</h3>
+                <p>More Python questions and solutions</p>
+            </a>
+        </div>
+        
+        <h2 class="section-title">🗃️ SQL Questions</h2>
+        <div class="cards">
+            <a href="task%20based%20main/sql_interview_questions_top_50.html" class="card">
+                <h3>🔥 SQL Top 50</h3>
+                <p>Top 50 SQL questions with examples</p>
+            </a>
+            <a href="task%20based%20main/sql_interview_questions_level_2.html" class="card">
+                <h3>📈 SQL Level 2</h3>
+                <p>Advanced SQL queries and concepts</p>
+            </a>
+        </div>
+        
+        <h2 class="section-title">🌐 Django & React</h2>
+        <div class="cards">
+            <a href="task%20based%20main/django_interview_tasks_level_1.html" class="card">
+                <h3>🎯 Django Level 1</h3>
+                <p>Django practical tasks and questions</p>
+            </a>
+            <a href="task%20based%20main/django_interview_tasks_level_2.html" class="card">
+                <h3>📈 Django Level 2</h3>
+                <p>Advanced Django tasks</p>
+            </a>
+            <a href="task%20based%20main/react_interview_tasks_level_1.html" class="card">
+                <h3>⚛️ React Level 1</h3>
+                <p>React practical tasks and questions</p>
+            </a>
+            <a href="task%20based%20main/react_interview_tasks_level_2.html" class="card">
+                <h3>📈 React Level 2</h3>
+                <p>Advanced React tasks</p>
+            </a>
+        </div>
+        
+        <h2 class="section-title">🤖 AI/ML Resources</h2>
+        <div class="cards">
+            <a href="task%20based%20main/ai_ml_interview_prep_level_1.html" class="card">
+                <h3>🧠 AI/ML Level 1</h3>
+                <p>AI/ML fundamentals and concepts</p>
+            </a>
+            <a href="task%20based%20main/ai_ml_interview_prep_level_2.html" class="card">
+                <h3>📈 AI/ML Level 2</h3>
+                <p>Advanced AI/ML topics</p>
+            </a>
+            <a href="task%20based%20main/project_ai_concepts_mastery.html" class="card">
+                <h3>🚀 AI Concepts Mastery</h3>
+                <p>Project-based AI learning</p>
+            </a>
+        </div>
+        
+        <footer>
+            <p>✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+            <p>Python Full Stack Developer | Interview Prep Resources</p>
+        </footer>
+    </div>
+</body>
+</html>
