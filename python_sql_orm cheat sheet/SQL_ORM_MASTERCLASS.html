@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+<!-- ========================================== -->
+<!-- Created by Thiyagarajan Varadharajan -->
+<!-- LinkedIn: Share this resource! -->
+<!-- ========================================== -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL & Django ORM Masterclass - Complete Study Guide</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --accent-pink: #ec4899;
+            --border-color: #27272a;
+            --code-bg: #1e1e2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab:hover,
+        .nav-tab.active {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.beginner {
+            border-left: 3px solid var(--accent-green);
+        }
+
+        .nav-tab.intermediate {
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        .nav-tab.advanced {
+            border-left: 3px solid var(--accent-pink);
+        }
+
+        .nav-tab.postgres {
+            border-left: 3px solid var(--accent-purple);
+        }
+
+        .nav-tab.interview {
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* All sections visible on single page */
+        .section-content {
+            display: block;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .level-beginner .section-title {
+            color: var(--accent-green);
+        }
+
+        .level-intermediate .section-title {
+            color: var(--accent-orange);
+        }
+
+        .level-advanced .section-title {
+            color: var(--accent-pink);
+        }
+
+        .level-postgres .section-title {
+            color: var(--accent-purple);
+        }
+
+        .level-interview .section-title {
+            color: var(--accent-blue);
+        }
+
+        .topic-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-blue);
+        }
+
+        .topic-header {
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-header:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .topic-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topic-number {
+            background: var(--accent-blue);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            color: var(--text-secondary);
+        }
+
+        .topic-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .topic-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .topic-card.open .topic-content {
+            padding: 1.5rem;
+            max-height: 8000px;
+        }
+
+        .content-block {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block h4 {
+            color: var(--accent-blue);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-block p {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0 8px 0 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .code-label.sql {
+            background: var(--accent-orange);
+        }
+
+        .code-label.python {
+            background: var(--accent-green);
+        }
+
+        pre {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .pro-tip h5 {
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .pro-tip ul,
+        .pro-tip ol {
+            margin-left: 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        .pro-tip li {
+            margin-bottom: 0.25rem;
+        }
+
+        .output-box {
+            background: #0d1117;
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .output-box h5 {
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .qa-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .qa-question {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .qa-question:hover {
+            background: rgba(139, 92, 246, 0.25);
+        }
+
+        .qa-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .qa-card.open .qa-answer {
+            padding: 1.25rem;
+            max-height: 3000px;
+        }
+
+        .q-number {
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.75rem;
+        }
+
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cheat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .cheat-card h4 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--accent-purple);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-tabs {
+                gap: 0.25rem;
+            }
+
+            .nav-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .cheat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>🎓 SQL & Django ORM Masterclass</h1>
+        <p>From Zero to Pro - Complete Interactive Study Guide</p>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search topics, commands, or concepts...">
+        </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav
+        style="background: var(--bg-secondary); padding: 1.5rem; text-align: center; border-bottom: 1px solid var(--border-color);">
+        <strong style="color: var(--text-primary);">📚 Complete Study Guide</strong> - Scroll down to study all topics
+    </nav>
+
+    <main class="main-content">
+
+        <!-- ==================== INTRODUCTION SECTION ==================== -->
+        <div id="intro">
+            <div class="section">
+                <div class="section-header"><span class="section-icon">🎯</span>
+                    <h2 class="section-title">Introduction & Setup</h2>
+                </div>
+
+                <div class="topic-card open">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">📖</span>What is a Database?</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <p>A <b>database</b> is like a super-organized digital filing cabinet that stores
+                                information in a structured way so you can easily find, add, update, or delete data.</p>
+                        </div>
+                        <div class="pro-tip">
+                            <h5>💡 Real-World Analogy: Library</h5>
+                            <ul>
+                                <li><b>Library building</b> = Database</li>
+                                <li><b>Bookshelves</b> = Tables</li>
+                                <li><b>Books</b> = Rows (Records)</li>
+                                <li><b>Book properties</b> (title, author, ISBN) = Columns (Fields)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">📊</span>DBMS vs RDBMS</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Feature</th>
+                                <th>DBMS</th>
+                                <th>RDBMS</th>
+                            </tr>
+                            <tr>
+                                <td>Full Form</td>
+                                <td>Database Management System</td>
+                                <td>Relational Database Management System</td>
+                            </tr>
+                            <tr>
+                                <td>Data Storage</td>
+                                <td>Files (hierarchical/network)</td>
+                                <td>Tables with rows & columns</td>
+                            </tr>
+                            <tr>
+                                <td>Relationships</td>
+                                <td>No relationships</td>
+                                <td>Supported via Foreign Keys</td>
+                            </tr>
+                            <tr>
+                                <td>Data Integrity</td>
+                                <td>Limited</td>
+                                <td>Strong (ACID properties)</td>
+                            </tr>
+                            <tr>
+                                <td>Examples</td>
+                                <td>File systems, XML</td>
+                                <td>PostgreSQL, MySQL, SQLite</td>
+                            </tr>
+                        </table>
+                        <div class="pro-tip">
+                            <h5>💡 Key Insight</h5>
+                            <p>RDBMS is a type of DBMS that organizes data into <b>related tables</b>. All modern
+                                databases (PostgreSQL, MySQL, SQLite) are RDBMS.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">🗃️</span>SQL Command Types</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Type</th>
+                                <th>Purpose</th>
+                                <th>Commands</th>
+                            </tr>
+                            <tr>
+                                <td>DDL (Data Definition)</td>
+                                <td>Structure</td>
+                                <td>CREATE, ALTER, DROP, TRUNCATE</td>
+                            </tr>
+                            <tr>
+                                <td>DML (Data Manipulation)</td>
+                                <td>Data</td>
+                                <td>SELECT, INSERT, UPDATE, DELETE</td>
+                            </tr>
+                            <tr>
+                                <td>DCL (Data Control)</td>
+                                <td>Permissions</td>
+                                <td>GRANT, REVOKE</td>
+                            </tr>
+                            <tr>
+                                <td>TCL (Transaction Control)</td>
+                                <td>Transactions</td>
+                                <td>COMMIT, ROLLBACK, SAVEPOINT</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">🔄</span>What is ORM?</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <p><b>ORM</b> (Object-Relational Mapping) lets you interact with your database using Python
+                                objects instead of raw SQL.</p>
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Without ORM (Raw SQL)</th>
+                                <th>With ORM (Django)</th>
+                            </tr>
+                            <tr>
+                                <td>Write SQL strings in Python</td>
+                                <td>Write Python code</td>
+                            </tr>
+                            <tr>
+                                <td>Prone to SQL injection</td>
+                                <td>Automatically escaped</td>
+                            </tr>
+                            <tr>
+                                <td>Database-specific syntax</td>
+                                <td>Database-agnostic</td>
+                            </tr>
+                            <tr>
+                                <td>Manual connection handling</td>
+                                <td>Automatic management</td>
+                            </tr>
+                        </table>
+                        <div class="code-container"><span class="code-label sql">Without ORM</span>
+                            <pre><code class="language-sql">cursor.execute("SELECT * FROM users WHERE age > 18")</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">With ORM</span>
+                            <pre><code class="language-python">User.objects.filter(age__gt=18)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">🛠️</span>Sample Database Models</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <h4>Django Models (models.py)</h4>
+                            <p>All examples in this guide use these models:</p>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">from django.db import models
+
+class Author(models.Model):
+    """Represents a book author"""
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    birth_date = models.DateField(null=True, blank=True)
+    country = models.CharField(max_length=50, default='Unknown')
+
+class Category(models.Model):
+    """Book categories/genres"""
+    name = models.CharField(max_length=50)
+    description = models.TextField(blank=True)
+
+class Book(models.Model):
+    """Represents a book in the store"""
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    stock = models.IntegerField(default=0)
+    published_date = models.DateField()
+    is_available = models.BooleanField(default=True)
+    rating = models.FloatField(default=0.0)
+
+class Order(models.Model):
+    """Customer orders"""
+    customer_name = models.CharField(max_length=100)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    order_date = models.DateTimeField(auto_now_add=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)</code></pre>
+                        </div>
+                        <div class="content-block">
+                            <h4>Equivalent SQL Tables</h4>
+                        </div>
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">CREATE TABLE author (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    birth_date DATE,
+    country VARCHAR(50) DEFAULT 'Unknown'
+);
+
+CREATE TABLE category (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE book (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    author_id INTEGER REFERENCES author(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES category(id) ON DELETE SET NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INTEGER DEFAULT 0,
+    published_date DATE NOT NULL,
+    is_available BOOLEAN DEFAULT TRUE,
+    rating FLOAT DEFAULT 0.0
+);
+
+CREATE TABLE "order" (
+    id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
+    quantity INTEGER DEFAULT 1,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_price DECIMAL(10, 2) NOT NULL
+);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">📊</span>Sample Data</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <h4>Book Table (used in all examples)</h4>
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>id</th>
+                                <th>title</th>
+                                <th>author_id</th>
+                                <th>price</th>
+                                <th>stock</th>
+                                <th>published_date</th>
+                                <th>is_available</th>
+                                <th>rating</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Python Mastery</td>
+                                <td>1</td>
+                                <td>49.99</td>
+                                <td>25</td>
+                                <td>2023-01-15</td>
+                                <td>TRUE</td>
+                                <td>4.5</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Django Deep Dive</td>
+                                <td>1</td>
+                                <td>59.99</td>
+                                <td>18</td>
+                                <td>2023-06-20</td>
+                                <td>TRUE</td>
+                                <td>4.8</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SQL Fundamentals</td>
+                                <td>2</td>
+                                <td>34.99</td>
+                                <td>42</td>
+                                <td>2022-11-10</td>
+                                <td>TRUE</td>
+                                <td>4.2</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Web Development</td>
+                                <td>3</td>
+                                <td>79.99</td>
+                                <td>0</td>
+                                <td>2024-02-28</td>
+                                <td>FALSE</td>
+                                <td>4.9</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Data Science 101</td>
+                                <td>2</td>
+                                <td>44.99</td>
+                                <td>31</td>
+                                <td>2023-09-05</td>
+                                <td>TRUE</td>
+                                <td>4.6</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== BEGINNER SECTION ==================== -->
+        <div id="beginner">
+            <div class="section level-beginner">
+                <div class="section-header"><span class="section-icon">📗</span>
+                    <h2 class="section-title">Level 1: Beginner (Foundation)</h2>
+                </div>
+
+                <!-- 1.1 SELECT * -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.1</span>SELECT * (Get All Data)</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <h4>🎯 What is it?</h4>
+                            <p>Fetches ALL rows and ALL columns from a table.</p>
+                        </div>
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book;</code></pre>
+                        </div>
+                        <div class="output-box">
+                            <h5>📊 Output</h5>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>id</th>
+                                    <th>title</th>
+                                    <th>author_id</th>
+                                    <th>price</th>
+                                    <th>stock</th>
+                                    <th>is_available</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Python Mastery</td>
+                                    <td>1</td>
+                                    <td>49.99</td>
+                                    <td>25</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Django Deep Dive</td>
+                                    <td>1</td>
+                                    <td>59.99</td>
+                                    <td>18</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>SQL Fundamentals</td>
+                                    <td>2</td>
+                                    <td>34.99</td>
+                                    <td>42</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Web Development</td>
+                                    <td>3</td>
+                                    <td>79.99</td>
+                                    <td>0</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Data Science 101</td>
+                                    <td>2</td>
+                                    <td>44.99</td>
+                                    <td>31</td>
+                                    <td>TRUE</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">books = Book.objects.all()
+# Output: &lt;QuerySet [&lt;Book: Python Mastery&gt;, &lt;Book: Django Deep Dive&gt;, ...]&gt;</code></pre>
+                        </div>
+                        <div class="pro-tip">
+                            <h5>💡 Pro Tips</h5>
+                            <ul>
+                                <li>Avoid SELECT * in production - select only needed columns</li>
+                                <li>Django QuerySets are LAZY - data isn't fetched until you iterate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.2 SELECT Columns -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.2</span>SELECT Columns (Specific Fields)
+                        </div><span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <h4>🎯 What is it?</h4>
+                            <p>Fetches only the columns you need instead of everything.</p>
+                        </div>
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT title, price FROM book;</code></pre>
+                        </div>
+                        <div class="output-box">
+                            <h5>📊 Output</h5>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>title</th>
+                                    <th>price</th>
+                                </tr>
+                                <tr>
+                                    <td>Python Mastery</td>
+                                    <td>49.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Django Deep Dive</td>
+                                    <td>59.99</td>
+                                </tr>
+                                <tr>
+                                    <td>SQL Fundamentals</td>
+                                    <td>34.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Web Development</td>
+                                    <td>79.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Science 101</td>
+                                    <td>44.99</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python"># Method 1: values() - Returns dictionaries
+Book.objects.values('title', 'price')
+# Output: [{'title': 'Python Mastery', 'price': 49.99}, ...]
+
+# Method 2: values_list() - Returns tuples
+Book.objects.values_list('title', 'price')
+# Output: [('Python Mastery', 49.99), ...]
+
+# Method 3: values_list(flat=True) - Flat list (single column)
+Book.objects.values_list('title', flat=True)
+# Output: ['Python Mastery', 'Django Deep Dive', ...]</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.3 WHERE Clause -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.3</span>WHERE Clause (Filtering)</div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="content-block">
+                            <h4>🎯 What is it?</h4>
+                            <p>Filters rows based on conditions. Only matching rows are returned.</p>
+                        </div>
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book WHERE price < 50;</code></pre>
+                        </div>
+                        <div class="output-box">
+                            <h5>📊 Output (WHERE price &lt; 50)</h5>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>id</th>
+                                    <th>title</th>
+                                    <th>price</th>
+                                    <th>stock</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Python Mastery</td>
+                                    <td>49.99</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>SQL Fundamentals</td>
+                                    <td>34.99</td>
+                                    <td>42</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Data Science 101</td>
+                                    <td>44.99</td>
+                                    <td>31</td>
+                                </tr>
+                            </table>
+                            <p style="color:var(--accent-green);">→ Only 3 rows returned (books under $50)</p>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.filter(price__lt=50)   # price < 50
+Book.objects.filter(price__lte=50)  # price <= 50
+Book.objects.filter(is_available=True)</code></pre>
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>SQL Operator</th>
+                                <th>Django Lookup</th>
+                                <th>Example</th>
+                            </tr>
+                            <tr>
+                                <td>=</td>
+                                <td>field=value</td>
+                                <td>filter(price=50)</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;</td>
+                                <td>__lt</td>
+                                <td>filter(price__lt=50)</td>
+                            </tr>
+                            <tr>
+                                <td>&gt;</td>
+                                <td>__gt</td>
+                                <td>filter(price__gt=50)</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;=</td>
+                                <td>__lte</td>
+                                <td>filter(price__lte=50)</td>
+                            </tr>
+                            <tr>
+                                <td>&gt;=</td>
+                                <td>__gte</td>
+                                <td>filter(price__gte=50)</td>
+                            </tr>
+                            <tr>
+                                <td>!= (NOT)</td>
+                                <td>exclude()</td>
+                                <td>exclude(price=50)</td>
+                            </tr>
+                            <tr>
+                                <td>BETWEEN</td>
+                                <td>__range</td>
+                                <td>filter(price__range=(10,50))</td>
+                            </tr>
+                            <tr>
+                                <td>IS NULL</td>
+                                <td>__isnull</td>
+                                <td>filter(author__isnull=True)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 1.4 AND/OR -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.4</span>Multiple Conditions (AND / OR)
+                        </div><span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">-- AND: Both conditions must be true
+SELECT * FROM book WHERE price < 50 AND is_available = TRUE;
+
+-- OR: Either condition can be true
+SELECT * FROM book WHERE price < 20 OR stock > 100;</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">from django.db.models import Q
+
+# AND: Chain filter() or use comma
+Book.objects.filter(price__lt=50, is_available=True)
+Book.objects.filter(price__lt=50).filter(is_available=True)
+
+# OR: Use Q objects with |
+Book.objects.filter(Q(price__lt=20) | Q(stock__gt=100))
+
+# NOT: Use ~ with Q
+Book.objects.filter(~Q(is_available=True))  # Not available</code></pre>
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Logic</th>
+                                <th>SQL</th>
+                                <th>Django Q Object</th>
+                            </tr>
+                            <tr>
+                                <td>AND</td>
+                                <td>AND</td>
+                                <td>Q(...) & Q(...)</td>
+                            </tr>
+                            <tr>
+                                <td>OR</td>
+                                <td>OR</td>
+                                <td>Q(...) | Q(...)</td>
+                            </tr>
+                            <tr>
+                                <td>NOT</td>
+                                <td>NOT</td>
+                                <td>~Q(...)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 1.5 LIKE -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.5</span>LIKE (Text Pattern Matching)</div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book WHERE title LIKE 'Python%';   -- Starts with
+SELECT * FROM book WHERE title LIKE '%Science%'; -- Contains
+SELECT * FROM book WHERE title ILIKE '%python%'; -- Case-insensitive</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.filter(title__startswith='Python')   # Starts with
+Book.objects.filter(title__endswith='Guide')      # Ends with
+Book.objects.filter(title__contains='Science')    # Contains (case-sensitive)
+Book.objects.filter(title__icontains='python')    # Contains (case-insensitive)</code></pre>
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>SQL LIKE</th>
+                                <th>Django Lookup</th>
+                                <th>Case-Insensitive</th>
+                            </tr>
+                            <tr>
+                                <td>LIKE 'abc%'</td>
+                                <td>__startswith</td>
+                                <td>__istartswith</td>
+                            </tr>
+                            <tr>
+                                <td>LIKE '%abc'</td>
+                                <td>__endswith</td>
+                                <td>__iendswith</td>
+                            </tr>
+                            <tr>
+                                <td>LIKE '%abc%'</td>
+                                <td>__contains</td>
+                                <td>__icontains</td>
+                            </tr>
+                            <tr>
+                                <td>= 'abc'</td>
+                                <td>__exact</td>
+                                <td>__iexact</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 1.6 IN -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.6</span>IN Clause (Match Multiple Values)
+                        </div><span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book WHERE id IN (1, 3, 5);
+SELECT * FROM book WHERE author_id IN (SELECT id FROM author WHERE country='USA');</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.filter(id__in=[1, 3, 5])
+
+# With subquery
+usa_authors = Author.objects.filter(country='USA').values('id')
+Book.objects.filter(author_id__in=usa_authors)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.7 ORDER BY -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.7</span>ORDER BY (Sorting)</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book ORDER BY price ASC;   -- Ascending (default)
+SELECT * FROM book ORDER BY price DESC;  -- Descending
+SELECT * FROM book ORDER BY author_id, price DESC;  -- Multiple columns</code></pre>
+                        </div>
+                        <div class="output-box">
+                            <h5>📊 Output (ORDER BY price ASC)</h5>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>title</th>
+                                    <th>price</th>
+                                </tr>
+                                <tr>
+                                    <td>SQL Fundamentals</td>
+                                    <td>34.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Science 101</td>
+                                    <td>44.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Python Mastery</td>
+                                    <td>49.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Django Deep Dive</td>
+                                    <td>59.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Web Development</td>
+                                    <td>79.99</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.order_by('price')         # Ascending
+Book.objects.order_by('-price')        # Descending (use minus!)
+Book.objects.order_by('author_id', '-price')  # Multiple
+Book.objects.order_by('?')             # Random</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.8 LIMIT OFFSET -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.8</span>LIMIT & OFFSET (Pagination)</div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT * FROM book LIMIT 10;           -- First 10
+SELECT * FROM book LIMIT 10 OFFSET 20; -- Skip 20, then 10</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.all()[:10]      # First 10 (LIMIT 10)
+Book.objects.all()[20:30]    # Skip 20, get 10 (OFFSET 20 LIMIT 10)
+Book.objects.all()[5]        # 6th item (0-indexed)
+Book.objects.first()         # First item
+Book.objects.last()          # Last item</code></pre>
+                        </div>
+                        <div class="pro-tip">
+                            <h5>💡 Pagination Formula</h5>
+                            <pre>Page N with size S: Book.objects.all()[(N-1)*S : N*S]
+Page 1 (10 items): [0:10]
+Page 2 (10 items): [10:20]
+Page 3 (10 items): [20:30]</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.9 INSERT -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.9</span>INSERT (Creating Data)</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">INSERT INTO book (title, author_id, price, stock) 
+VALUES ('New Book', 1, 29.99, 50);</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python"># Method 1: create() - one step, returns object
+book = Book.objects.create(title='New Book', author_id=1, price=29.99, stock=50)
+
+# Method 2: save() - two steps
+book = Book(title='New Book', author_id=1, price=29.99)
+book.save()
+
+# Method 3: bulk_create() - multiple at once (FAST)
+Book.objects.bulk_create([
+    Book(title='Book 1', author_id=1, price=19.99),
+    Book(title='Book 2', author_id=2, price=24.99),
+])
+
+# Method 4: get_or_create() - avoid duplicates
+book, created = Book.objects.get_or_create(
+    title='Unique Title',
+    defaults={'author_id': 1, 'price': 29.99}
+)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.10 UPDATE -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.10</span>UPDATE (Modifying Data)</div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">UPDATE book SET price = 19.99 WHERE id = 1;
+UPDATE book SET stock = stock + 10 WHERE is_available = TRUE;</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python"># Method 1: QuerySet update() - FAST, single query
+Book.objects.filter(id=1).update(price=19.99)
+
+# Method 2: Instance save() - slower, but triggers signals
+book = Book.objects.get(id=1)
+book.price = 19.99
+book.save()
+
+# Atomic increment with F()
+from django.db.models import F
+Book.objects.filter(is_available=True).update(stock=F('stock') + 10)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.11 DELETE -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.11</span>DELETE (Removing Data)</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">DELETE FROM book WHERE id = 1;
+DELETE FROM book WHERE stock = 0;</code></pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.filter(id=1).delete()
+Book.objects.filter(stock=0).delete()  # Delete multiple
+
+# Instance delete
+book = Book.objects.get(id=1)
+book.delete()</code></pre>
+                        </div>
+                        <div class="pro-tip">
+                            <h5>⚠️ CASCADE Warning</h5>
+                            <p>on_delete=CASCADE means deleting a parent deletes all children!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.12 GET Single -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.12</span>Getting Single Objects</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python"># get() - returns ONE object, raises error if not found or multiple
+book = Book.objects.get(id=1)  
+# Raises: DoesNotExist or MultipleObjectsReturned
+
+# first() - returns first or None
+book = Book.objects.filter(author_id=1).first()
+
+# last() - returns last or None  
+book = Book.objects.filter(author_id=1).last()
+
+# Safe pattern with try/except
+try:
+    book = Book.objects.get(id=999)
+except Book.DoesNotExist:
+    book = None</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.13 COUNT -->
+                <div class="topic-card">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <div class="topic-title"><span class="topic-number">1.13</span>COUNT & EXISTS</div><span
+                            class="toggle-icon">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="code-container"><span class="code-label sql">SQL</span>
+                            <pre><code class="language-sql">SELECT COUNT(*) FROM book;
+SELECT COUNT(*) FROM book WHERE is_available = TRUE;</code></pre>
+                        </div>
+                        <div class="output-box">
+                            <h5>📊 Output</h5>
+                            <pre>count: 5</pre>
+                        </div>
+                        <div class="code-container"><span class="code-label python">Django ORM</span>
+                            <pre><code class="language-python">Book.objects.count()                        # 5
+Book.objects.filter(is_available=True).count()  # 4
+
+# exists() - True/False (faster than count() > 0)
+if Book.objects.filter(stock=0).exists():
+    print("Out of stock books exist!")</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== INTERMEDIATE SECTION ==================== -->
+            <div id="intermediate">
+                <div class="section level-intermediate">
+                    <div class="section-header"><span class="section-icon">📘</span>
+                        <h2 class="section-title">Level 2: Intermediate (Building Skills)</h2>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.1</span>Aggregation Functions (COUNT,
+                                SUM, AVG, MIN, MAX)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT COUNT(*) FROM book;
+SELECT SUM(price), AVG(price) FROM book;
+SELECT MIN(price), MAX(price) FROM book;</code></pre>
+                            </div>
+                            <div class="output-box">
+                                <h5>📊 Output</h5>
+                                <table class="comparison-table">
+                                    <tr>
+                                        <th>Function</th>
+                                        <th>Result</th>
+                                    </tr>
+                                    <tr>
+                                        <td>COUNT(*)</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SUM(price)</td>
+                                        <td>269.95</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AVG(price)</td>
+                                        <td>53.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MIN(price)</td>
+                                        <td>34.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MAX(price)</td>
+                                        <td>79.99</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import Count, Sum, Avg, Min, Max
+
+Book.objects.count()
+Book.objects.aggregate(Sum('price'))      # {'price__sum': 269.95}
+Book.objects.aggregate(Avg('price'))      # {'price__avg': 53.99}
+Book.objects.aggregate(min_p=Min('price'), max_p=Max('price'))</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.2</span>GROUP BY (Grouping Data)</div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT author_id, COUNT(*) as book_count 
+FROM book GROUP BY author_id;</code></pre>
+                            </div>
+                            <div class="output-box">
+                                <h5>📊 Output</h5>
+                                <table class="comparison-table">
+                                    <tr>
+                                        <th>author_id</th>
+                                        <th>book_count</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">Book.objects.values('author_id').annotate(book_count=Count('id'))
+# [{'author_id': 1, 'book_count': 2}, ...]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.3</span>HAVING (Filter Groups)</div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="content-block">
+                                <h4>🎯 What is it?</h4>
+                                <p>HAVING filters groups AFTER aggregation (WHERE filters BEFORE).</p>
+                            </div>
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT author_id, COUNT(*) as cnt FROM book 
+GROUP BY author_id HAVING COUNT(*) >= 2;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">Book.objects.values('author_id').annotate(cnt=Count('id')).filter(cnt__gte=2)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.4</span>INNER JOIN (Related Data)
+                            </div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="content-block">
+                                <h4>🎯 What is it?</h4>
+                                <p>Returns only rows that have matching values in BOTH tables.</p>
+                            </div>
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT book.title, author.name FROM book 
+INNER JOIN author ON book.author_id = author.id;</code></pre>
+                            </div>
+                            <div class="output-box">
+                                <h5>📊 Output</h5>
+                                <table class="comparison-table">
+                                    <tr>
+                                        <th>title</th>
+                                        <th>author_name</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Python Mastery</td>
+                                        <td>John Doe</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Django Deep Dive</td>
+                                        <td>John Doe</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SQL Fundamentals</td>
+                                        <td>Jane Smith</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># Django does JOINs automatically!
+Book.objects.select_related('author')  # Eager load
+
+for book in Book.objects.select_related('author'):
+    print(f"{book.title} by {book.author.name}")</code></pre>
+                            </div>
+                            <div class="pro-tip">
+                                <h5>💡 select_related vs prefetch_related</h5>
+                                <ul>
+                                    <li><b>select_related</b>: JOIN query (ForeignKey, OneToOne)</li>
+                                    <li><b>prefetch_related</b>: Separate queries (ManyToMany, reverse FK)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.5</span>LEFT JOIN (Include All Left)
+                            </div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT author.name, book.title FROM author 
+LEFT JOIN book ON author.id = book.author_id;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># Authors with book count (including 0)
+Author.objects.annotate(book_count=Count('books'))
+
+# Authors with no books
+Author.objects.filter(books__isnull=True)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.6</span>prefetch_related (Optimize
+                                ManyToMany)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># BAD: N+1 query problem
+for author in Author.objects.all():      # 1 query
+    for book in author.books.all():      # N queries!
+        print(book.title)
+
+# GOOD: prefetch_related (only 2 queries!)
+for author in Author.objects.prefetch_related('books'):
+    for book in author.books.all():
+        print(book.title)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.7</span>Subqueries</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT * FROM book WHERE price > (SELECT AVG(price) FROM book);</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import Subquery, OuterRef, Avg
+
+avg_price = Book.objects.aggregate(avg=Avg('price'))['avg']
+Book.objects.filter(price__gt=avg_price)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.8</span>DISTINCT (Unique Values)</div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT DISTINCT author_id FROM book;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">Book.objects.values('author_id').distinct()
+Book.objects.order_by('author_id').distinct('author_id')  # PostgreSQL</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.9</span>UNION (Combine Results)</div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT title FROM book WHERE price < 30
+UNION
+SELECT title FROM book WHERE stock > 50;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">q1 = Book.objects.filter(price__lt=30).values('title')
+q2 = Book.objects.filter(stock__gt=50).values('title')
+q1.union(q2)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.10</span>CASE WHEN (Conditional Logic)
+                            </div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT title, CASE 
+    WHEN price < 30 THEN 'Budget'
+    WHEN price < 60 THEN 'Standard'
+    ELSE 'Premium'
+END as tier FROM book;</code></pre>
+                            </div>
+                            <div class="output-box">
+                                <h5>📊 Output</h5>
+                                <table class="comparison-table">
+                                    <tr>
+                                        <th>title</th>
+                                        <th>tier</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Python Mastery</td>
+                                        <td>Standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Web Development</td>
+                                        <td>Premium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SQL Fundamentals</td>
+                                        <td>Standard</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import Case, When, Value, CharField
+
+Book.objects.annotate(tier=Case(
+    When(price__lt=30, then=Value('Budget')),
+    When(price__lt=60, then=Value('Standard')),
+    default=Value('Premium'),
+    output_field=CharField()
+))</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">2.11</span>COALESCE (Handle NULL)</div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT COALESCE(description, 'No description') FROM category;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models.functions import Coalesce
+from django.db.models import Value
+
+Category.objects.annotate(desc=Coalesce('description', Value('No description')))</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================== ADVANCED SECTION ==================== -->
+            <div id="advanced">
+                <div class="section level-advanced">
+                    <div class="section-header"><span class="section-icon">📕</span>
+                        <h2 class="section-title">Level 3: Advanced (Mastery)</h2>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.1</span>F() Expressions (Field
+                                References)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="content-block">
+                                <h4>🎯 What is it?</h4>
+                                <p>Reference fields in the same row for comparisons or atomic updates (race-condition
+                                    safe!).</p>
+                            </div>
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">UPDATE book SET stock = stock + 10 WHERE id = 1;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import F
+
+# Atomic increment (no race conditions!)
+Book.objects.filter(id=1).update(stock=F('stock') + 10)
+
+# Compare fields
+Book.objects.filter(stock__lt=F('sold_count'))
+
+# In annotations
+Book.objects.annotate(profit=F('price') - F('cost'))</code></pre>
+                            </div>
+                            <div class="pro-tip">
+                                <h5>💡 Why F() Matters</h5>
+                                <p>Without F(), two simultaneous requests could both read stock=10, increment, and write
+                                    11 (instead of 12). F() makes it atomic!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.2</span>Q() Objects (Complex Queries)
+                            </div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import Q
+
+# OR: |
+Book.objects.filter(Q(price__lt=30) | Q(stock__gt=100))
+
+# AND: &
+Book.objects.filter(Q(price__lt=50) & Q(is_available=True))
+
+# NOT: ~
+Book.objects.filter(~Q(is_available=True))
+
+# Complex nested
+Book.objects.filter((Q(price__lt=30) | Q(stock__gt=100)) & Q(is_available=True))
+
+# Dynamic filter building
+conditions = Q()
+if title: conditions &= Q(title__icontains=title)
+if min_price: conditions &= Q(price__gte=min_price)
+Book.objects.filter(conditions)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.3</span>Window Functions (ROW_NUMBER,
+                                RANK)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT title, price,
+    ROW_NUMBER() OVER (ORDER BY price DESC) as rank
+FROM book;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db.models import F, Window
+from django.db.models.functions import RowNumber, Rank
+
+Book.objects.annotate(
+    price_rank=Window(expression=RowNumber(), order_by=F('price').desc())
+)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.4</span>Transactions (ACID)</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">BEGIN;
+UPDATE account SET balance = balance - 100 WHERE id = 1;
+UPDATE account SET balance = balance + 100 WHERE id = 2;
+COMMIT;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.db import transaction
+
+# Decorator
+@transaction.atomic
+def transfer(from_acc, to_acc, amount):
+    from_acc.balance -= amount; from_acc.save()
+    to_acc.balance += amount; to_acc.save()
+
+# Context manager
+with transaction.atomic():
+    book.stock -= 1; book.save()
+    Order.objects.create(book=book)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.5</span>SELECT FOR UPDATE (Row
+                                Locking)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT * FROM book WHERE id = 1 FOR UPDATE;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">with transaction.atomic():
+    book = Book.objects.select_for_update().get(id=1)
+    book.stock -= 1  # Other transactions WAIT
+    book.save()
+
+# NOWAIT: Raise error instead of waiting
+Book.objects.select_for_update(nowait=True).get(id=1)
+
+# SKIP LOCKED: Skip locked rows
+Book.objects.select_for_update(skip_locked=True).filter(stock__gt=0)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.6</span>Indexing & Query Optimization
+                            </div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">CREATE INDEX idx_book_title ON book(title);
+CREATE INDEX idx_composite ON book(author_id, price);
+EXPLAIN ANALYZE SELECT * FROM book WHERE title = 'Python';</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">class Book(models.Model):
+    title = models.CharField(max_length=200, db_index=True)
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['author', 'price']),
+            models.Index(fields=['-price']),  # Descending
+        ]
+
+# View SQL
+print(Book.objects.filter(title='X').query)
+
+# EXPLAIN
+Book.objects.filter(title='X').explain()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.7</span>Raw SQL Queries</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># raw() - returns model instances
+Book.objects.raw('SELECT * FROM book WHERE price > %s', [50])
+
+# Direct cursor (no models)
+from django.db import connection
+with connection.cursor() as cursor:
+    cursor.execute("SELECT title FROM book")
+    rows = cursor.fetchall()</code></pre>
+                            </div>
+                            <div class="pro-tip">
+                                <h5>⚠️ SQL Injection Warning</h5>
+                                <p>ALWAYS use %s placeholders. NEVER use string formatting!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.8</span>Common Table Expressions
+                                (CTEs)</div><span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">WITH expensive AS (SELECT * FROM book WHERE price > 50)
+SELECT author_id, COUNT(*) FROM expensive GROUP BY author_id;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># Django doesn't have native CTE, use subqueries
+expensive = Book.objects.filter(price__gt=50)
+Author.objects.filter(books__in=expensive).annotate(cnt=Count('books'))</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.9</span>Database Views</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">CREATE VIEW available_books AS SELECT * FROM book WHERE is_available = TRUE;</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># Unmanaged model for view
+class AvailableBooks(models.Model):
+    title = models.CharField(max_length=200)
+    class Meta:
+        managed = False  # Django won't create table
+        db_table = 'available_books'</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">3.10</span>Bulk Operations</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python"># bulk_create - ~10x faster than individual saves
+Book.objects.bulk_create([
+    Book(title='A', price=10),
+    Book(title='B', price=20),
+], batch_size=1000)
+
+# bulk_update
+books = list(Book.objects.all())
+for b in books: b.price *= 1.1
+Book.objects.bulk_update(books, ['price'])
+
+# update() - single query, fastest
+Book.objects.filter(is_available=True).update(price=F('price') * 1.1)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================== POSTGRESQL SECTION ==================== -->
+            <div id="postgres">
+                <div class="section level-postgres">
+                    <div class="section-header"><span class="section-icon">🐘</span>
+                        <h2 class="section-title">PostgreSQL-Specific Features</h2>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">4.1</span>JSONB Fields</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label sql">SQL</span>
+                                <pre><code class="language-sql">SELECT * FROM product WHERE metadata->>'color' = 'red';
+SELECT * FROM product WHERE metadata @> '{"size": "large"}';</code></pre>
+                            </div>
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">class Product(models.Model):
+    metadata = models.JSONField(default=dict)
+
+Product.objects.filter(metadata__color='red')
+Product.objects.filter(metadata__contains={'size': 'large'})</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">4.2</span>Array Fields</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.contrib.postgres.fields import ArrayField
+
+class Book(models.Model):
+    tags = ArrayField(models.CharField(max_length=50))
+
+Book.objects.filter(tags__contains=['python'])
+Book.objects.filter(tags__overlap=['python', 'django'])
+Book.objects.filter(tags__len=3)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">4.3</span>Full-Text Search</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+
+# Basic search
+Book.objects.annotate(search=SearchVector('title', 'description')).filter(search=SearchQuery('python'))
+
+# Ranked search
+Book.objects.annotate(
+    rank=SearchRank(SearchVector('title'), SearchQuery('python'))
+).order_by('-rank')</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header" onclick="toggleTopic(this)">
+                            <div class="topic-title"><span class="topic-number">4.4</span>Range Types</div><span
+                                class="toggle-icon">▼</span>
+                        </div>
+                        <div class="topic-content">
+                            <div class="code-container"><span class="code-label python">Django ORM</span>
+                                <pre><code class="language-python">from django.contrib.postgres.fields import DateRangeField
+
+class Event(models.Model):
+    dates = DateRangeField()
+
+Event.objects.filter(dates__contains=date.today())</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================== INTERVIEW SECTION ==================== -->
+            <div id="interview">
+                <div class="section level-interview">
+                    <div class="section-header"><span class="section-icon">🎤</span>
+                        <h2 class="section-title">Interview Questions & Answers (50+)</h2>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q1</span>What is the
+                            difference between DBMS and RDBMS?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>DBMS</b> stores data as files with no relationships. <b>RDBMS</b> stores data in
+                                related tables with rows/columns, supports ACID, foreign keys, and SQL.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q2</span>What is a
+                            Primary Key?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A column (or set) that uniquely identifies each row. Must be unique and NOT NULL.
+                                Example: <code>id SERIAL PRIMARY KEY</code></p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q3</span>What is a
+                            Foreign Key?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A column that references the primary key of another table, creating a relationship.
+                                Example: <code>author_id INTEGER REFERENCES author(id)</code></p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q4</span>What is
+                            Normalization?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Process of organizing data to reduce redundancy. 1NF: Atomic values. 2NF: No partial
+                                dependencies. 3NF: No transitive dependencies.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q5</span>Difference
+                            between WHERE and HAVING?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>WHERE</b> filters rows BEFORE aggregation. <b>HAVING</b> filters groups AFTER
+                                aggregation.<br><code>SELECT author_id, COUNT(*) FROM book GROUP BY author_id HAVING COUNT(*) > 2</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q6</span>Explain INNER
+                            JOIN vs LEFT JOIN<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>INNER</b>: Only matching rows from both tables. <b>LEFT</b>: All rows from left table
+                                + matching from right (NULL if no match).</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q7</span>What is an
+                            Index? Why use it?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A data structure that speeds up queries on specific columns. Like a book's index.
+                                Trade-off: slower writes, more storage.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q8</span>What are ACID
+                            properties?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>A</b>tomicity: All or nothing. <b>C</b>onsistency: Valid state to valid state.
+                                <b>I</b>solation: Transactions don't interfere. <b>D</b>urability: Committed =
+                                permanent.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q9</span>What is a
+                            Transaction?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A unit of work that either completes entirely or rolls back. BEGIN → operations →
+                                COMMIT/ROLLBACK.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q10</span>What is N+1
+                            Query Problem?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>1 query to get N items, then N queries for related data. Fix with
+                                <code>select_related()</code> or <code>prefetch_related()</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span
+                                class="q-number">Q11</span>select_related vs prefetch_related?<span
+                                class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>select_related</b>: SQL JOIN, single query (ForeignKey/OneToOne).
+                                <b>prefetch_related</b>: Separate queries (ManyToMany/reverse FK).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q12</span>What is F()
+                            expression in Django?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>References field values in database operations. Enables atomic updates:
+                                <code>update(stock=F('stock')+1)</code> prevents race conditions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q13</span>What is Q()
+                            object in Django?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Encapsulates filter conditions for complex queries (OR, NOT).
+                                <code>Q(a=1) | Q(b=2)</code> for OR, <code>~Q(a=1)</code> for NOT.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q14</span>Difference
+                            between filter() and exclude()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>filter()</b>: Include matching. <b>exclude()</b>: Exclude matching.
+                                <code>exclude(price=50)</code> = WHERE price != 50
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q15</span>What is
+                            aggregate() vs annotate()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>aggregate()</b>: Returns single dict for whole queryset <code>{'avg': 50}</code>.
+                                <b>annotate()</b>: Adds field to each object.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q16</span>What is a
+                            QuerySet in Django?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A lazy collection of database rows. Doesn't hit DB until evaluated (iteration, len, list,
+                                slicing).</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q17</span>What is lazy
+                            evaluation?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>QuerySets don't execute SQL until needed. <code>Book.objects.all()</code> doesn't query
+                                DB. <code>list(qs)</code> or <code>for x in qs</code> does.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q18</span>How to
+                            prevent SQL injection?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Use parameterized queries:
+                                <code>cursor.execute("SELECT * WHERE id=%s", [user_id])</code>. Never string format user
+                                input!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q19</span>What is
+                            CASCADE in on_delete?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>When parent deleted, delete all children. Other options: SET_NULL, SET_DEFAULT, PROTECT,
+                                DO_NOTHING.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q20</span>What is a
+                            Subquery?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A query inside another query. <code>WHERE price > (SELECT AVG(price) FROM book)</code>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q21</span>Clustered vs
+                            Non-clustered Index?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>Clustered</b>: Physically reorders data, one per table. <b>Non-clustered</b>: Logical
+                                ordering, multiple allowed.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q22</span>When NOT to
+                            use an index?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Small tables, rarely queried columns, frequently updated columns, low cardinality
+                                columns, heavy write operations.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q23</span>What is
+                            EXPLAIN ANALYZE?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Shows query execution plan - execution time, rows examined, index usage. Helps identify
+                                performance issues.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q24</span>What is a
+                            Deadlock?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Two transactions waiting for each other to release locks. Prevent with: consistent lock
+                                ordering, timeouts, short transactions.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q25</span>What are
+                            Isolation Levels?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Read Uncommitted → Read Committed → Repeatable Read → Serializable. Higher = more
+                                isolation, less concurrency.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q26</span>filter() vs
+                            get() in Django?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>filter()</b>: Returns QuerySet, empty if no match. <b>get()</b>: Returns single
+                                object, raises DoesNotExist or MultipleObjectsReturned.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q27</span>What is
+                            bulk_create()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Creates multiple objects in single query. ~10x faster than individual saves. Use
+                                batch_size for large datasets.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q28</span>What is a
+                            View in SQL?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Virtual table based on a query. Doesn't store data.
+                                <code>CREATE VIEW active_books AS SELECT * FROM book WHERE available=TRUE</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q29</span>What is a
+                            Stored Procedure?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Precompiled SQL code that can be executed multiple times. Benefits: reduced network
+                                traffic, reusability, security.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q30</span>What is a
+                            Trigger?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Special procedure that executes automatically on INSERT, UPDATE, DELETE events.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q31</span>What is
+                            Normalization?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Organizing data to reduce redundancy. 1NF: Atomic values. 2NF: No partial dependencies.
+                                3NF: No transitive dependencies.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q32</span>What is
+                            Denormalization?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Intentionally adding redundancy for read performance. Use for read-heavy apps with rarely
+                                changing data.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q33</span>What is a
+                            Self-Join?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Table joined with itself. Used for hierarchical data like employees/managers.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q34</span>What is a
+                            Cross Join?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Cartesian product - every row from A combined with every row from B. Result: A_rows ×
+                                B_rows.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q35</span>DELETE vs
+                            TRUNCATE?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>DELETE</b>: DML, can use WHERE, triggers fire, can rollback. <b>TRUNCATE</b>: DDL,
+                                removes all, faster, no rollback.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q36</span>UNION vs
+                            UNION ALL?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>UNION</b>: Removes duplicates (slower). <b>UNION ALL</b>: Keeps all rows (faster).</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q37</span>What is JSONB
+                            in PostgreSQL?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Binary JSON with indexing support. Query: <code>filter(metadata__color='red')</code></p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q38</span>Why
+                            PostgreSQL over MySQL?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Better ACID, advanced types (JSONB, Arrays), built-in full-text search, window functions,
+                                complex query support.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q39</span>What is
+                            Database Sharding?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Splitting database into smaller pieces across servers. Horizontal: split rows. Vertical:
+                                split columns.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q40</span>What is
+                            Database Replication?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Copying data to multiple servers. Master-Slave: one write, many read. Master-Master:
+                                multiple write nodes.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q41</span>What is
+                            Connection Pooling?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Reusing DB connections instead of creating new ones. Django:
+                                <code>CONN_MAX_AGE = 60</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q42</span>What is a
+                            Materialized View?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>A view that stores results physically. Must REFRESH to update data. Faster reads, stale
+                                data risk.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q43</span>What is a
+                            CTE?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Common Table Expression - temporary named result.
+                                <code>WITH expensive AS (SELECT..) SELECT FROM expensive</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q44</span>EXISTS vs
+                            IN?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>EXISTS</b>: Returns TRUE/FALSE, stops at first match. <b>IN</b>: Compares values,
+                                checks all. EXISTS better for large subqueries.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q45</span>How to
+                            optimize slow queries?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>1. EXPLAIN ANALYZE 2. Add indexes 3. Avoid SELECT * 4. Use LIMIT 5. Optimize JOINs 6.
+                                Connection pooling 7. Caching 8. Denormalize if needed</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q46</span>Django
+                            Migrations?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><code>makemigrations</code> = create. <code>migrate</code> = apply.
+                                <code>showmigrations</code> = status. <code>migrate app_name 0001</code> = rollback.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q47</span>What is
+                            only() and defer()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>only()</b>: Load only specified fields. <b>defer()</b>: Load all except specified. For
+                                performance when you don't need all fields.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q48</span>What is
+                            select_for_update()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Locks rows until transaction completes. Prevents concurrent modifications. Use with
+                                <code>transaction.atomic()</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q49</span>What is
+                            __contains vs __icontains?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p><b>contains</b>: Case-sensitive LIKE '%x%'. <b>icontains</b>: Case-insensitive. Always
+                                prefer icontains for user search.</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-card">
+                        <div class="qa-question" onclick="toggleQA(this)"><span class="q-number">Q50</span>What is
+                            update_or_create()?<span class="toggle-icon">▼</span></div>
+                        <div class="qa-answer">
+                            <p>Updates if exists, creates if not. Returns (object, created_boolean). Atomic operation.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================== CHEAT SHEET SECTION ==================== -->
+            <div id="cheatsheet">
+                <div class="section">
+                    <div class="section-header"><span class="section-icon">📋</span>
+                        <h2 class="section-title">Quick Reference Cheat Sheet</h2>
+                    </div>
+
+                    <div class="cheat-grid">
+                        <div class="cheat-card">
+                            <h4>🔍 Basic Queries</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>SQL</th>
+                                    <th>Django ORM</th>
+                                </tr>
+                                <tr>
+                                    <td>SELECT *</td>
+                                    <td>.all()</td>
+                                </tr>
+                                <tr>
+                                    <td>SELECT cols</td>
+                                    <td>.values() / .values_list()</td>
+                                </tr>
+                                <tr>
+                                    <td>WHERE</td>
+                                    <td>.filter()</td>
+                                </tr>
+                                <tr>
+                                    <td>WHERE NOT</td>
+                                    <td>.exclude()</td>
+                                </tr>
+                                <tr>
+                                    <td>ORDER BY</td>
+                                    <td>.order_by()</td>
+                                </tr>
+                                <tr>
+                                    <td>LIMIT</td>
+                                    <td>[:n]</td>
+                                </tr>
+                                <tr>
+                                    <td>OFFSET</td>
+                                    <td>[n:m]</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cheat-card">
+                            <h4>➕ CRUD Operations</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>SQL</th>
+                                    <th>Django ORM</th>
+                                </tr>
+                                <tr>
+                                    <td>INSERT</td>
+                                    <td>.create() / .save()</td>
+                                </tr>
+                                <tr>
+                                    <td>UPDATE</td>
+                                    <td>.update() / .save()</td>
+                                </tr>
+                                <tr>
+                                    <td>DELETE</td>
+                                    <td>.delete()</td>
+                                </tr>
+                                <tr>
+                                    <td>BULK INSERT</td>
+                                    <td>.bulk_create()</td>
+                                </tr>
+                                <tr>
+                                    <td>BULK UPDATE</td>
+                                    <td>.bulk_update()</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cheat-card">
+                            <h4>📊 Aggregation</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>SQL</th>
+                                    <th>Django ORM</th>
+                                </tr>
+                                <tr>
+                                    <td>COUNT(*)</td>
+                                    <td>Count()</td>
+                                </tr>
+                                <tr>
+                                    <td>SUM(col)</td>
+                                    <td>Sum('col')</td>
+                                </tr>
+                                <tr>
+                                    <td>AVG(col)</td>
+                                    <td>Avg('col')</td>
+                                </tr>
+                                <tr>
+                                    <td>MIN(col)</td>
+                                    <td>Min('col')</td>
+                                </tr>
+                                <tr>
+                                    <td>MAX(col)</td>
+                                    <td>Max('col')</td>
+                                </tr>
+                                <tr>
+                                    <td>GROUP BY</td>
+                                    <td>.values().annotate()</td>
+                                </tr>
+                                <tr>
+                                    <td>HAVING</td>
+                                    <td>.annotate().filter()</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cheat-card">
+                            <h4>🔗 Joins & Relations</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>SQL</th>
+                                    <th>Django ORM</th>
+                                </tr>
+                                <tr>
+                                    <td>INNER JOIN</td>
+                                    <td>select_related()</td>
+                                </tr>
+                                <tr>
+                                    <td>LEFT JOIN</td>
+                                    <td>annotate() with Count</td>
+                                </tr>
+                                <tr>
+                                    <td>Eager Load FK</td>
+                                    <td>select_related()</td>
+                                </tr>
+                                <tr>
+                                    <td>Eager Load M2M</td>
+                                    <td>prefetch_related()</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cheat-card">
+                            <h4>🔠 Lookups</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Purpose</th>
+                                    <th>Django Lookup</th>
+                                </tr>
+                                <tr>
+                                    <td>Equals</td>
+                                    <td>field=val</td>
+                                </tr>
+                                <tr>
+                                    <td>Less than</td>
+                                    <td>__lt</td>
+                                </tr>
+                                <tr>
+                                    <td>Greater than</td>
+                                    <td>__gt</td>
+                                </tr>
+                                <tr>
+                                    <td>Contains</td>
+                                    <td>__contains / __icontains</td>
+                                </tr>
+                                <tr>
+                                    <td>Starts with</td>
+                                    <td>__startswith</td>
+                                </tr>
+                                <tr>
+                                    <td>In list</td>
+                                    <td>__in</td>
+                                </tr>
+                                <tr>
+                                    <td>Is null</td>
+                                    <td>__isnull</td>
+                                </tr>
+                                <tr>
+                                    <td>Range</td>
+                                    <td>__range</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cheat-card">
+                            <h4>⚡ Advanced</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Concept</th>
+                                    <th>Django</th>
+                                </tr>
+                                <tr>
+                                    <td>Field reference</td>
+                                    <td>F('field')</td>
+                                </tr>
+                                <tr>
+                                    <td>Complex conditions</td>
+                                    <td>Q() objects</td>
+                                </tr>
+                                <tr>
+                                    <td>Conditional</td>
+                                    <td>Case/When</td>
+                                </tr>
+                                <tr>
+                                    <td>Transactions</td>
+                                    <td>@transaction.atomic</td>
+                                </tr>
+                                <tr>
+                                    <td>Row locking</td>
+                                    <td>select_for_update()</td>
+                                </tr>
+                                <tr>
+                                    <td>Raw SQL</td>
+                                    <td>.raw() / cursor</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+    </main>
+
+    <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // Initialize highlight.js
+        hljs.highlightAll();
+
+        // Tab navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.section).classList.add('active');
+            });
+        });
+
+        // Toggle topic cards
+        function toggleTopic(header) {
+            header.closest('.topic-card').classList.toggle('open');
+        }
+
+        // Toggle Q&A cards
+        function toggleQA(question) {
+            question.closest('.qa-card').classList.toggle('open');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.topic-card, .qa-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? '' : 'none';
+                if (text.includes(query) && query.length > 2) card.classList.add('open');
+            });
+        });
+
+        // Back to top button
+        window.addEventListener('scroll', () => {
+            document.querySelector('.back-to-top').classList.toggle('visible', window.scrollY > 500);
+        });
+    </script>
+
+<footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #30363d; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+    <p style="font-size: 1.2rem; color: #00ffa3; margin-bottom: 10px;">✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+    <p style="font-size: 0.9rem; color: #8b949e;">Python Full Stack Developer | Interview Prep Resources</p>
+</footer>
+</body>
+
+
+</html>

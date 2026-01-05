@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<!-- ========================================== -->
+<!-- Created by Thiyagarajan Varadharajan -->
+<!-- LinkedIn: Share this resource! -->
+<!-- ========================================== -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Mastery - Project Concepts Study Material</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0b10;
+            --card-bg: #151921;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --code-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 8px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .section {
+            margin-bottom: 100px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        .concept-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .concept-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .grid-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-block h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-block p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .info-block ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+
+        .info-block ul li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .info-block ul li::before {
+            content: '→';
+            color: var(--accent);
+        }
+
+        .code-header {
+            background: #1e293b;
+            padding: 10px 20px;
+            border-radius: 12px 12px 0 0;
+            border: 1px solid var(--border);
+            border-bottom: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        pre {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 0 0 12px 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .interviewer-box {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px dashed var(--success);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .interviewer-box h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .interviewer-box p {
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Syntax Highlighting Mockup */
+        .token-keyword {
+            color: #c678dd;
+        }
+
+        .token-string {
+            color: #98c379;
+        }
+
+        .token-comment {
+            color: #5c6370;
+        }
+
+        .token-func {
+            color: #61afef;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>AI/ML Project Mastery</h1>
+            <p>A comprehensive breakdown of all AI, Machine Learning, and NLP concepts implemented across your
+                full-stack portfolio.</p>
+            <div class="nav-links">
+                <a href="#nlp" class="nav-link">NLP</a>
+                <a href="#llm" class="nav-link">LLMs</a>
+                <a href="#vector" class="nav-link">Vector Search</a>
+                <a href="#audio" class="nav-link">Audio ML</a>
+                <a href="#vision" class="nav-link">Computer Vision</a>
+                <a href="#interview" class="nav-link"
+                    style="border-color: var(--success); color: var(--success);">Interview Prep</a>
+            </div>
+        </header>
+
+        <!-- SECTION: NLP -->
+        <section id="nlp" class="section">
+            <div class="section-header">
+                <h2>01. Natural Language Processing</h2>
+            </div>
+
+            <div class="concept-card">
+                <div class="project-tag">VibeVault</div>
+                <h3 class="concept-title">Sentiment & Emotion Analysis</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Detecting emotional polarity and nuanced feelings from user text.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>To automatically categorize memories by mood and provide psychiatric-level emotional
+                            insights.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Models Used</h4>
+                        <ul>
+                            <li><strong>DistilRoBERTa-base</strong> (Emotion Classifier)</li>
+                            <li><strong>VADER</strong> (Rule-based Sentiment)</li>
+                            <li><strong>TextBlob</strong> (Linguistic Features)</li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Implemented a hybrid pipeline using HuggingFace Transformers for deep learning and NLTK for
+                            fast lexicographical sentiment calculation.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>nlp/analyzer.py</span></div>
+                <pre><code><span class="token-keyword">from</span> transformers <span class="token-keyword">import</span> pipeline
+
+<span class="token-comment"># Lazy-loading the emotion model</span>
+emotion_model = pipeline(
+    <span class="token-string">"text-classification"</span>,
+    model=<span class="token-string">"j-hartmann/emotion-english-distilroberta-base"</span>
+)
+
+<span class="token-keyword">def</span> <span class="token-func">analyze</span>(text):
+    <span class="token-keyword">return</span> emotion_model(text)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"In VibeVault, I built a sophisticated NLP pipeline that moves beyond simple polarity. I used
+                        DistilRoBERTa, a transformer-based model, to classify six distinct emotions (joy, sadness,
+                        etc.). By using a transformer model instead of just keyword matching, the system understands
+                        context and sarcasm, which is critical for correctly indexing personal memories."</p>
+                </div>
+            </div>
+
+            <!-- CARD: BERT TOKENIZER -->
+            <div class="concept-card">
+                <div class="project-tag">VibeVault (DistilRoBERTa)</div>
+                <h3 class="concept-title">BERT Tokenization (Subword Level)</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Converting text into numerical subword tokens instead of whole words.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>To handle unknown words (OOV) and capture morphological relationships (e.g., 'playing' vs
+                            'player').</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Algorithms</h4>
+                        <ul>
+                            <li><strong>Byte-Pair Encoding (BPE)</strong></li>
+                            <li><strong>WordPiece</strong></li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Breaking words into frequent sub-units (tokens) and mapping them to a fixed 50k-entry
+                            vocabulary.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>Tokenization Workflow</span></div>
+                <pre><code><span class="token-keyword">from</span> transformers <span class="token-keyword">import</span> AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained(<span class="token-string">"distilroberta-base"</span>)
+
+<span class="token-comment"># 'AI-ML' becomes subwords</span>
+tokens = tokenizer.tokenize(<span class="token-string">"AI-ML is complex"</span>)
+<span class="token-comment"># Output: ['AI', '-', 'ML', 'is', 'complex']</span></code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"I used subword tokenization to solve the 'Out-of-Vocabulary' problem. Unlike simple
+                        word-splitting, these tokenizers (WordPiece/BPE) break rare words into common fragments. This
+                        ensures the model always has a representation for any input and maintains a highly efficient
+                        memory footprint for the vocabulary."</p>
+                </div>
+            </div>
+
+            <!-- CARD: PIPELINES -->
+            <div class="concept-card">
+                <div class="project-tag">VibeVault</div>
+                <h3 class="concept-title">HuggingFace Pipelines (Logic Flow)</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>An end-to-end abstraction for the NLP inference lifecycle.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Workflow</h4>
+                        <ul>
+                            <li><strong>Pre-processing:</strong> Tokenization</li>
+                            <li><strong>Inference:</strong> Model Forward Pass</li>
+                            <li><strong>Post-processing:</strong> Softmax & Label Map</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>Inference Lifecycle</span></div>
+                <pre><code><span class="token-keyword">from</span> transformers <span class="token-keyword">import</span> pipeline
+
+<span class="token-comment"># Bundles Tokenizer + Model + Post-processing</span>
+pipe = pipeline(<span class="token-string">"text-classification"</span>, model=<span class="token-string">"..."</span>)
+
+<span class="token-comment"># Input -> [Tokens] -> [Logits] -> Label</span>
+result = pipe(<span class="token-string">"I am excited!"</span>)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"The pipeline I implemented manages three distinct phases: first, the raw text is tokenized into
+                        IDs; second, these IDs pass through the transformer layers (inference); third, the raw numerical
+                        output (logits) is converted to labels via Softmax. This abstraction ensures that the
+                        pre-processing during inference perfectly matches what the model expects, preventing data skew."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: LLM -->
+        <section id="llm" class="section">
+            <div class="section-header">
+                <h2>02. Large Language Models</h2>
+            </div>
+
+            <div class="concept-card">
+                <div class="project-tag">MediBotAI</div>
+                <h3 class="concept-title">Generative AI & System Guardrails</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Integrating state-of-the-art LLMs for conversational medical assistance.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>To provide immediate preliminary health advice and symptom analysis while ensuring medical
+                            safety.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Models Used</h4>
+                        <ul>
+                            <li><strong>Llama 3.1 70B Versatile</strong> (via Groq)</li>
+                            <li><strong>GPT-4o mini</strong> (Fallback)</li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Custom Prompt Engineering + Regex Keyword Detectors to intercept emergencies.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>chatbot/views.py</span></div>
+                <pre><code><span class="token-keyword">def</span> <span class="token-func">send_message</span>(request):
+    <span class="token-comment"># Prompt Engineering: Setting the persona</span>
+    system_prompt = <span class="token-string">"You are a medical assistant. Always advise professional consultation."</span>
+    
+    <span class="token-comment"># Emergency Guardrail</span>
+    is_emergency = detect_emergency(user_text) 
+    <span class="token-keyword">if</span> is_emergency:
+        <span class="token-keyword">return</span> Response(<span class="token-string">"CALL EMERGENCY SERVICES IMMEDIATELY"</span>)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"Working with LLMs in healthcare requires extreme caution. In MediBotAI, I didn't just 'call an
+                        API'; I implemented a robust safety layer. I used System Prompts to define strict boundaries for
+                        the AI and built a synchronous emergency detection function that scans for life-threatening
+                        keywords (like 'chest pain') to override AI generation with immediate medical alerts."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: VECTOR -->
+        <section id="vector" class="section">
+            <div class="section-header">
+                <h2>03. Semantic & Vector Search</h2>
+            </div>
+
+            <div class="concept-card">
+                <div class="project-tag">website-content-django</div>
+                <h3 class="concept-title">Vector Embeddings & Milvus Lite</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Searching content based on mathematical similarity of meanings.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>Traditional searches fail when users don't use exact words. Vector search solves this by
+                            'understanding' the relationship between words.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Tech Stack</h4>
+                        <ul>
+                            <li><strong>all-MiniLM-L6-v2</strong> (Sentence Transformer)</li>
+                            <li><strong>Milvus Lite</strong> (Vector Store)</li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Chunking HTML content, generating 384-dimension vectors, and performing Cosine Similarity
+                            queries.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>searchapp/views.py</span></div>
+                <pre><code><span class="token-comment"># Converting query to vector</span>
+query_vec = embedder.encode([query])[0]
+
+<span class="token-comment"># Performing vector search in Milvus</span>
+store = MilvusLiteStore()
+results = store.search(query_vec, limit=10)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"I implemented a semantic search engine using the Sentence-Transformer architecture. By
+                        converting website data into high-dimensional vectors, I enabled the system to understand that
+                        'how to start' and 'getting started' are semantically identical. I chose Milvus Lite as the
+                        vector database for its high concurrency and low latency in retrieving the most similar content
+                        chunks."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AUDIO -->
+        <section id="audio" class="section">
+            <div class="section-header">
+                <h2>04. Audio ML & Signal Processing</h2>
+            </div>
+
+            <div class="concept-card">
+                <div class="project-tag">SoundGuard</div>
+                <h3 class="concept-title">Acoustic Feature Extraction</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Extracting specific mathematical patterns from raw audio files.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>To detect emergency sounds (sirens, screams) without needing humans to listen.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Feature Logic</h4>
+                        <ul>
+                            <li><strong>MFCCs:</strong> Capturing 'timbre'</li>
+                            <li><strong>Spectral Centroid:</strong> Measuring 'brightness'</li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Using <strong>Librosa</strong> for Digital Signal Processing (DSP) and heuristic
+                            classification.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>audio_detector/audio_classifier.py</span></div>
+                pre><code><span class="token-keyword">import</span> librosa
+<span class="token-comment"># Extracting Mel-frequency cepstral coefficients</span>
+mfcc = librosa.feature.mfcc(y=audio_data, sr=sr, n_mfcc=13)
+features[<span class="token-string">'mfcc_mean'</span>] = np.mean(mfcc)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"In SoundGuard, I delved into the physics of sound. I used Librosa to perform a Fourier Transform
+                        on audio signals, extracting MFCCs and Spectral Centroids. These features represent the unique
+                        'fingerprint' of various sounds—allowing the system to distinguish the periodic frequency
+                        modulation of a siren from the high-entropy white noise of a scream."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: VISION -->
+        <section id="vision" class="section">
+            <div class="section-header">
+                <h2>05. Computer Vision & Multimodal</h2>
+            </div>
+
+            <div class="concept-card">
+                <div class="project-tag">VibeVault</div>
+                <h3 class="concept-title">Image Captioning (BLIP)</h3>
+
+                <div class="grid-info">
+                    <div class="info-block">
+                        <h4>What</h4>
+                        <p>Generating descriptive text for images using deep learning.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Why</h4>
+                        <p>To enable full-text search capability for visual memories (images/photos).</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>Model</h4>
+                        <ul>
+                            <li><strong>Salesforce/blip-image-captioning-base</strong></li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h4>How</h4>
+                        <p>Passing image tensors through the BLIP model to produce a natural language caption.</p>
+                    </div>
+                </div>
+
+                <div class="code-header"><span>nlp/analyzer.py</span></div>
+                <pre><code><span class="token-keyword">from</span> transformers <span class="token-keyword">import</span> BlipProcessor, BlipForConditionalGeneration
+processor = BlipProcessor.from_pretrained(<span class="token-string">"Salesforce/blip-..."</span>)
+model = BlipForConditionalGeneration.from_pretrained(<span class="token-string">"..."</span>)
+
+<span class="token-comment"># Generate caption</span>
+out = model.generate(**inputs)
+caption = processor.decode(out[0], skip_special_tokens=True)</code></pre>
+
+                <div class="interviewer-box">
+                    <h4>🎙️ Interviewer Explanation</h4>
+                    <p>"I implemented a multimodal bridge using the BLIP architecture. By automatically generating
+                        captions for every uploaded image, I turned unstructured visual data into searchable text. This
+                        caption is then indexed in my vector store, allowing users to find photos of 'a dog in the park'
+                        even if they never manually tagged the photo."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: INTERVIEW -->
+        <section id="interview" class="section">
+            <div class="section-header">
+                <h2 style="color: var(--success);">06. Interview Preparation (Full 35+ Q&A)</h2>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-bottom: 40px;">Categorized direct answers for a Fresher
+                Python Fullstack role with AI/ML exposure.</p>
+
+            <!-- CATEGORY: BASICS -->
+            <h3
+                style="color: var(--text-primary); margin-bottom: 20px; border-left: 3px solid var(--success); padding-left: 15px;">
+                A. General AI/ML Basics</h3>
+            <div class="grid-info"
+                style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px;">
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>1. Difference between AI and ML?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">AI is the broad
+                        concept of smart machines. ML is a subset where machines learn from data rather than explicit
+                        programming.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>2. Supervised vs. Unsupervised?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Supervised uses
+                        labeled data (input-output). Unsupervised finds hidden patterns in unlabeled data (clustering).
+                    </p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>3. What is Overfitting?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">When a model learns
+                        training data too well (including noise) and fails to generalize to new data.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>4. What is a "Feature"?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">A measurable
+                        characteristic. In SoundGuard, MFCCs and Spectral Centroids are audio features.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>5. Role of APIs in AI?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Allow apps to
+                        communicate. Used Groq/OpenAI APIs to get AI responses without hosting massive models locally.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CATEGORY: NLP -->
+            <h3
+                style="color: var(--text-primary); margin-bottom: 20px; border-left: 3px solid var(--success); padding-left: 15px;">
+                B. Natural Language Processing (NLP)</h3>
+            <div class="grid-info"
+                style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px;">
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>6. What is Tokenization?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Breaking down strings
+                        into pieces like words/subwords called tokens.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>7. Why Subword Tokenization?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Handles
+                        Out-of-Vocabulary (OOV) words by breaking rare words into common fragments (like BERT/RoBERTa).
+                    </p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>8. What are "Stop Words"?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Common words (the, a,
+                        in) ignored to focus on keywords. Used in VibeVault search logic.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>9. What is Sentiment Analysis?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Quantifying emotional
+                        states (positive/negative/neutral) from text.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>10. Stemming vs. Lemmatization?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Stemming chops ends
+                        (running -> run), Lemmatization uses a dictionary for meaningful root (better -> good).</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>11. What is NER?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Named Entity
+                        Recognition: Classifying entities like Names, Orgs, or Locations from unstructured text.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>12. What is a Transformer?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">A deep learning
+                        architecture using Self-Attention to process sequences in parallel (e.g., GPT, BERT).</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>13. What is NLTK?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Natural Language
+                        Toolkit: A library for working with human language. Used for VADER sentiment analysis.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>14. Role of "Softmax"?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Turns raw scores
+                        (logits) into probabilities (summing to 1) to pick the most likely emotion label.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>15. HF Pipeline Benefits?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Bundles Tokenizer,
+                        Model, and Post-processor into one single inference object.</p>
+                </div>
+            </div>
+
+            <!-- CATEGORY: LLMS -->
+            <h3
+                style="color: var(--text-primary); margin-bottom: 20px; border-left: 3px solid var(--success); padding-left: 15px;">
+                C. Large Language Models (LLMs)</h3>
+            <div class="grid-info"
+                style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px;">
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>16. What is an LLM?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">A model trained on
+                        massive text to understand and generate human-like language based on probability.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>17. What is Prompt Engineering?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Crafting and
+                        optimizing inputs to get high-quality, specific outputs from an LLM.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>18. What is a "System Prompt"?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Initial instructions
+                        defining persona/boundaries (e.g., "You are a professional medical assistant").</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>19. What is Hallucination?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">When an AI generates
+                        confident but false/fabricated info not based on its training data.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>20. LLM Temperature?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Controls randomness.
+                        0.0 is deterministic; higher values (like 0.7) are more creative/diverse.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>21. What is RAG?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Retrieval-Augmented
+                        Generation: Retrieving external data (Vector DB) to ground LLM responses in facts.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>22. GPT-4o vs. Llama 3?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">GPT-4o is
+                        closed-source (OpenAI). Llama 3 is open-weights (Meta). Both used via APIs in projects.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>23. Why use Groq?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Because of LPUs
+                        (Language Processing Units) which provide nearly instant inference speeds for chatbots.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>24. Handling Chat History?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Storing messages in a
+                        list and passing the full history with every new query for stateful context.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>25. Zero-shot vs. Few-shot?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Zero-shot: No examples
+                        provided. Few-shot: Providing examples in the prompt to guide the model.</p>
+                </div>
+            </div>
+
+            <!-- CATEGORY: VECTOR SEARCH -->
+            <h3
+                style="color: var(--text-primary); margin-bottom: 20px; border-left: 3px solid var(--success); padding-left: 15px;">
+                D. Vector Search & Embeddings</h3>
+            <div class="grid-info"
+                style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px;">
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>26. What are "Embeddings"?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Numerical vectors
+                        representing meaning. Similar words are mathematically closer in vector space.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>27. What is Cosine Similarity?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">A metric measuring the
+                        angle between vectors. Closer to 1 = higher semantic similarity.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>28. What is a Vector DB?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">A specialized DB for
+                        indexing and searching vector embeddings efficiently (e.g., Milvus Lite).</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>29. What is Semantic Search?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Search that
+                        understands intent/context instead of just matching literal keywords.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>30. Turning HTML to Vectors?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Clean HTML -> Raw Text
+                        -> Embedding Model (all-MiniLM-L6-v2) -> 384-dimensional vector.</p>
+                </div>
+            </div>
+
+            <!-- CATEGORY: PRACTICAL -->
+            <h3
+                style="color: var(--text-primary); margin-bottom: 20px; border-left: 3px solid var(--success); padding-left: 15px;">
+                E. Practical Implementation</h3>
+            <div class="grid-info"
+                style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>31. Medical Safety in MediBot?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Used System Prompts
+                        for persona + Regex detector for emergency keywords to override AI.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>32. Why use Librosa?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Allows custom Feature
+                        Engineering for lightweight, rule-based audio detection without heavy GPUs.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>33. VibeVault Hybrid Search?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Combines SQL-based
+                        keyword scores with Python-based vector scores for high accuracy.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>34. What is Whisper's Role?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">An ASR model that
+                        converts raw audio clips to text for further NLP analysis.</p>
+                </div>
+                <div class="concept-card" style="padding: 20px; border-color: var(--success);">
+                    <p><strong>35. Role of Fullstack Developer?</strong></p>
+                    <p style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Bridging AI models and
+                        users by building the API, Vector Store, and Frontend interface.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>© 2025 AI/ML Project Portfolio • Summarized by AI Pro • All concepts verified line-by-line</p>
+        </div>
+    </div>
+
+
+<footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #30363d; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+    <p style="font-size: 1.2rem; color: #00ffa3; margin-bottom: 10px;">✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+    <p style="font-size: 0.9rem; color: #8b949e;">Python Full Stack Developer | Interview Prep Resources</p>
+</footer>
+</body>
+
+
+</html>

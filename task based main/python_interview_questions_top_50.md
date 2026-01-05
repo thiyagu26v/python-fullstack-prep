@@ -1,0 +1,1528 @@
+---
+> **✨ Created by Thiyagarajan Varadharajan ✨**  
+> *Python Full Stack Developer | Interview Prep Resources*
+
+---
+
+# 🐍 Top 50 Practical Python Interview Questions (Fresher Level)
+*Comprehensive solutions with Sample Input/Output and Multiple Approaches*
+
+---
+
+
+## **Section 1: Python Basics (Q1-10)**
+
+### **1. Swap two variables without using a third variable**
+
+**Sample Input:** `a = 5`, `b = 10`
+**Sample Output:** `a = 10`, `b = 5`
+
+#### **Approach 1: Using Python's Tuple Unpacking (Pythonic Way)**
+```python
+a = 5  # Assign 5 to variable a
+b = 10  # Assign 10 to variable b
+
+a, b = b, a  # Swap the values of a and b using tuple unpacking
+
+print(f"a = {a}, b = {b}")  # Print the new values of a and b
+```
+
+#### **Approach 2: Using Arithmetic Operations**
+```python
+a = 5  # Assign 5 to variable a
+b = 10  # Assign 10 to variable b
+
+a = a + b  # Add a and b (5+10=15) and store in a
+b = a - b  # Subtract new b from new a (15-10=5) and store in b. b is now 5.
+a = a - b  # Subtract new b from new a (15-5=10) and store in a. a is now 10.
+
+print(f"a = {a}, b = {b}")  # Print the swapped values
+```
+
+---
+
+### **2. Check if a number is even or odd**
+
+**Sample Input:** `num = 7`
+**Sample Output:** `Odd`
+
+#### **Approach 1: Using Modulo Operator (%)**
+```python
+num = 7  # Assign 7 to variable num
+
+if num % 2 == 0:  # Check if the remainder when divided by 2 is 0
+    print("Even")  # Print "Even" if the condition is true
+else:  # If the condition is false (remainder is not 0)
+    print("Odd")  # Print "Odd"
+```
+
+#### **Approach 2: Using Bitwise AND Operator (&)**
+*Explanation: Binary of odd numbers always ends in 1. `num & 1` returns 1 if odd, 0 if even.*
+```python
+num = 7  # Assign 7 to variable num
+
+if num & 1:  # Perform bitwise AND with 1. If result is 1 (True), number is odd
+    print("Odd")  # Print "Odd"
+else:  # If result is 0 (False), number is even
+    print("Even")  # Print "Even"
+```
+
+---
+
+### **3. Find the largest of three numbers**
+
+**Sample Input:** `10, 25, 15`
+**Sample Output:** `25`
+
+#### **Approach 1: Using Conditional Statements (if-elif-else)**
+```python
+a, b, c = 10, 25, 15  # Assign values 10, 25, 15 to a, b, c respectively
+
+if a >= b and a >= c:  # Check if a is greater than or equal to both b and c
+    print(a)  # If true, print a
+elif b >= a and b >= c:  # If first condition failed, check if b is greater than or equal to both a and c
+    print(b)  # If true, print b
+else:  # If neither a nor b is the largest
+    print(c)  # Print c, which must be the largest
+```
+
+#### **Approach 2: Using Built-in `max()` Function**
+```python
+a, b, c = 10, 25, 15  # Assign values to a, b, c
+print(max(a, b, c))  # Use max() function to find and print the largest value
+```
+
+---
+
+### **4. Check if a given year is a leap year**
+
+**Sample Input:** `2024`
+**Sample Output:** `Leap Year`
+
+#### **Approach 1: Nested Conditions**
+*Rule: Divisible by 4 AND (not divisible by 100 OR divisible by 400)*
+```python
+year = 2024  # Assign 2024 to variable year
+
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):  # Check leap year logic: (divisible by 4 AND not 100) OR (divisible by 400)
+    print("Leap Year")  # If condition holds true, it is a leap year
+else:  # If condition is false
+    print("Not a Leap Year")  # It is not a leap year
+```
+
+#### **Approach 2: Using `calendar` Module**
+```python
+import calendar  # Import the calendar module
+
+year = 2024  # Assign 2024 to variable year
+if calendar.isleap(year):  # Use the built-in isleap() function to check if year is a leap year
+    print("Leap Year")  # Print if True
+else:  # If False
+    print("Not a Leap Year")  # Print if False
+```
+
+---
+
+### **5. Reverse a string**
+
+**Sample Input:** `"Python"`
+**Sample Output:** `"nohtyP"`
+
+#### **Approach 1: Using String Slicing**
+```python
+text = "Python"  # Assign string "Python" to text
+reversed_text = text[::-1]  # Use slice notation [begin:end:step] with step -1 to reverse the string
+print(reversed_text)  # Print the reversed string
+```
+
+#### **Approach 2: Using `reversed()` and `join()`**
+```python
+text = "Python"  # Assign string "Python" to text
+reversed_text = "".join(reversed(text))  # Create an iterator that yields chars in reverse, then join them with empty string
+print(reversed_text)  # Print the result
+```
+
+---
+
+### **6. Check if a string is a palindrome**
+
+**Sample Input:** `"radar"`
+**Sample Output:** `True`
+
+#### **Approach 1: Using Slicing**
+```python
+text = "radar"  # Assign "radar" to text
+if text == text[::-1]:  # Compare the original string with its reverse
+    print(True)  # Print True if they are equal
+else:  # If not equal
+    print(False)  # Print False
+```
+
+#### **Approach 2: Two Pointer Approach (Iterative)**
+```python
+text = "radar"  # Assign string to text
+left, right = 0, len(text) - 1  # Initialize left pointer to 0 and right pointer to last index
+is_palindrome = True  # Flag to track status, verify as True initially
+
+while left < right:  # Loop while left pointer is less than right pointer
+    if text[left] != text[right]:  # If characters at pointers do not match
+        is_palindrome = False  # Set flag to False
+        break  # Exit loop immediately
+    left += 1  # Move left pointer forward
+    right -= 1  # Move right pointer backward
+
+print(is_palindrome)  # Print the final result
+```
+
+---
+
+### **7. Count vowels and consonants in a string**
+
+**Sample Input:** `"Hello World"`
+**Sample Output:** `Vowels: 3, Consonants: 7`
+
+#### **Approach 1: Iterating and Checking Membership**
+```python
+text = "Hello World"  # Input string
+vowels = "aeiouAEIOU"  # String containing all vowels (case-sensitive)
+v_count = 0  # Initialize vowel counter
+c_count = 0  # Initialize consonant counter
+
+for char in text:  # Iterate through each character in the string
+    if char.isalpha():  # Check if the character is an alphabet (ignore spaces/numbers)
+        if char in vowels:  # Check if the character is present in vowels string
+            v_count += 1  # Increment vowel counter
+        else:  # If it is an alphabet but not a vowel
+            c_count += 1  # Increment consonant counter
+
+print(f"Vowels: {v_count}, Consonants: {c_count}")  # Print both counts
+```
+
+#### **Approach 2: Using List Comprehension & `sum()`**
+```python
+text = "Hello World"  # Input string
+vowels = "aeiouAEIOU"  # Vowels definition
+
+v_count = sum(1 for char in text if char in vowels)  # Count 1 for every char that is a vowel
+# Count 1 for every char that is a letter AND not a vowel
+c_count = sum(1 for char in text if char.isalpha() and char not in vowels)
+
+print(f"Vowels: {v_count}, Consonants: {c_count}")  # Print results
+```
+
+---
+
+### **8. Find the factorial of a number**
+
+**Sample Input:** `5`
+**Sample Output:** `120` (5*4*3*2*1)
+
+#### **Approach 1: Using Recursive Function**
+```python
+def factorial(n):  # Define function taking n
+    if n == 0 or n == 1:  # Base case: if n is 0 or 1
+        return 1  # Factorial is 1
+    return n * factorial(n - 1)  # Recursive case: n multiplied by factorial of n-1
+
+print(factorial(5))  # Call function with 5 and print result
+```
+
+#### **Approach 2: Using `math` Module**
+```python
+import math  # Import math module
+print(math.factorial(5))  # Use built-in factorial function for 5
+```
+
+---
+
+### **9. Check if a number is prime**
+
+**Sample Input:** `29`
+**Sample Output:** `True`
+
+#### **Approach 1: Basic Iteration**
+```python
+num = 29  # Number to check
+is_prime = True  # Assume it is prime initially
+
+if num < 2:  # Primes must be greater than 1
+    is_prime = False  # If less than 2, it is not prime
+else:  # If 2 or greater
+    for i in range(2, num):  # Loop from 2 up to num-1
+        if num % i == 0:  # If num is divisible by i
+            is_prime = False  # It is not prime
+            break  # Exit loop
+
+print(is_prime)  # Print result
+```
+
+#### **Approach 2: Optimized Iteration (Square Root)**
+*Explanation: We only need to check divisibility up to the square root of the number.*
+```python
+import math  # Import math specifically for sqrt
+
+num = 29  # Number to check
+is_prime = True  # Assume prime
+
+if num < 2:  # Less than 2 condition
+    is_prime = False  # Not prime
+else:  # Check divisibility
+    # Iterate from 2 up to integer part of sqrt(num) + 1
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:  # If divisible
+            is_prime = False  # Not prime
+            break  # Stop checking
+
+print(is_prime)  # Print result
+```
+
+---
+
+### **10. Print the Fibonacci series up to n terms**
+
+**Sample Input:** `n = 7`
+**Sample Output:** `0, 1, 1, 2, 3, 5, 8`
+
+#### **Approach 1: Using Iteration**
+```python
+n = 7  # Number of terms to print
+a, b = 0, 1  # Initialize first two terms: 0 and 1
+count = 0  # Counter for printed terms
+
+if n <= 0:  # Check for invalid input
+    print("Please enter a positive integer")  # Error message
+elif n == 1:  # If only 1 term requested
+    print(a)  # Print just 0
+else:  # Default case
+    while count < n:  # Loop until count reaches n
+        # Print current term 'a'. Add comma if it's not the last term.
+        print(a, end=", " if count < n-1 else "")
+        nth = a + b  # Calculate next term
+        a = b  # Update a to be b
+        b = nth  # Update b to be the new term
+        count += 1  # Increment counter
+```
+
+#### **Approach 2: Using Recursion (not efficient for large n, but good for interview concept)**
+```python
+def fibonacci(n):  # Recursive function to get nth fibonacci number
+    if n <= 1:  # Base case: if 0 or 1
+        return n  # Return n itself
+    return fibonacci(n - 1) + fibonacci(n - 2)  # Recursive step: sum of previous two
+
+n_terms = 7  # Number of terms
+for i in range(n_terms):  # Loop from 0 to n_terms-1
+    # Print the ith fibonacci number, formatted with comma unless last
+    print(fibonacci(i), end=", " if i < n_terms-1 else "")
+```
+
+---
+
+
+
+
+## **Section 2: Strings (Q11-18)**
+
+### **11. Count the occurrence of each character in a string**
+
+**Sample Input:** `"hello"`
+**Sample Output:** `{'h': 1, 'e': 1, 'l': 2, 'o': 1}`
+
+#### **Approach 1: Using Dictionary Logic**
+```python
+text = "hello"  # Input string
+char_count = {}  # Initialize empty dictionary to store counts
+
+for char in text:  # Iterate through each character
+    if char in char_count:  # Check if character is already in dictionary
+        char_count[char] += 1  # Increment count if exists
+    else:  # If new character
+        char_count[char] = 1  # Initialize count to 1
+
+print(char_count)  # Print the result
+```
+
+#### **Approach 2: Using `collections.Counter` (Best Practice)**
+```python
+from collections import Counter  # Import Counter class from collections module
+
+text = "hello"  # Input string
+print(Counter(text))  # Create Counter object from string and print it
+```
+
+---
+
+### **12. Remove duplicate characters from a string**
+
+**Sample Input:** `"programming"`
+**Sample Output:** `"progamin"` (order may vary if using set)
+
+#### **Approach 1: Using an Empty String and Loop (Preserves Order)**
+```python
+text = "programming"  # Input string
+result = ""  # Initialize empty result string
+
+for char in text:  # Iterate through characters
+    if char not in result:  # Check if character is NOT already in result
+        result += char  # Append character if it's new
+
+print(result)  # Print the unique characters string
+```
+
+#### **Approach 2: Using `set()` (Order Not Guaranteed)**
+```python
+text = "programming"  # Input string
+result = "".join(set(text))  # Convert to set to remove duplicates, then join back to string
+print(result)  # Print result
+```
+
+---
+
+### **13. Check if two strings are anagrams**
+
+**Sample Input:** `"listen"`, `"silent"`
+**Sample Output:** `True`
+
+#### **Approach 1: Using Sorting**
+```python
+str1 = "listen"  # First string
+str2 = "silent"  # Second string
+
+if sorted(str1) == sorted(str2):  # Sort both strings and compare lists of characters
+    print("Anagrams")  # Print if they match
+else:  # If they don't match
+    print("Not Anagrams")  # Print distinct
+```
+
+#### **Approach 2: Using `Counter`**
+```python
+from collections import Counter  # Import Counter
+
+str1 = "listen"  # First string
+str2 = "silent"  # Second string
+
+if Counter(str1) == Counter(str2):  # Compare character counts directly
+    print("Anagrams")  # Print if counts are identical
+else:  # If counts differ
+    print("Not Anagrams")  # Print distinct
+```
+
+---
+
+### **14. Find the first non-repeating character in a string**
+
+**Sample Input:** `"swiss"`
+**Sample Output:** `"w"`
+
+#### **Approach 1: Using Dictionary to Count Frequency**
+```python
+text = "swiss"  # Input string
+count = {}  # Dictionary for frequency map
+
+for char in text:  # First pass: Count all characters
+    count[char] = count.get(char, 0) + 1  # Increment count, defaulting to 0 if new
+
+for char in text:  # Second pass: Check counts in original order
+    if count[char] == 1:  # If count is exactly 1
+        print(char)  # Print the character
+        break  # distinct immediately (first non-repeating)
+```
+
+#### **Approach 2: Using `Counter`**
+```python
+from collections import Counter  # Import Counter
+
+text = "swiss"  # Input string
+count = Counter(text)  # Get frequency map
+
+for char in text:  # Iterate through original string to maintain order
+    if count[char] == 1:  # Check if count is 1
+        print(char)  # Print character
+        break  # Stop searching
+```
+
+---
+
+### **15. Reverse words in a sentence**
+
+**Sample Input:** `"Hello World Python"`
+**Sample Output:** `"Python World Hello"`
+
+#### **Approach 1: Split, Reverse List, Join**
+```python
+sentence = "Hello World Python"  # Input sentence
+words = sentence.split()  # Split sentence into list of words (default split by whitespace)
+reversed_sentence = " ".join(words[::-1])  # Reverse the list of words and join with space
+print(reversed_sentence)  # Print result
+```
+
+#### **Approach 2: Using Reversed on Split List**
+```python
+sentence = "Hello World Python"  # Input sentence
+words = sentence.split()  # Split into words
+reversed_sentence = " ".join(reversed(words))  # Use reversed() iterator on words list and join
+print(reversed_sentence)  # Print result
+```
+
+---
+
+### **16. Convert a string to title case without using `.title()`**
+
+**Sample Input:** `"hello world"`
+**Sample Output:** `"Hello World"`
+
+#### **Approach 1: Iterating and Capitalizing**
+```python
+sentence = "hello world"  # Input sentence
+words = sentence.split()  # Split into words; ['hello', 'world']
+title_case_words = []  # List to hold capitalized words
+
+for word in words:  # Iterate through each word
+    # Capitalize first char, add rest of word, string concatenation
+    title_case_words.append(word[0].upper() + word[1:])
+
+print(" ".join(title_case_words))  # Join words with space and print
+```
+
+#### **Approach 2: Using One-Liner List Comprehension**
+```python
+sentence = "hello world"  # Input sentence
+# Split sentence, capitalize each word using list comprehension, then join
+print(" ".join([word.capitalize() for word in sentence.split()]))
+```
+
+---
+
+### **17. Find all substrings of a given string**
+
+**Sample Input:** `"abc"`
+**Sample Output:** `['a', 'ab', 'abc', 'b', 'bc', 'c']`
+
+#### **Approach 1: Nested Loops**
+```python
+text = "abc"  # Input string
+substrings = []  # List to store substrings
+
+for i in range(len(text)):  # Outer loop for start index
+    for j in range(i + 1, len(text) + 1):  # Inner loop for end index (distinct to length+1)
+        substrings.append(text[i:j])  # Slice from i to j and append
+
+print(substrings)  # Print list of substrings
+```
+
+#### **Approach 2: List Comprehension**
+```python
+text = "abc"  # Input string
+# Same logic as nested loops but in one line
+substrings = [text[i:j] for i in range(len(text)) for j in range(i+1, len(text)+1)]
+print(substrings)  # Print result
+```
+
+---
+
+### **18. Check if a string contains only digits**
+
+**Sample Input:** `"12345"`
+**Sample Output:** `True`
+
+#### **Approach 1: Using `isdigit()` Method**
+```python
+text = "12345"  # Input string
+print(text.isdigit())  # Returns True if all characters are digits, else False
+```
+
+#### **Approach 2: Using Exception Handling**
+```python
+text = "12345"  # Input string
+try:
+    int(text)  # Try converting to integer
+    print(True)  # If successful, it's a number
+except ValueError:  # If conversion fails
+    print(False)  # Not a number
+```
+
+---
+
+
+## **Section 3: Lists (Q19-28)**
+
+### **19. Find the second largest element in a list**
+
+**Sample Input:** `[10, 20, 4, 45, 99]`
+**Sample Output:** `45`
+
+#### **Approach 1: Sorting**
+```python
+numbers = [10, 20, 4, 45, 99]  # Input list
+numbers.sort()  # Sort the list in place (ascending order)
+print(numbers[-2])  # Print the second last element (second largest)
+```
+
+#### **Approach 2: Removing Max Element**
+```python
+numbers = [10, 20, 4, 45, 99]  # Input list
+# Note: This modifies the list or requires a copy
+numbers.remove(max(numbers))  # Find the max element and remove it from list
+print(max(numbers))  # Find the new max (which was the second largest) and print
+```
+
+---
+
+### **20. Remove duplicates from a list while maintaining order**
+
+**Sample Input:** `[1, 2, 2, 3, 4, 1]`
+**Sample Output:** `[1, 2, 3, 4]`
+
+#### **Approach 1: Using an Empty List**
+```python
+nums = [1, 2, 2, 3, 4, 1]  # Input list with duplicates
+unique_nums = []  # List to store unique elements
+
+for num in nums:  # Iterate through original list
+    if num not in unique_nums:  # Check if number is NOT already in unique list
+        unique_nums.append(num)  # Add it if it's new
+
+print(unique_nums)  # Print result
+```
+
+#### **Approach 2: Using `dict.fromkeys()` (Python 3.7+ preserves order)**
+```python
+nums = [1, 2, 2, 3, 4, 1]  # Input list
+unique_nums = list(dict.fromkeys(nums))  # Create dictionary keys (removes dupes) and convert back to list
+print(unique_nums)  # Print result
+```
+
+---
+
+### **21. Flatten a nested list**
+
+**Sample Input:** `[[1, 2], [3, [4, 5]]]`
+**Sample Output:** `[1, 2, 3, 4, 5]`
+
+#### **Approach 1: Using Recursion**
+```python
+def flatten_list(nested_list):  # Define function taking a nested list
+    flat_list = []  # Initialize empty list
+    for item in nested_list:  # Loop through items
+        if isinstance(item, list):  # Check if item is a list
+            flat_list.extend(flatten_list(item))  # Recursively flatten and extend the main list
+        else:  # If item is not a list
+            flat_list.append(item)  # Append it directly
+    return flat_list  # Return the result
+
+nested = [[1, 2], [3, [4, 5]]]  # Input nested list
+print(flatten_list(nested))  # Print flattened list
+```
+
+#### **Approach 2: Using Iteration (Stack)**
+```python
+nested = [[1, 2], [3, [4, 5]]]  # Input nested list
+flat_list = []  # Result list
+stack = [nested]  # Initialize stack with the main list
+
+while stack:  # Loop while stack is not empty
+    current = stack.pop()  # Pop the last element
+    if isinstance(current, list):  # If it is a list
+        # Push to stack in reverse order to process first element last
+        stack.extend(current[::-1])
+    else:  # If it is not a list
+        flat_list.append(current)  # Append to result
+
+# The result is naturally in order because we extended in reverse
+print(flat_list)  # Print result
+```
+
+---
+
+### **22. Find the intersection of two lists**
+
+**Sample Input:** `[1, 2, 3]`, `[2, 3, 4]`
+**Sample Output:** `[2, 3]`
+
+#### **Approach 1: Using Sets (Efficient)**
+```python
+list1 = [1, 2, 3]  # First list
+list2 = [2, 3, 4]  # Second list
+intersection = list(set(list1) & set(list2))  # Convert to sets, find intersection (&), convert back to list
+print(intersection)  # Print result
+```
+
+#### **Approach 2: Using List Comprehension**
+```python
+list1 = [1, 2, 3]  # First list
+list2 = [2, 3, 4]  # Second list
+intersection = [x for x in list1 if x in list2]  # Keep x from list1 if it exists in list2
+print(intersection)  # Print result
+```
+
+---
+
+### **23. Find the union of two lists without duplicates**
+
+**Sample Input:** `[1, 2, 3]`, `[2, 3, 4]`
+**Sample Output:** `[1, 2, 3, 4]`
+
+#### **Approach 1: Using Sets**
+```python
+list1 = [1, 2, 3]  # First list
+list2 = [2, 3, 4]  # Second list
+union = list(set(list1) | set(list2))  # Convert to sets, find union (|), convert back to list
+print(union)  # Print result
+```
+
+#### **Approach 2: Using Concatenation and Loop**
+```python
+list1 = [1, 2, 3]  # First list
+list2 = [2, 3, 4]  # Second list
+union_list = list(list1)  # Start with copy of list1
+
+for x in list2:  # Iterate through list2
+    if x not in union_list:  # If element not already in union list
+        union_list.append(x)  # Add it
+
+print(union_list)  # Print result
+```
+
+---
+
+### **24. Rotate a list by n positions**
+
+**Sample Input:** `[1, 2, 3, 4, 5]`, `n = 2` (Right Rotate)
+**Sample Output:** `[4, 5, 1, 2, 3]`
+
+#### **Approach 1: Using Slicing**
+```python
+nums = [1, 2, 3, 4, 5]  # Input list
+n = 2  # Number of positions to rotate
+n = n % len(nums) # Handle case where n > len(nums)
+# Slice last n elements + slice first (len-n) elements
+rotated = nums[-n:] + nums[:-n]
+print(rotated)  # Print rotated list
+```
+
+#### **Approach 2: Using `pop()` and `insert()`**
+```python
+nums = [1, 2, 3, 4, 5]  # Input list
+n = 2  # Positions
+for _ in range(n):  # Repeat n times
+    nums.insert(0, nums.pop())  # Pop last element and insert at index 0
+print(nums)  # Print result
+```
+
+---
+
+### **25. Find all pairs in a list that sum to a given value**
+
+**Sample Input:** `[1, 2, 3, 4, 5]`, `target = 6`
+**Sample Output:** `(1, 5), (2, 4)`
+
+#### **Approach 1: Nested Loops (O(n^2))**
+```python
+nums = [1, 2, 3, 4, 5]  # Input list
+target = 6  # Target sum
+pairs = []  # List to store pairs
+
+for i in range(len(nums)):  # Outer loop
+    for j in range(i + 1, len(nums)):  # Inner loop starting from i+1
+        if nums[i] + nums[j] == target:  # Check sum
+            pairs.append((nums[i], nums[j]))  # Add pair
+
+print(pairs)  # Print pairs
+```
+
+#### **Approach 2: Using a Set (O(n))**
+```python
+nums = [1, 2, 3, 4, 5]  # Input list
+target = 6  # Target sum
+seen = set()  # Set to store visited numbers
+pairs = []  # Pairs list
+
+for num in nums:  # Iterate through list
+    complement = target - num  # Find required number to reach target
+    if complement in seen:  # If complement was already seen
+        pairs.append((complement, num))  # Found a pair
+    seen.add(num)  # Add current number to seen set
+
+print(pairs)  # Print pairs
+```
+
+---
+
+### **26. Split a list into chunks of size n**
+
+**Sample Input:** `[1, 2, 3, 4, 5, 6, 7]`, `n = 3`
+**Sample Output:** `[[1, 2, 3], [4, 5, 6], [7]]`
+
+#### **Approach 1: Using Slicing in a Loop**
+```python
+nums = [1, 2, 3, 4, 5, 6, 7]  # Input list
+n = 3  # Chunk size
+# List comprehension: for i stepping by n
+chunks = [nums[i:i + n] for i in range(0, len(nums), n)]
+print(chunks)  # Print result
+```
+
+#### **Approach 2: Using a Generator**
+```python
+def chunk_list(lst, n):  # Generator function
+    for i in range(0, len(lst), n):  # Stepping by n
+        yield lst[i:i + n]  # Yield slice
+
+nums = [1, 2, 3, 4, 5, 6, 7]  # Input
+print(list(chunk_list(nums, 3)))  # Convert generator to list and print
+```
+
+---
+
+### **27. Find the most frequent element in a list**
+
+**Sample Input:** `[1, 2, 2, 3, 3, 3, 4]`
+**Sample Output:** `3`
+
+#### **Approach 1: Using `max()` with `key`**
+```python
+nums = [1, 2, 2, 3, 3, 3, 4]  # Input list
+# Find max in unique set, using count in original list as key
+most_frequent = max(set(nums), key=nums.count)
+print(most_frequent)  # Print result
+```
+
+#### **Approach 2: Using `Counter`**
+```python
+from collections import Counter  # Import Counter
+nums = [1, 2, 2, 3, 3, 3, 4]  # Input list
+# Counter(nums) counts freqs. .most_common(1) returns [('3', 3)]. [0][0] gets element
+most_frequent = Counter(nums).most_common(1)[0][0]
+print(most_frequent)  # Print result
+```
+
+---
+
+### **28. Merge two sorted lists into one sorted list**
+
+**Sample Input:** `[1, 3, 5]`, `[2, 4, 6]`
+**Sample Output:** `[1, 2, 3, 4, 5, 6]`
+
+#### **Approach 1: Using `sorted()` (Easiest)**
+```python
+list1 = [1, 3, 5]  # First sorted list
+list2 = [2, 4, 6]  # Second sorted list
+merged = sorted(list1 + list2)  # Concatenate and sort
+print(merged)  # Print result
+```
+
+#### **Approach 2: Two Pointer Approach (Efficient)**
+```python
+list1 = [1, 3, 5]  # First sorted list
+list2 = [2, 4, 6]  # Second sorted list
+merged = []  # Result list
+i, j = 0, 0  # Pointers for list1 and list2
+
+while i < len(list1) and j < len(list2):  # Loop while both have elements
+    if list1[i] < list2[j]:  # If element in list1 is smaller
+        merged.append(list1[i])  # Add it to merged
+        i += 1  # Move list1 pointer
+    else:  # If element in list2 is smaller
+        merged.append(list2[j])  # Add it to merged
+        j += 1  # Move list2 pointer
+
+merged.extend(list1[i:])  # Add remaining elements from list1 (if any)
+merged.extend(list2[j:])  # Add remaining elements from list2 (if any)
+print(merged)  # Print result
+```
+
+---
+
+
+## **Section 4: Dictionaries (Q29-35)**
+
+### **29. Count the frequency of words in a sentence using a dictionary**
+
+**Sample Input:** `"python is easy and python is fun"`
+**Sample Output:** `{'python': 2, 'is': 2, 'easy': 1, 'and': 1, 'fun': 1}`
+
+#### **Approach 1: Using `get()`**
+```python
+sentence = "python is easy and python is fun"  # Input sentence
+words = sentence.split()  # Split into list of words
+counts = {}  # Initialize empty dictionary
+
+for word in words:  # Iterate through words
+    # Get current count of word (default 0) and add 1
+    counts[word] = counts.get(word, 0) + 1
+
+print(counts)  # Print dictionary
+```
+
+#### **Approach 2: Using `Counter`**
+```python
+from collections import Counter  # Import Counter
+sentence = "python is easy and python is fun"  # Input sentence
+print(Counter(sentence.split()))  # Split execution and count frequencies directly
+```
+
+---
+
+### **30. Merge two dictionaries**
+
+**Sample Input:** `d1 = {'a': 1}`, `d2 = {'b': 2}`
+**Sample Output:** `{'a': 1, 'b': 2}`
+
+#### **Approach 1: Using `update()`**
+```python
+d1 = {'a': 1}  # First dictionary
+d2 = {'b': 2}  # Second dictionary
+d1.update(d2)  # Update d1 with keys/values from d2 (modifies d1 in place)
+print(d1)  # Print merged d1
+```
+
+#### **Approach 2: Using the `|` Operator (Python 3.9+)**
+```python
+d1 = {'a': 1}  # First dictionary
+d2 = {'b': 2}  # Second dictionary
+merged = d1 | d2  # Create new dictionary by merging d1 and d2
+print(merged)  # Print result
+```
+
+#### **Approach 3: Using `**` Unpacking (Older Python)**
+```python
+d1 = {'a': 1}  # First dictionary
+d2 = {'b': 2}  # Second dictionary
+merged = {**d1, **d2}  # Unpack both into a new dictionary literal
+print(merged)  # Print result
+```
+
+---
+
+### **31. Sort a dictionary by its values**
+
+**Sample Input:** `{'apple': 10, 'orange': 5, 'banana': 20}`
+**Sample Output:** `{'orange': 5, 'apple': 10, 'banana': 20}`
+
+#### **Approach 1: Using `sorted()` with Lambda**
+```python
+prices = {'apple': 10, 'orange': 5, 'banana': 20}  # Input dictionary
+# Sort items by value (item[1]) and convert back to dict
+sorted_prices = dict(sorted(prices.items(), key=lambda item: item[1]))
+print(sorted_prices)  # Print sorted dictionary
+```
+
+#### **Approach 2: Using Itemgetter (Faster)**
+```python
+from operator import itemgetter  # Import itemgetter for efficiency
+prices = {'apple': 10, 'orange': 5, 'banana': 20}  # Input dictionary
+# Sort items using itemgetter(1) which gets the value
+sorted_prices = dict(sorted(prices.items(), key=itemgetter(1)))
+print(sorted_prices)  # Print result
+```
+
+---
+
+### **32. Invert a dictionary (swap keys and values)**
+
+**Sample Input:** `{'a': 1, 'b': 2, 'c': 3}`
+**Sample Output:** `{1: 'a', 2: 'b', 3: 'c'}`
+
+#### **Approach 1: Dictionary Comprehension**
+```python
+my_dict = {'a': 1, 'b': 2, 'c': 3}  # Input dictionary
+inverted_dict = {v: k for k, v in my_dict.items()}  # Swap key k and value v
+print(inverted_dict)  # Print inverted dictionary
+```
+
+#### **Approach 2: Using `zip()`**
+```python
+my_dict = {'a': 1, 'b': 2, 'c': 3}  # Input dictionary
+# Zip values as keys and keys as values, then convert to dict
+inverted_dict = dict(zip(my_dict.values(), my_dict.keys()))
+print(inverted_dict)  # Print result
+```
+
+---
+
+### **33. Find the key with the maximum value in a dictionary**
+
+**Sample Input:** `{'MATH': 80, 'PHYSICS': 90, 'CHEMISTRY': 70}`
+**Sample Output:** `'PHYSICS'`
+
+#### **Approach 1: Using `max()` with `key` argument**
+```python
+scores = {'MATH': 80, 'PHYSICS': 90, 'CHEMISTRY': 70}  # Input
+# Find key in scores where the value (scores.get) is maximal
+best_subject = max(scores, key=scores.get)
+print(best_subject)  # Print result
+```
+
+#### **Approach 2: Standard Loop (Manual)**
+```python
+scores = {'MATH': 80, 'PHYSICS': 90, 'CHEMISTRY': 70}  # Input
+max_val = float('-inf')  # Initialize max value to negative infinity
+max_key = None  # Initialize max key
+
+for key, val in scores.items():  # Iterate items
+    if val > max_val:  # If current value is greater than max seen so far
+        max_val = val  # Update max value
+        max_key = key  # Update max key
+
+print(max_key)  # Print result
+```
+
+---
+
+### **34. Remove keys with None values from a dictionary**
+
+**Sample Input:** `{'a': 1, 'b': None, 'c': 3, 'd': None}`
+**Sample Output:** `{'a': 1, 'c': 3}`
+
+#### **Approach 1: Dictionary Comprehension**
+```python
+data = {'a': 1, 'b': None, 'c': 3, 'd': None}  # Input
+# Rebuild dict including only items where value is not None
+clean_data = {k: v for k, v in data.items() if v is not None}
+print(clean_data)  # Print result
+```
+
+#### **Approach 2: Using `filter()`**
+```python
+data = {'a': 1, 'b': None, 'c': 3, 'd': None}  # Input
+# filter returns items, we convert back to dict. Lambda checks value (item[1])
+clean_data = dict(filter(lambda item: item[1] is not None, data.items()))
+print(clean_data)  # Print result
+```
+
+---
+
+### **35. Group a list of words by their first letter using a dictionary**
+
+**Sample Input:** `['apple', 'banana', 'avocado', 'blueberry', 'cherry']`
+**Sample Output:** `{'a': ['apple', 'avocado'], 'b': ['banana', 'blueberry'], 'c': ['cherry']}`
+
+#### **Approach 1: Standard Loop**
+```python
+words = ['apple', 'banana', 'avocado', 'blueberry', 'cherry']  # Input list
+grouped = {}  # Initialize result dict
+
+for word in words:  # Iterate words
+    first_char = word[0]  # Get first letter
+    if first_char not in grouped:  # If key doesn't exist
+        grouped[first_char] = []  # Initialize empty list
+    grouped[first_char].append(word)  # Add word to list
+
+print(grouped)  # Print result
+```
+
+#### **Approach 2: Using `defaultdict`**
+```python
+from collections import defaultdict  # Import defaultdict
+
+words = ['apple', 'banana', 'avocado', 'blueberry', 'cherry']  # Input
+grouped = defaultdict(list)  # Initialize defaultdict with list as default factory
+
+for word in words:  # Iterate words
+    grouped[word[0]].append(word)  # Append directly (list created automatically if needed)
+
+print(dict(grouped))  # Convert back to regular dict and print
+```
+
+---
+
+## **Section 5: Functions & Logic (Q36-42)**
+
+### **36. Write a function that returns both the sum and product of two numbers**
+
+**Sample Input:** `5, 10`
+**Sample Output:** `Sum: 15, Product: 50`
+
+#### **Approach 1: Return a Tuple**
+```python
+def calculate(a, b):  # Define function
+    return a + b, a * b  # Return tuple (sum, product)
+
+s, p = calculate(5, 10)  # Unpack result
+print(f"Sum: {s}, Product: {p}")  # Print formatted result
+```
+
+#### **Approach 2: Return a Dictionary**
+```python
+def calculate(a, b):  # Define function
+    return {"sum": a + b, "product": a * b}  # Return dictionary
+
+result = calculate(5, 10)  # Get result dict
+print(f"Sum: {result['sum']}, Product: {result['product']}")  # Access by keys
+```
+
+---
+
+### **37. Write a program using `*args` to accept any number of arguments and return their sum**
+
+**Sample Input:** `1, 2, 3, 4, 5`
+**Sample Output:** `15`
+
+#### **Approach 1: Using `sum()`**
+```python
+def add_all(*args):  # *args collects positional arguments into a tuple
+    return sum(args)  # Sum elements of the tuple
+
+print(add_all(1, 2, 3, 4, 5))  # Pass multiple arguments
+```
+
+#### **Approach 2: Loop through args**
+```python
+def add_all(*args):  # Collect arguments
+    total = 0  # Initialize total
+    for num in args:  # Iterate through tuple
+        total += num  # Add each number
+    return total  # Return sum
+
+print(add_all(1, 2, 3, 4, 5))  # Print result
+```
+
+---
+
+### **38. Write a program using `**kwargs` to print key-value pairs passed to a function**
+
+**Sample Input:** `name="Alice", age=25, city="New York"`
+**Sample Output:** `name: Alice, age: 25, city: New York`
+
+#### **Approach 1: Iterating `.items()`**
+```python
+def print_info(**kwargs):  # **kwargs collects keyword arguments into a dictionary
+    for key, value in kwargs.items():  # Iterate through dictionary items
+        print(f"{key}: {value}")  # Print key and value
+
+print_info(name="Alice", age=25, city="New York")  # Pass keyword args
+```
+
+#### **Approach 2: Dictionary unpacking output**
+```python
+def print_info(**kwargs):  # Collect keyword args
+    print(kwargs)  # Print the whole dictionary
+
+print_info(name="Alice", age=25, city="New York")  # Print result
+```
+
+---
+
+### **39. Write a lambda function to sort a list of tuples by the second element**
+
+**Sample Input:** `[(1, 3), (4, 1), (2, 2)]`
+**Sample Output:** `[(4, 1), (2, 2), (1, 3)]`
+
+#### **Approach 1: `sort()` with lambda**
+```python
+data = [(1, 3), (4, 1), (2, 2)]  # Input list of tuples
+# Sort in place. Key is a lambda function taking x and returning x[1] (2nd element)
+data.sort(key=lambda x: x[1])
+print(data)  # Print sorted list
+```
+
+#### **Approach 2: `sorted()` with lambda**
+```python
+data = [(1, 3), (4, 1), (2, 2)]  # Input
+# Return new sorted list using same key logic
+sorted_data = sorted(data, key=lambda x: x[1])
+print(sorted_data)  # Print new list
+```
+
+---
+
+### **40. Write a program using `map()` to square all numbers in a list**
+
+**Sample Input:** `[1, 2, 3, 4]`
+**Sample Output:** `[1, 4, 9, 16]`
+
+#### **Approach 1: `map()` with lambda**
+```python
+nums = [1, 2, 3, 4]  # Input
+# Apply lambda (x**2) to each item in nums. Convert map object to list.
+squared = list(map(lambda x: x ** 2, nums))
+print(squared)  # Print result
+```
+
+#### **Approach 2: List Comprehension (More Pythonic)**
+```python
+nums = [1, 2, 3, 4]  # Input
+squared = [x ** 2 for x in nums]  # Square each x in nums
+print(squared)  # Print result
+```
+
+---
+
+
+
+### **41. Write a program using `filter()` to get all even numbers from a list**
+
+**Sample Input:** `[1, 2, 3, 4, 5, 6]`
+**Sample Output:** `[2, 4, 6]`
+
+#### **Approach 1: `filter()` with lambda**
+```python
+nums = [1, 2, 3, 4, 5, 6]  # Input list
+# filter returns items where lambda returns True. x%2==0 checks for even.
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)  # Print result
+```
+
+#### **Approach 2: List Comprehension**
+```python
+nums = [1, 2, 3, 4, 5, 6]  # Input list
+evens = [x for x in nums if x % 2 == 0]  # Filter evens directly in list construction
+print(evens)  # Print result
+```
+
+---
+
+### **42. Write a program using list comprehension to get all numbers divisible by 3 and 5**
+
+**Sample Input:** `range(1, 20)`
+**Sample Output:** `[15]`
+
+#### **Approach 1: Condition inside list comprehension**
+```python
+nums = range(1, 20)  # Input range
+result = [x for x in nums if x % 3 == 0 and x % 5 == 0]  # Check both conditions
+print(result)  # Print result
+```
+
+#### **Approach 2: Standard Loop Approach**
+```python
+nums = range(1, 20)  # Input range
+result = []  # Initialize list
+for x in nums:  # Iterate numbers
+    if x % 3 == 0 and x % 5 == 0:  # Check divisibility
+        result.append(x)  # Add to list
+print(result)  # Print result
+```
+
+---
+
+## **Section 6: File Handling (Q43-46)**
+
+### **43. Write a program to read a file and count the number of lines, words, and characters**
+
+*Assumption: `test.txt` exists.*
+
+#### **Approach 1: Using Context Manager**
+```python
+file_path = "test.txt"  # Path to file
+lines, words, chars = 0, 0, 0  # Initialize counters
+
+try:
+    with open(file_path, 'r') as f:  # Open file in read mode
+        for line in f:  # Iterate through lines
+            lines += 1  # Increment line count
+            words += len(line.split())  # Split line into words and add count
+            chars += len(line)  # Add character count
+            
+    print(f"Lines: {lines}, Words: {words}, Characters: {chars}")  # Print stats
+except FileNotFoundError:  # Handle missing file
+    print("File not found.")  # Error message
+```
+
+#### **Approach 2: Reading All Content (For Small Files)**
+```python
+file_path = "test.txt"  # Path to file
+try:
+    with open(file_path, 'r') as f:  # Open file
+        content = f.read()  # Read entire content into memory
+        lines = len(content.splitlines())  # Count lines
+        words = len(content.split())  # Count words
+        chars = len(content)  # Count characters
+        print(f"Lines: {lines}, Words: {words}, Characters: {chars}")  # Print stats
+except FileNotFoundError:  # Handle missing file
+    print("File not found.")
+```
+
+---
+
+### **44. Write a program to copy content from one file to another**
+
+#### **Approach 1: Reading and Writing Line by Line**
+```python
+source = "source.txt"  # Source file
+destination = "dest.txt"  # Destination file
+
+try:
+    with open(source, 'r') as src, open(destination, 'w') as dest:  # Open both files
+        for line in src:  # Read from source
+            dest.write(line)  # Write to destination
+    print("Copied successfully.")  # Success message
+except Exception as e:  # Handle errors
+    print(f"Error: {e}")  # Print error
+```
+
+#### **Approach 2: Using `shutil` Module (Best for large files)**
+```python
+import shutil  # Import shutil for file operations
+
+try:
+    shutil.copy("source.txt", "dest.txt")  # Copy file metadata and content
+    print("Copied successfully.")  # Success message
+except Exception as e:  # Handle errors
+    print(f"Error: {e}")
+```
+
+---
+
+### **45. Write a program to find and replace a word in a file**
+
+#### **Approach 1: Read All, Replace, Write Back**
+```python
+file_path = "data.txt"  # File path
+search_text = "wrong"  # Text to find
+replace_text = "right"  # Text to replace with
+
+try:
+    with open(file_path, 'r') as f:  # Open for reading
+        content = f.read()  # Read content
+    
+    content = content.replace(search_text, replace_text)  # Perform replacement in memory
+    
+    with open(file_path, 'w') as f:  # Open for writing (overwrites)
+        f.write(content)  # Write modified content
+        
+    print("Replaced successfully.")
+except Exception as e:
+    print(f"Error: {e}")
+```
+
+#### **Approach 2: Use `fileinput` Module (In-place)**
+```python
+import fileinput  # Import fileinput for in-place editing
+
+file_path = "data.txt"  # File path
+search_text = "wrong"
+replace_text = "right"
+
+# Iterating lines with inplace=True redirects stdout to the file
+with fileinput.FileInput(file_path, inplace=True) as file:
+    for line in file:
+        # Print replaced line (end='' prevents double newlines)
+        print(line.replace(search_text, replace_text), end='')
+```
+
+---
+
+### **46. Write a program to read a CSV file and print each row as a dictionary**
+
+#### **Approach 1: Using `csv` Module**
+```python
+import csv  # Import csv module
+
+file_path = "data.csv"  # File path
+try:
+    with open(file_path, mode='r') as file:  # Open file
+        csv_reader = csv.DictReader(file)  # Create DictReader (uses first row as keys)
+        for row in csv_reader:  # Iterate rows
+            print(dict(row))  # Print row as dictionary
+except FileNotFoundError:
+    print("CSV file not found.")
+```
+
+#### **Approach 2: Using Lists and Splitting (Manual)**
+```python
+file_path = "data.csv"  # File path
+try:
+    with open(file_path, 'r') as f:  # Open file
+        headers = f.readline().strip().split(',')  # Read first line as headers
+        for line in f:  # Iterate remaining lines
+            values = line.strip().split(',')  # Split line into value list
+            row_dict = dict(zip(headers, values))  # Zip headers with values
+            print(row_dict)  # Print dictionary
+except FileNotFoundError:
+    print("CSV file not found.")
+```
+
+---
+
+## **Section 7: OOP & Practical (Q47-50)**
+
+### **47. Create a class `Rectangle` with methods to calculate area and perimeter**
+
+#### **Approach 1: Standard Class**
+```python
+class Rectangle:  # Define class
+    def __init__(self, length, width):  # Constructor
+        self.length = length  # Set length
+        self.width = width  # Set width
+
+    def area(self):  # Method for area
+        return self.length * self.width
+
+    def perimeter(self):  # Method for perimeter
+        return 2 * (self.length + self.width)
+
+rect = Rectangle(10, 5)  # Create instance
+print(f"Area: {rect.area()}")  # Call area method
+print(f"Perimeter: {rect.perimeter()}")  # Call perimeter method
+```
+
+#### **Approach 2: Using `@property` Decorator**
+```python
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    @property  # Define as property
+    def area(self):
+        return self.length * self.width
+
+    @property  # Define as property
+    def perimeter(self):
+        return 2 * (self.length + self.width)
+
+rect = Rectangle(10, 5)
+# Access as attributes, not methods (no parentheses)
+print(f"Area: {rect.area}")
+print(f"Perimeter: {rect.perimeter}")
+```
+
+---
+
+### **48. Create a `BankAccount` class with deposit, withdraw, and balance methods**
+
+#### **Approach 1: Basic Implementation**
+```python
+class BankAccount:
+    def __init__(self, owner, balance=0):  # Constructor with optional balance
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):  # Deposit method
+        self.balance += amount  # Add to balance
+        print(f"Deposited {amount}. New Balance: {self.balance}")
+
+    def withdraw(self, amount):  # Withdraw method
+        if amount > self.balance:  # Check sufficiency
+            print("Insufficient funds")
+        else:
+            self.balance -= amount  # Deduct from balance
+            print(f"Withdrawn {amount}. New Balance: {self.balance}")
+
+acct = BankAccount("John", 100)  # Create account
+acct.deposit(50)  # Deposit
+acct.withdraw(30)  # Withdraw
+acct.withdraw(200)  # Fail withdraw
+```
+
+#### **Approach 2: Using Private Variables (Encapsulation)**
+```python
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.__balance = balance # Private attribute (prefixed with __)
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            print(f"Deposited {amount}")
+
+    def get_balance(self):  # Getter method
+        return self.__balance
+
+acct = BankAccount("John", 100)
+acct.deposit(50)
+print(f"Balance: {acct.get_balance()}")  # Access via getter
+# print(acct.__balance) # This would raise an AttributeError (private)
+```
+
+---
+
+### **49. Write a program to demonstrate inheritance with a `Vehicle` and `Car` class**
+
+#### **Approach 1: Simple Inheritance**
+```python
+class Vehicle:  # Parent class
+    def __init__(self, brand):
+        self.brand = brand
+
+    def drive(self):
+        print(f"{self.brand} is moving.")
+
+class Car(Vehicle):  # Child class inheriting from Vehicle
+    def honk(self):  # New method specific to Car
+        print("Beep beep!")
+
+my_car = Car("Toyota")  # Create Car instance
+my_car.drive() # Inherited method from Vehicle
+my_car.honk()  # Subclass method
+```
+
+#### **Approach 2: Method Overriding**
+```python
+class Vehicle:
+    def drive(self):
+        print("Vehicle is moving")
+
+class Car(Vehicle):  # Child class
+    def drive(self):  # Override drive method
+        super().drive() # Call parent method using super()
+        print("Car is driving on the road")  # Add specific behavior
+
+c = Car()
+c.drive()  # Calls overridden method
+```
+
+---
+
+### **50. Write a decorator that logs the execution time of any function**
+
+#### **Approach 1: Using `time` module and wrapper**
+```python
+import time  # Import time
+
+def timer_decorator(func):  # Decorator function
+    def wrapper(*args, **kwargs):  # Wrapper accepts any arguments
+        start_time = time.time()  # Start timer
+        result = func(*args, **kwargs)  # Execute function
+        end_time = time.time()  # End timer
+        print(f"Function {func.__name__} took {end_time - start_time:.5f} seconds")
+        return result  # Return original result
+    return wrapper
+
+@timer_decorator  # Apply decorator
+def slow_function():
+    time.sleep(1)  # Simulate delay
+    print("Finished task")
+
+slow_function()  # Call decorated function
+```
+
+#### **Approach 2: Using `functools.wraps` (Best Practice)**
+```python
+import time
+from functools import wraps  # Import wraps
+
+def timer_decorator(func):
+    @wraps(func) # Preserves metadata of the original function (__name__, __doc__)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        res = func(*args, **kwargs)
+        end = time.time()
+        print(f"Execution time: {end - start:.5f}s")
+        return res
+    return wrapper
+
+@timer_decorator
+def add(a, b):
+    return a + b
+
+print(add(5, 10))
+```
+
+---
+
+
+
+
+
+
+---
+
+> **✨ Created by Thiyagarajan Varadharajan ✨**  
+> *Python Full Stack Developer | Interview Prep Resources*
+> 
+> *Share this resource on LinkedIn!*
+
+---

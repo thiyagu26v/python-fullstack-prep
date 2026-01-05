@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<!-- ========================================== -->
+<!-- Created by Thiyagarajan Varadharajan -->
+<!-- LinkedIn: Share this resource! -->
+<!-- ========================================== -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Master Mastery - Level 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #e2e8f0;
+            --border: #334155;
+            --gold: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2.5rem;
+            max-width: 1050px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        h1 {
+            font-family: 'Outfit';
+            text-align: center;
+            color: var(--primary);
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        #search {
+            width: 100%;
+            padding: 1.3rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3.5rem;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-card:hover {
+            border-color: var(--primary);
+        }
+
+        .question-card h3 {
+            color: var(--primary);
+            font-size: 1.7rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .section-header {
+            margin-top: 6rem;
+            color: var(--primary);
+            border-left: 5px solid var(--primary);
+            padding-left: 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        pre {
+            border-radius: 16px !important;
+            position: relative;
+            border: 1px solid var(--border);
+            margin: 2rem 0 !important;
+            background: #011627 !important;
+            padding: 1.5rem !important;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        blockquote {
+            border-left: 5px solid var(--primary);
+            background: rgba(251, 191, 36, 0.05);
+            padding: 1.2rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Python Master Mastery</h1>
+    <input type="text" id="search" placeholder="Filter through 50 advanced concepts and logic patterns...">
+    <div id="target"></div>
+
+    <script type="text/markdown" id="raw-markdown">
+## **Section 1: Advanced OOP & Magic Methods (Q1-10)**
+
+### **1. Difference between `__str__` and `__repr__`**
+
+**Sample Input:** `obj = Person("Alice"); print(str(obj)); print(repr(obj))`
+**Sample Output:**
+`User: Alice`
+`Person(name='Alice')`
+
+#### **Approach 1: Implementing both methods**
+```python
+class Person:
+    def __init__(self, name):  # Constructor method to initialize attributes
+        self.name = name  # Assign the passed name to the instance attribute
+
+    def __str__(self):  # Special method called by str() and print()
+        return f"User: {self.name}"  # Return a human-readable string representation
+
+    def __repr__(self):  # Special method called by repr() and in debuggers
+        return f"Person(name='{self.name}')"  # Return an unambiguous string representation
+
+p = Person("Alice")  # Create a new instance of Person with name "Alice"
+print(str(p))   # Explicitly call __str__: Output: User: Alice
+print(repr(p))  # Explicitly call __repr__: Output: Person(name='Alice')
+```
+
+#### **Approach 2: Standard Library Example (datetime)**
+```python
+import datetime  # Import the built-in datetime module
+
+now = datetime.datetime.now()  # Get the current local date and time
+print(str(now))   # Use __str__ for a readable format: e.g., 2023-10-27...
+print(repr(now))  # Use __repr__ for a developer-friendly creation string
+```
+
+---
+
+### **2. Difference between `@staticmethod` and `@classmethod`**
+
+**Sample Input:** `MyClass.method()`
+**Sample Output:** `Static Method`, `Class Method taking <class '__main__.MyClass'>`
+
+#### **Approach 1: Basic Implementation**
+```python
+class Demo:
+    @staticmethod  # Decorator to define a static method
+    def static_method():  # Static methods do not take 'self' or 'cls'
+        print("Static Method called")  # Simple print statement
+
+    @classmethod  # Decorator to define a class method
+    def class_method(cls):  # Class methods take 'cls' (the class itself) as first arg
+        print(f"Class Method called with {cls}")  # Print the class object
+
+Demo.static_method()  # Call using ClassName.method() without instantiation
+Demo.class_method()   # Call class method; Python passes 'Demo' as 'cls' automatically
+```
+
+#### **Approach 2: Factory Method (Practical Use of Class Method)**
+```python
+class Person:
+    def __init__(self, name, age):  # Standard constructor
+        self.name = name  # Set name
+        self.age = age  # Set age
+
+    @classmethod  # Define a class method to use as an alternative constructor
+    def from_birth_year(cls, name, birth_year):  # Takes class, name, and birth year
+        current_year = 2023  # Hardcoded current year for example
+        return cls(name, current_year - birth_year)  # Return new instance using cls(name, calculated_age)
+
+p = Person.from_birth_year("Bob", 1990)  # Create Person using the factory method
+print(p.age)  # Output: 33 (2023 - 1990)
+```
+
+---
+
+### **3. Implement a class that works as a function using `__call__`**
+
+**Sample Input:** `add_10 = Adder(10); add_10(5)`
+**Sample Output:** `15`
+
+#### **Approach 1: Basic Functor**
+```python
+class Adder:
+    def __init__(self, n):  # Initialize with a base number
+        self.n = n  # Store the base number
+
+    def __call__(self, x):  # The __call__ method allows the instance to be called like a function
+        return self.n + x  # Return the sum of stored value and passed argument
+
+add_10 = Adder(10)  # Create an instance 'add_10' initialized with 10
+print(add_10(5))    # Call the instance like a function: 10 + 5 = 15
+```
+
+#### **Approach 2: Stateful Decorator Class**
+```python
+class Counter:
+    def __init__(self, func):  # Constructor receives the function to decorate
+        self.func = func  # Store the function
+        self.count = 0  # Initialize a counter state
+
+    def __call__(self, *args, **kwargs):  # Called when the decorated function is invoked
+        self.count += 1  # Increment invocation count
+        print(f"Call {self.count}")  # Print the current count
+        return self.func(*args, **kwargs)  # call the original function and return result
+
+@Counter
+def say_hi():
+    print("Hi!")
+
+say_hi()  # Output: Call 1, Hi!
+say_hi()  # Output: Call 2, Hi!
+```
+
+---
+
+### **4. Implement the Singleton Pattern**
+
+#### **Approach 1: Using `__new__`**
+```python
+class Singleton:
+    _instance = None  # Class-level variable to store the single instance
+
+    def __new__(cls):  # __new__ is called before __init__ to create the object
+        if cls._instance is None:  # Check if instance already exists
+            cls._instance = super(Singleton, cls).__new__(cls)  # Create it if not
+        return cls._instance  # Return the stored single instance
+
+s1 = Singleton()  # Create first reference
+s2 = Singleton()  # Create second reference (returns same object)
+print(s1 is s2)  # Output: True
+```
+
+#### **Approach 2: Using a Decorator**
+```python
+def singleton(cls):  # Decorator function
+    instances = {}  # Dictionary to store instance of the class
+    def get_instance(*args, **kwargs):  # Wrapper function
+        if cls not in instances:  # If class not already instantiated
+            instances[cls] = cls(*args, **kwargs)  # Create and store instance
+        return instances[cls]  # Return stored instance
+    return get_instance
+
+@singleton
+class Database:
+    pass
+
+db1 = Database()
+db2 = Database()
+print(db1 is db2)  # Output: True
+```
+
+---
+
+### **5. Create a custom Exception class with extra functional attributes**
+
+#### **Approach 1: Basic Custom Exception**
+```python
+class MyCustomError(Exception):  # Define new exception inheriting from base Exception
+    pass  # No extra logic needed for basic custom exception
+
+try:
+    raise MyCustomError("This is a custom error")  # Raise the custom exception manually
+except MyCustomError as e:  # Catch specifically MyCustomError
+    print(f"Caught: {e}")  # Print the error message
+```
+
+#### **Approach 2: Exception with Extra Data**
+```python
+class ValidationError(Exception):
+    def __init__(self, message, code):  # Constructor takes message and error code
+        super().__init__(message)  # Initialize base Exception
+        self.code = code  # Store custom error code
+
+try:
+    raise ValidationError("Invalid Input", 400)  # Raise with code
+except ValidationError as e:
+    print(f"Error: {e}, Code: {e.code}")  # Access custom attribute 'code'
+```
+
+---
+
+### **6. Use `__slots__` to optimize memory for a large number of instances**
+
+#### **Approach 1: Using `__slots__`**
+```python
+class Point:
+    __slots__ = ['x', 'y']  # Explicitly define allowed attributes. Prevents creation of __dict__
+    
+    def __init__(self, x, y):
+        self.x = x  # Assign x
+        self.y = y  # Assign y
+
+p = Point(1, 2)  # Create instance
+print(p.x)  # Access valid attribute
+# p.z = 10  # This would raise an AttributeError because 'z' is not in __slots__
+```
+
+#### **Approach 2: Performance Comparison Concept**
+*Note: Using `__slots__` can significantly reduce memory overhead when dealing with millions of objects by eliminating the dynamic `__dict__`.*
+```python
+# class Normal: def __init__(self): self.x = 1
+# class Slotted: __slots__=['x']; def __init__(self): self.x = 1
+# Slotted uses much less memory per instance.
+```
+
+---
+
+### **7. Implement Operator Overloading (e.g., adding two Vector objects)**
+
+#### **Approach 1: Overloading `__add__`**
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):  # Special Magic Method for '+' operator
+        # Return a new Vector object with the sum of coordinates
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __repr__(self):  # Unambiguous string representation for printing
+        return f"Vector({self.x}, {self.y})"
+
+v1 = Vector(1, 2)
+v2 = Vector(3, 4)
+v3 = v1 + v2  # Calls v1.__add__(v2)
+print(v3)  # Output: Vector(4, 6)
+```
+
+#### **Approach 2: Overloading `__mul__` (Dot Product)**
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __mul__(self, other):  # Special method for '*' operator
+        return self.x * other.x + self.y * other.y  # Return scalar dot product
+
+v1 = Vector(2, 3)
+v2 = Vector(4, 5)
+print(v1 * v2)  # Output: 2*4 + 3*5 = 8 + 15 = 23
+```
+
+---
+
+### **8. Create a Context Manager using a class**
+
+#### **Approach 1: Implementing `__enter__` and `__exit__`**
+```python
+class FileManager:
+    def __init__(self, filename, mode):
+        self.filename = filename  # Store filename
+        self.mode = mode  # Store mode
+
+    def __enter__(self):  # Magic method called at the start of 'with' block
+        self.file = open(self.filename, self.mode)  # Open the resource
+        return self.file  # Return the resource to be bound to the 'as' variable
+
+    def __exit__(self, exc_type, exc_val, exc_tb):  # Called when exiting the 'with' block
+        if self.file:
+            self.file.close()  # Clean up: Close the file
+        # Return True if you want to suppress exceptions, False otherwise
+        return False
+
+with FileManager('test.txt', 'w') as f:
+    f.write('Hello World')  # File is automatically closed after this block
+```
+
+#### **Approach 2: Using `contextlib.contextmanager` Decorator**
+```python
+from contextlib import contextmanager  # Import utility
+
+@contextmanager  # Turn a generator into a context manager
+def file_manager(name, mode):
+    f = open(name, mode)  # Setup (Before yield)
+    try:
+        yield f  # The resource provided to the 'with' block
+    finally:
+        f.close()  # Cleanup (After yield, happens even if error occurs)
+
+with file_manager('test.txt', 'w') as f:
+    f.write('Hi')
+```
+
+---
+
+### **9. Implement Property Decorators (Getter, Setter, Deleter)**
+
+#### **Approach 1: Full Property Implementation**
+```python
+class Person:
+    def __init__(self, age):
+        self._age = age  # Use underscore to denote 'protected/internal' attribute
+
+    @property  # Define the getter method
+    def age(self):
+        print("Getting age...")
+        return self._age  # Return the internal value
+
+    @age.setter  # Define the setter method for validation
+    def age(self, value):
+        print("Setting age...")
+        if value < 0:  # Validation logic
+            raise ValueError("Age cannot be negative")  # Reject invalid data
+        self._age = value  # Set valid data
+
+    @age.deleter  # Define the deleter method
+    def age(self):
+        print("Deleting age...")
+        del self._age
+
+p = Person(25)
+p.age = 30  # Call setter
+print(p.age)  # Call getter
+del p.age  # Call deleter
+```
+
+#### **Approach 2: read-only Property**
+```python
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property  # Property without a setter is effectively read-only
+    def area(self):
+        return 3.14159 * (self.radius ** 2)
+
+c = Circle(5)
+print(c.area)  # Calculated on the fly
+# c.area = 10  # This would raise AttributeError: can't set attribute
+```
+
+---
+
+### **10. Demonstrate Multiple Inheritance and Resolution Order (MRO)**
+
+#### **Approach 1: Diamond Problem Example**
+```python
+class A:
+    def show(self):
+        print("A show")
+
+class B(A):  # Inherits from A
+    def show(self):
+        print("B show")
+        super().show()  # Call next class in MRO (A)
+
+class C(A):  # Inherits from A
+    def show(self):
+        print("C show")
+        super().show()  # Call next class in MRO (A)
+
+class D(B, C):  # Inherits from B, then C
+    def show(self):
+        print("D show")
+        super().show()  # Call next class in MRO (B)
+
+d = D()
+d.show()  # Output order: D -> B -> C -> A
+```
+
+#### **Approach 2: Inspecting MRO**
+```python
+class X: pass
+class Y: pass
+class Z(X, Y): pass
+
+# print(Z.__mro__) or print(Z.mro())
+# Shows the search order: [Z, X, Y, object]
+```
+
+---
+
+## **Section 2: Decorators, Generators & Advanced Functions (Q11-20)**
+
+### **11. Write a decorator that accepts arguments**
+
+#### **Approach 1: Triple Nested Functions**
+```python
+def repeat(num_times):  # Outermost function accepts arguments for the decorator
+    def decorator_repeat(func):  # Middle function accepts the function to be decorated
+        def wrapper(*args, **kwargs):  # Innermost function accepts arguments for the decorated function
+            for _ in range(num_times):  # Loop 'num_times' (captured from closure)
+                func(*args, **kwargs)  # Call the original function
+        return wrapper  # Return the wrapper function
+    return decorator_repeat  # Return the decorator function
+
+@repeat(3)  # Decorate with argument 3
+def say_hello(name):
+    print(f"Hello {name}")
+
+say_hello("Alice")  # Prints "Hello Alice" three times
+```
+
+#### **Approach 2: Class-based Decorator with Arguments**
+```python
+class Repeat:
+    def __init__(self, n):  # Receive decorator arguments
+        self.n = n
+
+    def __call__(self, func):  # Receive function to decorate
+        def wrapper(*args, **kwargs):
+            for _ in range(self.n):
+                func(*args, **kwargs)
+        return wrapper
+
+@Repeat(2)
+def greet(): print("Hi")
+
+greet() # Prints twice
+```
+
+---
+
+### **12. Implement a Memoization decorator (LRU Cache)**
+
+#### **Approach 1: Manual Memoization with Dictionary**
+```python
+def memoize(func):
+    cache = {}  # Dictionary to store results of previous calls (Closure)
+    def wrapper(*args):
+        if args not in cache:  # If result for these args is not cached
+            cache[args] = func(*args)  # Compute and store result
+        return cache[args]  # Return cached result
+    return wrapper
+
+@memoize
+def fibonacci(n):
+    if n <= 1: return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(50))  # Extremely fast because of memoization
+```
+
+#### **Approach 2: Using `functools.lru_cache` (Best Practice)**
+```python
+from functools import lru_cache  # Import built-in memoization tool
+
+@lru_cache(maxsize=128)  # Decorator to cache up to 128 last results
+def fib(n):
+    if n <= 1: return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(50))  # Efficiently handles recursion using the C-optimized cache
+```
+
+---
+
+### **13. Chain multiple decorators on a single function**
+
+#### **Approach 1: Functional Chaining**
+```python
+def make_bold(func):  # Decorator 1
+    def wrapper():
+        return f"<b>{func()}</b>"  # Wrap result in <b> tags
+    return wrapper
+
+def make_italic(func):  # Decorator 2
+    def wrapper():
+        return f"<i>{func()}</i>"  # Wrap result in <i> tags
+    return wrapper
+
+@make_bold  # Applied second
+@make_italic  # Applied first
+def say_hello():
+    return "Hello World"
+
+print(say_hello())  # Output: <b><i>Hello World</i></b>
+```
+
+#### **Approach 2: Order of Execution Demo**
+```python
+def deco1(f):
+    def w(): print("Deco1"); return f()
+    return w
+
+def deco2(f):
+    def w(): print("Deco2"); return f()
+    return w
+
+@deco1
+@deco2
+def test(): print("Original")
+
+test() # Output: Deco1 -> Deco2 -> Original
+```
+
+---
+
+### **14. Implementation of a Custom Iterator (Count from Low to High)**
+
+#### **Approach 1: `__iter__` and `__next__`**
+```python
+class CountUp:
+    def __init__(self, low, high):  # Initialize range
+        self.current = low  # Start value
+        self.high = high  # End value
+
+    def __iter__(self):  # Iterator object must return itself
+        return self
+
+    def __next__(self):  # Logic to get the next item
+        if self.current > self.high:  # If we reached limit
+            raise StopIteration  # Raise this to signal end of loop
+        else:
+            self.current += 1  # Increment for next call
+            return self.current - 1  # Return current value before increment
+
+for num in CountUp(1, 4):  # Use the iterator in a loop
+    print(num)  # Output: 1, 2, 3, 4
+```
+
+#### **Approach 2: Using the `iter()` sentinel trick**
+```python
+import random
+# iter(callable, sentinel) calls callable until result == sentinel
+# Infinite random generator until it hits 5
+random_iter = iter(lambda: random.randint(1, 10), 5)
+for x in random_iter: print(x)
+```
+
+---
+
+### **15. Write an infinite Fibonacci generator**
+
+#### **Approach 1: Simple Generator with `yield`**
+```python
+def fib_generator():
+    a, b = 0, 1  # Initialize first two numbers
+    while True:  # Infinite loop
+        yield a  # Yield the current number and pause execution
+        a, b = b, a + b  # Update a and b for the next fibonacci number
+
+gen = fib_generator()  # Create generator object
+for _ in range(10):  # Fetch 10 numbers
+    print(next(gen), end=" ")  # Output: 0 1 1 2 3 5 8 13 21 34
+```
+
+#### **Approach 2: Starting from Specific Values**
+```python
+def custom_fib(start_a, start_b):
+    a, b = start_a, start_b
+    while True:
+        yield a
+        a, b = b, a + b
+
+gen = custom_fib(10, 20)
+print(next(gen)) # 10
+print(next(gen)) # 20
+print(next(gen)) # 30
+```
+
+---
+
+### **16. Difference between `yield` and `yield from` (Generator Delegation)**
+
+#### **Approach 1: `yield from` for Flattening**
+```python
+def sub_generator():
+    yield 'A'
+    yield 'B'
+
+def main_generator():
+    yield 1
+    yield from sub_generator()  # Automatically yields all values from the sub-generator
+    yield 2
+
+for val in main_generator():  # Iterate main
+    print(val)  # Output: 1, A, B, 2
+```
+
+#### **Approach 2: `yield` with manual loop (The verbose way)**
+```python
+def main_generator_manual():
+    yield 1
+    for val in sub_generator():  # Manual iteration vs yield from
+        yield val
+    yield 2
+```
+
+---
+
+### **17. Demonstrate the use of Closures (Outer function variable persistence)**
+
+#### **Approach 1: Multiplier Creation**
+```python
+def multiplier(n):  # Outer function accepting 'n'
+    def multiply(x):  # Inner function accepting 'x'
+        return x * n  # Uses 'n' from outer scope which stays in memory (Closure)
+    return multiply  # Returns the inner function as a callable object
+
+times5 = multiplier(5)  # times5 is now a function that multiplies by 5
+times10 = multiplier(10)  # times10 is a function that multiplies by 10
+
+print(times5(10))   # Output: 5 * 10 = 50
+print(times10(10))  # Output: 10 * 10 = 100
+```
+
+#### **Approach 2: Stateful Closure (Nonlocal)**
+```python
+def make_counter():
+    count = 0  # State variable
+    def counter():
+        nonlocal count  # Modify outer scope variable
+        count += 1
+        return count
+    return counter
+
+c = make_counter()
+print(c(), c(), c()) # 1 2 3
+```
+
+---
+
+### **18. Use `functools.partial` to create specialized functions**
+
+#### **Approach 1: Partial with Positional Args**
+```python
+from functools import partial  # Import tool
+
+def power(base, exponent):
+    return base ** exponent  # Standard power function
+
+# Create new function 'square' with exponent pre-filled as 2
+square = partial(power, exponent=2)
+# Create new function 'cube' with exponent pre-filled as 3
+cube = partial(power, exponent=3)
+
+print(square(5))  # Output: 25 (5**2)
+print(cube(5))    # Output: 125 (5**3)
+```
+
+#### **Approach 2: Partial with Keyword Args**
+```python
+def greet(greeting, name):
+    return f"{greeting}, {name}!"
+
+# Pre-fill 'greeting' argument
+say_hello = partial(greet, "Hello")
+print(say_hello("Alice")) # Hello, Alice!
+```
+
+---
+
+### **19. Implement a Coroutine (using `yield` as an expression with `send()`)**
+
+#### **Approach 1: Data Searcher Coroutine**
+```python
+def grep(pattern):
+    print(f"Looking for {pattern}")
+    while True:
+        line = (yield)  # Pause and wait to receive data via .send()
+        if pattern in line:
+            print(f"Match found: {line}")
+
+search = grep('python')  # Initialize generator
+next(search)  # Prime the coroutine (advance to the first yield)
+
+search.send("I love java") # No output
+search.send("I love python") # Matches: Output provided
+search.close()  # Terminate coroutine
+```
+
+#### **Approach 2: Accumulator Coroutine**
+```python
+def accumulator():
+    total = 0
+    while True:
+        val = (yield total)
+        if val is None: break
+        total += val
+
+acc = accumulator()
+next(acc) # Start
+print(acc.send(10)) # 10
+print(acc.send(20)) # 30
+```
+
+---
+
+### **20. Demonstrate Monkey Patching in Python (Changing behavior at runtime)**
+
+#### **Approach 1: Patching a Class Method**
+```python
+class MyClass:
+    def greet(self):
+        print("Original Hello")
+
+def patched_greet(self):  # Replacement function
+    print("Patched Hello")
+
+# Dynamically swap the method in the class
+MyClass.greet = patched_greet
+
+obj = MyClass()
+obj.greet()  # Output: Patched Hello (Method was swapped at runtime)
+```
+
+#### **Approach 2: Patching an Instance Method**
+```python
+import types  # Required for MethodType
+
+obj = MyClass()
+# Bind a function to a specific instance only
+obj.greet = types.MethodType(lambda self: print("Instance specific"), obj)
+obj.greet() # Instance specific
+```
+
+---
+
+## **Section 3: Data Handling & Collections (Q21-30)**
+
+### **21. Deep Copy vs Shallow Copy with nested objects**
+
+#### **Approach 1: Using `copy` module**
+```python
+import copy
+
+original = [[1, 2], [3, 4]]
+shallow = copy.copy(original)  # Shallow copy: outer list new, inner sublists shared
+deep = copy.deepcopy(original) # Deep copy: nested objects fully copied
+
+original[0][0] = 99  # Modify nested item in original
+
+print(f"Shallow[0][0]: {shallow[0][0]}") # Output: 99 (Affected by change)
+print(f"Deep[0][0]: {deep[0][0]}")       # Output: 1 (Isolated, not affected)
+```
+
+#### **Approach 2: Slicing (Shallow only)**
+```python
+list1 = [1, 2, [3, 4]]
+list2 = list1[:] # Equivalent to copy.copy()
+list1[2][0] = 5
+print(list2[2][0]) # 5 (Nested reference shared)
+```
+
+---
+
+### **22. The "Mutable Default Argument" pitfall and how to fix it**
+
+#### **Approach 1: Demonstrating the Bug**
+```python
+def add_item(item, list_arr=[]):  # Default list created ONCE at definition time
+    list_arr.append(item)
+    return list_arr
+
+print(add_item(1))  # [1]
+print(add_item(2))  # [1, 2] - Unexpected behavior!
+```
+
+#### **Approach 2: Correct Safe Implementation**
+```python
+def add_item_safe(item, list_arr=None):  # Use None as default
+    if list_arr is None:  # Check inside function
+        list_arr = []  # Create new list for each call if none provided
+    list_arr.append(item)
+    return list_arr
+
+print(add_item_safe(1)) # [1]
+print(add_item_safe(2)) # [2] - Correct separate lists
+```
+
+---
+
+### **23. Tuple Unpacking and Argument Packing (`*`, `**`)**
+
+#### **Approach 1: Basic Unpacking**
+```python
+data = (10, 20, 30, 40)
+a, b, *rest = data  # a=10, b=20, rest=[30, 40]
+print(a, b, rest)
+```
+
+#### **Approach 2: Function Swapping**
+```python
+def func(a, b, c):
+    print(a, b, c)
+
+args = (1, 2, 3)
+kwargs = {'c': 3, 'b': 2, 'a': 1}
+
+func(*args)   # Unpack tuple as positional args
+func(**kwargs) # Unpack dict as keyword args
+```
+
+---
+
+### **24. Custom Sorting with Lambda and Complex Keys**
+
+#### **Approach 1: Sorting List of Dictionaries**
+```python
+students = [
+    {'name': 'Alice', 'score': 88},
+    {'name': 'Bob', 'score': 95},
+    {'name': 'Charlie', 'score': 95}
+]
+
+# Sort by score (descending), then name (ascending)
+sorted_students = sorted(students, key=lambda x: (-x['score'], x['name']))
+print(sorted_students)
+```
+
+#### **Approach 2: Using `attrgetter` for objects**
+```python
+from operator import attrgetter
+# class User: def __init__(self, id): self.id = id
+# users.sort(key=attrgetter('id'))
+```
+
+---
+
+### **25. Set Operations for unique data handling**
+
+#### **Approach 1: Finding Differences**
+```python
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+print(set1 - set2)  # Difference: {1, 2}
+print(set1 ^ set2)  # Symmetric Difference (in either but not both): {1, 2, 5, 6}
+```
+
+#### **Approach 2: Subset checking**
+```python
+small = {1, 2}
+big = {1, 2, 3}
+print(small.issubset(big)) # True
+```
+
+---
+
+    ### **26. Dictionary Comprehension with filtering**
+
+#### **Approach 1: Basic Filtering**
+```python
+prices = {'apple': 0.5, 'banana': 1.2, 'cherry': 0.8}
+# Create new dict with items where value > 1.0
+expensive_items = {k: v for k, v in prices.items() if v > 1.0}
+print(expensive_items)
+```
+
+#### **Approach 2: Modifying values during comprehension**
+```python
+# Create new dict with 10% discount applied to all items
+discounted = {k: v * 0.9 for k, v in prices.items()}
+```
+
+---
+
+### **27. Using `enumerate()` for index-tracking loops**
+
+#### **Approach 1: Basic Usage**
+```python
+fruits = ['apple', 'banana', 'cherry']
+for index, fruit in enumerate(fruits, start=1):  # start=1 makes it human-readable
+    print(f"{index}: {fruit}")
+```
+
+#### **Approach 2: Building Index Dictionary**
+```python
+fruit_map = {fruit: i for i, fruit in enumerate(fruits)}
+```
+
+---
+
+### **28. Using `zip()` to iterate through multiple lists in parallel**
+
+#### **Approach 1: Basic Zip**
+```python
+names = ['Alice', 'Bob']
+scores = [85, 92]
+for name, score in zip(names, scores):
+    print(f"{name} scored {score}")
+```
+
+#### **Approach 2: Unzipping a list of tuples**
+```python
+pairs = [('A', 1), ('B', 2)]
+letters, numbers = zip(*pairs) # Unpack pairs and zip columns back to separate tuples
+```
+
+---
+
+### **29. `all()` and `any()` for concise logic checking**
+
+#### **Approach 1: Checking all conditions**
+```python
+grades = [90, 85, 70, 45]
+is_all_pass = all(g >= 50 for g in grades) # True if every g >= 50
+print(is_all_pass) # False (45 is a fail)
+```
+
+#### **Approach 2: Checking if any condition is met**
+```python
+is_any_distinction = any(g >= 90 for g in grades) # True if at least one g >= 90
+print(is_any_distinction) # True
+```
+
+---
+
+### **30. The `collections.defaultdict` for grouped data**
+
+#### **Approach 1: Grouping even/odd**
+```python
+from collections import defaultdict
+grouped = defaultdict(list)
+for x in range(10):
+    category = 'even' if x % 2 == 0 else 'odd'
+    grouped[category].append(x)
+```
+
+#### **Approach 2: Character position map**
+```python
+pos_map = defaultdict(set)
+for i, char in enumerate("hello world"):
+    pos_map[char].add(i)
+```
+
+---
+
+## **Section 4: Functional Python & Built-in Modules (Q31-40)**
+
+### **31. Difference between `is` and `==`**
+
+#### **Approach 1: Memory vs Value**
+```python
+a = [1, 2, 3]
+b = [1, 2, 3]
+c = a
+
+print(a == b) # True (Same values)
+print(a is b) # False (Different memory addresses)
+print(a is c) # True (Point to exact same object)
+```
+
+#### **Approach 2: String Interning (Caveat)**
+```python
+# Small strings and integers might be interned by Python for performance
+x = "hi"; y = "hi"
+print(x is y) # Often True due to interning
+```
+
+---
+
+### **32. Using `namedtuple` and `dataclasses` (Modern Python)**
+
+#### **Approach 1: `namedtuple`**
+```python
+from collections import namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(10, 20)
+print(p.x, p.y) # Access by name
+```
+
+#### **Approach 2: `dataclasses` (Python 3.7+)**
+```python
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: int
+    username: str
+
+u = User(1, 'alice')
+print(u) # Automated __repr__ provided by dataclass
+```
+
+---
+
+### **33. Using `contextlib.suppress` to ignore specific errors**
+
+#### **Approach 1: Clean way to ignore errors**
+```python
+import os
+from contextlib import suppress
+
+with suppress(FileNotFoundError):  # Instead of try/except block
+    os.remove("non_existent_file.txt")
+```
+
+#### **Approach 2: Comparison with try-except**
+```python
+try:
+    os.remove("f.txt")
+except FileNotFoundError:
+    pass # suppress() does exactly this but looks cleaner
+```
+
+---
+
+### **34. Infinite Iterators with `itertools`**
+
+#### **Approach 1: `count` and `cycle`**
+```python
+from itertools import count, cycle
+
+# count(start, step)
+for i in count(10, 5):
+    if i > 25: break
+    print(i) # 10, 15, 20, 25
+
+# cycle(iterable) loops forever
+c = cycle('AB')
+print(next(c), next(c), next(c)) # A, B, A
+```
+
+#### **Approach 2: `repeat`**
+```python
+from itertools import repeat
+for x in repeat("Hi", 3): print(x) # Prints "Hi" 3 times
+```
+
+---
+
+### **35. Using `functools.wraps` in custom decorators**
+
+#### **Approach 1: Why it is needed**
+```python
+from functools import wraps
+
+def my_decorator(f):
+    @wraps(f) # CRITICAL: Preserves __name__, __doc__, etc.
+    def wrapper(*args, **kwargs):
+        """This is the wrapper"""
+        return f(*args, **kwargs)
+    return wrapper
+
+@my_decorator
+def my_func():
+    """Original docstring"""
+    pass
+
+print(my_func.__name__) # 'my_func' (stays same thanks to @wraps)
+print(my_func.__doc__)  # 'Original docstring'
+```
+
+#### **Approach 2: Without @wraps (The problem)**
+```python
+# Without @wraps, my_func.__name__ would be 'wrapper'
+```
+
+---
+
+### **36. Making a custom object Iterable**
+
+#### **Approach 1: Using `__getitem__` (Simplest)**
+```python
+class MySequence:
+    def __init__(self, data):
+        self.data = data
+
+    def __getitem__(self, index): # Python calls this for indexing AND iteration
+        return self.data[index]
+
+seq = MySequence([1, 2, 3])
+for x in seq: print(x)
+```
+
+#### **Approach 2: Full Iterator Pattern**
+```python
+# Implementing __iter__ that returns a separate iterator object
+```
+
+---
+
+### **37. Inspecting scopes with `locals()` and `globals()`**
+
+#### **Approach 1: Accessing local variables dynamically**
+```python
+def my_func():
+    x = 10
+    y = 20
+    # locals() returns a dictionary of current scope variables
+    print(locals()) # {'x': 10, 'y': 20}
+
+my_func()
+```
+
+#### **Approach 2: Modifying globals (Use with caution)**
+```python
+# globals()['NEW_VAR'] = 100
+```
+
+---
+
+### **38. Frequency analysis with `collections.Counter`**
+
+#### **Approach 1: Character/Word Frequency**
+```python
+from collections import Counter
+c = Counter("mississippi")
+print(c.most_common(2)) # [('i', 4), ('s', 4)]
+```
+
+#### **Approach 2: Subtracting counts**
+```python
+c1 = Counter(a=3, b=1)
+c2 = Counter(a=1, b=2)
+print(c1 - c2) # Counter({'a': 2})
+```
+
+---
+
+### **39. Implementing a Custom JSON Encoder**
+
+#### **Approach 1: Handling Custom Objects**
+```python
+import json
+
+class User:
+    def __init__(self, name): self.name = name
+
+class UserEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, User):
+            return {"name": obj.name} # Conversion logic
+        return super().default(obj)
+
+u = User("Alice")
+print(json.dumps(u, cls=UserEncoder))
+```
+
+#### **Approach 2: Using a function (simpler alternative)**
+```python
+# json.dumps(obj, default=lambda x: x.__dict__)
+```
+
+---
+
+### **40. Modern f-string features (Debug mode `x=`)**
+
+#### **Approach 1: Self-documenting expressions**
+```python
+name = "Alice"
+age = 25
+# The = sign inside f-string prints name=value
+print(f"{name=}, {age=}") # Output: name='Alice', age=25
+```
+
+#### **Approach 2: Formatting numbers**
+```python
+val = 12.3456
+print(f"{val:.2f}") # 12.35
+```
+
+---
+
+## **Section 5: Modern Python & Best Practices (Q41-50)**
+
+### **41. Basic Asynchronous programming with `asyncio`**
+
+#### **Approach 1: Hello World Async**
+```python
+import asyncio
+
+async def say_hi():
+    print("Beginning...")
+    await asyncio.sleep(1) # Non-blocking sleep
+    print("...Done!")
+
+asyncio.run(say_hi())
+```
+
+#### **Approach 2: Event Loop Concept**
+```python
+# asyncio.run() handles starting the loop and closing it
+```
+
+---
+
+### **42. Running parallel tasks with `asyncio.gather`**
+
+#### **Approach 1: Multiple Tasks simultaneously**
+```python
+import asyncio
+import time
+
+async def task(n):
+    await asyncio.sleep(n)
+    return n
+
+async def main():
+    # Runs all three concurrently
+    results = await asyncio.gather(task(1), task(2), task(3))
+    print(results)
+
+asyncio.run(main()) # Takes ~3 seconds (longest task) not 6.
+```
+
+#### **Approach 2: Handling exceptions in gather**
+```python
+# await asyncio.gather(..., return_exceptions=True)
+```
+
+---
+
+### **43. Type Hinting (Static Typing support)**
+
+#### **Approach 1: Variable and Function Annotations**
+```python
+from typing import List, Optional
+
+def process_names(names: List[str], prefix: Optional[str] = None) -> List[str]:
+    if prefix:
+        return [f"{prefix} {n}" for n in names]
+    return names
+```
+
+#### **Approach 2: Using `Union`**
+```python
+from typing import Union
+def show(val: Union[int, str]): print(val)
+```
+
+---
+
+### **44. Managing environment variables with `os.getenv`**
+
+#### **Approach 1: Reading configuration**
+```python
+import os
+
+# Safely get variable, providing a default if not set
+api_key = os.getenv("API_KEY", "default_safe_key")
+print(f"Using key: {api_key}")
+```
+
+#### **Approach 2: checking for existence**
+```python
+if "SECRET" in os.environ: print("Exists!")
+```
+
+---
+
+### **45. Professional Logging instead of `print()`**
+
+#### **Approach 1: Basic Config**
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
+logging.info("System started")
+logging.warning("Low disk space")
+```
+
+#### **Approach 2: Logging to a file**
+```python
+# logging.basicConfig(filename='app.log', ...)
+```
+
+---
+
+### **46. The `if __name__ == "__main__":` block**
+
+#### **Approach 1: Script vs Module logic**
+```python
+def main():
+    print("Running as script")
+
+if __name__ == "__main__": # True only if run directly, not if imported
+    main()
+```
+
+#### **Approach 2: Benefit for testing**
+```python
+# Allows you to import functions in other files without executing the script part
+```
+
+---
+
+### **47. Basic Unit Testing with `unittest`**
+
+#### **Approach 1: Test Case Definition**
+```python
+import unittest
+
+def add(a, b): return a + b
+
+class TestMath(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(10, 5), 15)
+        self.assertNotEqual(add(1, 1), 3)
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+#### **Approach 2: Testing for Exceptions**
+```python
+# with self.assertRaises(ValueError): divide(1, 0)
+```
+
+---
+
+### **48. Creating and managing Virtual Environments**
+
+#### **Approach 1: CLI Commands (Windows)**
+```bash
+python -m venv myenv  # Create the environment
+myenv\Scripts\activate  # Activate it
+pip install requests    # Install dependencies only for this project
+deactivate              # Exit the environment
+```
+
+#### **Approach 2: Requirement files**
+```bash
+pip freeze > requirements.txt
+```
+
+---
+
+### **49. Parsing command-line arguments with `argparse`**
+
+#### **Approach 1: Basic CLI tool**
+```python
+import argparse
+
+parser = argparse.ArgumentParser(description="My Cool Tool")
+parser.add_argument("--name", help="Your name", required=True)
+parser.add_argument("--age", type=int, default=18)
+
+args = parser.parse_args()
+print(f"Hello {args.name}, age {args.age}")
+```
+
+#### **Approach 2: Positional Arguments**
+```python
+# parser.add_argument("filename") # Required arg without --
+```
+
+---
+
+### **50. Best practices for Package management with `pip`**
+
+#### **Approach 1: Safe Installations**
+```bash
+# Update pip first
+python -m pip install --upgrade pip
+# Install from requirements to ensure version consistency
+pip install -r requirements.txt
+```
+
+#### **Approach 2: Checking for vulnerabilities**
+```bash
+# pip install safety
+# safety check
+```
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        const target = document.getElementById('target');
+        const rawMd = document.getElementById('raw-markdown').innerHTML;
+        marked.setOptions({
+            highlight: (code, lang) => Prism.languages[lang] ? Prism.highlight(code, Prism.languages[lang], lang) : code,
+            breaks: true, gfm: true
+        });
+        target.innerHTML = marked.parse(rawMd);
+        function build() {
+            target.querySelectorAll('h2').forEach(h2 => h2.classList.add('section-header'));
+            target.querySelectorAll('h3').forEach(h3 => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                let next = h3.nextElementSibling;
+                card.appendChild(h3.cloneNode(true));
+                h3.remove();
+                while (next && next.tagName !== 'H3' && next.tagName !== 'H2' && next.tagName !== 'HR') {
+                    let t = next.nextElementSibling;
+                    card.appendChild(next);
+                    next = t;
+                }
+                target.insertBefore(card, next);
+            });
+            target.querySelectorAll('pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.innerText = 'Copy'; btn.className = 'copy-btn';
+                btn.onclick = () => { navigator.clipboard.writeText(pre.innerText.replace('Copy', '').trim()); btn.innerText = 'Copied!'; setTimeout(() => btn.innerText = 'Copy', 2000); };
+                pre.appendChild(btn);
+            });
+        }
+        build();
+        document.getElementById('search').oninput = (e) => {
+            const q = e.target.value.toLowerCase();
+            document.querySelectorAll('.question-card').forEach(c => c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none');
+        };
+    </script>
+
+<footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #30363d; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+    <p style="font-size: 1.2rem; color: #00ffa3; margin-bottom: 10px;">✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+    <p style="font-size: 0.9rem; color: #8b949e;">Python Full Stack Developer | Interview Prep Resources</p>
+</footer>
+</body>
+
+
+</html>

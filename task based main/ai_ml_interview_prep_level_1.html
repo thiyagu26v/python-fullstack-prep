@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!-- ========================================== -->
+<!-- Created by Thiyagarajan Varadharajan -->
+<!-- LinkedIn: Share this resource! -->
+<!-- ========================================== -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Mastery (Dual Approach) - Neural Sky</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <style>
+        :root {
+            --bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --accent: #2196f3;
+            --text: #37474f;
+            --dim-text: #78909c;
+            --border: rgba(33, 150, 243, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #1976d2, #64b5f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--dim-text);
+            margin-bottom: 50px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .section-header {
+            color: #1a237e;
+            margin: 60px 0 30px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        h3 {
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            margin: 25px 0 10px;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #fafafa !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            margin: 15px 0 !important;
+            position: relative;
+            border: 1px solid #eeeeee !important;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 0.9rem !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #e3f2fd;
+            color: #1a237e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>AI/ML Essentials</h1>
+        <p class="subtitle">Neural Sky • Dual-Approach Mastery</p>
+        <div id="target"></div>
+    </div>
+
+    <script type="text/markdown" id="raw-markdown">
+## **Section 1: Natural Language Processing (Q1-12)**
+
+### **1. Sentence Tokenization**
+**Task:** Split a paragraph into individual sentences.
+
+#### **Method 1: NLTK (Rule-based)**
+```python
+import nltk
+# Logic: Uses pre-trained Punkt tokenizer for boundary detection
+para = "AI is great. It is the future."
+sentences = nltk.sent_tokenize(para) # ['AI is great.', 'It is the future.']
+```
+
+#### **Method 2: BERT Tokenizer (Modern)**
+```python
+from transformers import AutoTokenizer
+# Logic: BERT uses sub-word tokenization and special tokens ([CLS], [SEP])
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+tokens = tokenizer.tokenize(para) # ['ai', 'is', 'great', '.', 'it', ...]
+```
+
+---
+
+### **2. Word Tokenization**
+**Task:** Break a sentence into its constituent words.
+
+#### **Method 1: NLTK (Word-based)**
+```python
+# Logic: Splitting by whitespace and punctuation rules
+words = nltk.word_tokenize("Hello AI world!") # ['Hello', 'AI', 'world', '!']
+```
+
+#### **Method 2: BERT (Sub-word based)**
+```python
+# Logic: BERT might split unknown words into 'pieces' to handle OOV
+# E.g., "AIworld" might become ["ai", "##world"]
+tokens = tokenizer.tokenize("Hello AIworld!")
+```
+
+---
+
+### **3. Stopword Removal**
+**Task:** Filter out common unimportant words (e.g., "is", "the").
+
+#### **Method 1: NLTK (List-based)**
+```python
+from nltk.corpus import stopwords
+# Logic: Manually checking if word exists in a static 'english' set
+stop_words = set(stopwords.words('english'))
+clean = [w for w in words if w.lower() not in stop_words]
+```
+
+#### **Method 2: BERT / Modern NLP (Ignore Masking)**
+```python
+# Logic: Transformers often KEEP stopwords to maintain "context" 
+# but we can filter by attention mask importance conceptually.
+```
+
+---
+
+### **4. Stemming vs Lemmatization**
+**Task:** Reduce words like "programming" to "program".
+
+#### **Method 1: Porter Stemmer (Chop)**
+```python
+from nltk.stem import PorterStemmer
+# Logic: Rule-based suffix stripping
+ps = PorterStemmer()
+res = ps.stem("programming") # "program"
+```
+
+#### **Method 2: Transformers (Embedding Context)**
+```python
+# Logic: BERT doesn't stem; it produces unique embeddings for "programming" 
+# that are mathematically close to "program" in vector space.
+```
+
+---
+
+### **5. Vectorization (Text to Numbers)**
+**Task:** Convert text into a format the computer understands.
+
+#### **Method 1: TF-IDF (Statistical)**
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+# Logic: Counts term frequency adjusted by global document frequency
+vec = TfidfVectorizer()
+X = vec.fit_transform(["AI is great"])
+```
+
+#### **Method 2: Sentence-BERT (Semantic)**
+```python
+from sentence_transformers import SentenceTransformer
+# Logic: Produces dense vectors that capture "meaning" not just word counts
+model = SentenceTransformer('all-MiniLM-L6-v2')
+embeddings = model.encode(["AI is great"])
+```
+
+---
+
+### **6. Sentiment Analysis**
+**Task:** Determine if a text is positive or negative.
+
+#### **Method 1: TextBlob (Rule-based Polarity)**
+```python
+from textblob import TextBlob
+# Logic: Uses a dictionary where "love" = 0.5, "hate" = -0.5
+blob = TextBlob("I love AI")
+score = blob.sentiment.polarity # Positive
+```
+
+#### **Method 2: BERT Pipeline (Deep Learning)**
+```python
+from transformers import pipeline
+# Logic: Uses a trained Transformer model to understand context/emotion
+classifier = pipeline("sentiment-analysis")
+res = classifier("I love AI") # label: POSITIVE, score: 0.99
+```
+
+---
+
+### **7. POS Tagging**
+**Task:** Identify Nouns, Verbs, etc.
+
+#### **Method 1: NLTK (Statistical Tagging)**
+```python
+# Logic: Uses a Hidden Markov Model (HMM) on word tokens
+tags = nltk.pos_tag(nltk.word_tokenize("I run fast"))
+```
+
+#### **Method 2: SpaCy / Transformer (Deep Dependency)**
+```python
+import spacy
+# Logic: Uses a CNN/Transformer architecture for better context accuracy
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("I run fast") # doc[1].pos_ -> "VERB"
+```
+
+---
+
+## **Section 2: Machine Learning Fundamentals (Q11-20)**
+
+### **11. Linear Regression**
+**Task:** Predict a numeric value.
+
+#### **Method 1: Manual (Math-based)**
+```python
+# Logic: y = mx + b. Calculate slope (m) using Mean Squared Error.
+```
+
+#### **Method 2: Scikit-learn (Automated)**
+```python
+from sklearn.linear_model import LinearRegression
+# Logic: Uses OLS (Ordinary Least Squares) algorithm to find the best-fit line.
+model = LinearRegression().fit(X, y)
+```
+
+---
+
+### **12. Error Calculation (MSE)**
+**Task:** Measure how wrong the prediction is.
+
+#### **Method 1: Python Loop (Manual)**
+```python
+# Logic: sum((actual - predicted)**2) / n
+errors = [(a - p)**2 for a, p in zip(actual, pred)]
+mse = sum(errors) / len(errors)
+```
+
+#### **Method 2: Scikit-learn (Direct)**
+```python
+from sklearn.metrics import mean_squared_error
+# Logic: Efficient C-level implementation of the MSE formula
+mse = mean_squared_error(actual, pred)
+```
+
+---
+
+### **13. Evaluation Metrics Comparison**
+| Task | Approach A (NLTK/Stat) | Approach B (BERT/Transformer) |
+|---|---|---|
+| Speed | Very Fast | Slower (Requires GPU/CPU) |
+| Accuracy | Lower (Context-blind) | Higher (Context-aware) |
+| Setup | Simple (pip install nltk) | Complex (HuggingFace/Tensors) |
+
+---
+
+## **Section 3: Practical Interview Scenarios (Q21-25)**
+
+### **21. Overfitting Prevention**
+**Task:** How to stop a model from "memorizing" data.
+
+#### **Approach 1: Cross-Validation**
+```python
+from sklearn.model_selection import cross_val_score
+# Logic: Split data into 5 folds, train on 4, test on 1. Repeat.
+```
+
+#### **Approach 2: Regularization (L1/L2)**
+```python
+# Logic: Add a penalty term to the loss function to keep weights small.
+```
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+    <script>
+        const target = document.getElementById('target');
+        const rawMd = document.getElementById('raw-markdown').innerHTML;
+
+        marked.setOptions({
+            highlight: (code, lang) => {
+                if (Prism.languages[lang]) {
+                    return Prism.highlight(code, Prism.languages[lang], lang);
+                }
+                return code;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        target.innerHTML = marked.parse(rawMd);
+
+        function setupUI() {
+            target.querySelectorAll('h2').forEach(h2 => h2.classList.add('section-header'));
+            target.querySelectorAll('h3').forEach(h3 => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                let next = h3.nextElementSibling;
+                card.appendChild(h3.cloneNode(true));
+                h3.remove();
+                while (next && next.tagName !== 'H3' && next.tagName !== 'H2' && next.tagName !== 'HR') {
+                    let toMove = next;
+                    next = next.nextElementSibling;
+                    card.appendChild(toMove);
+                }
+                target.insertBefore(card, next);
+            });
+            target.querySelectorAll('pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.innerText = 'Copy';
+                btn.onclick = () => {
+                    const code = pre.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        btn.innerText = 'Copied!';
+                        setTimeout(() => btn.innerText = 'Copy', 2000);
+                    });
+                };
+                pre.appendChild(btn);
+            });
+        }
+        setupUI();
+    </script>
+
+<footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #30363d; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+    <p style="font-size: 1.2rem; color: #00ffa3; margin-bottom: 10px;">✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+    <p style="font-size: 0.9rem; color: #8b949e;">Python Full Stack Developer | Interview Prep Resources</p>
+</footer>
+</body>
+
+
+</html>

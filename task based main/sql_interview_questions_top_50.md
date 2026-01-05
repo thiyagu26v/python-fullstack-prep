@@ -1,0 +1,1205 @@
+---
+> **✨ Created by Thiyagarajan Varadharajan ✨**  
+> *Python Full Stack Developer | Interview Prep Resources*
+
+---
+
+# SQL/PostgreSQL Interview Questions (Top 50 Essentials)
+
+This document contains 50 essential SQL questions ranging from basic to intermediate, with a focus on PostgreSQL syntax and professional optimizations.
+
+---
+
+## **Section 1: Basics & Filtering (Q1-10)**
+
+### **1. Select all columns from a table named `employees`**
+
+**Input (`employees`):**
+| id | name | dept | salary |
+|---|---|---|---|
+| 1 | Alice | IT | 70000 |
+| 2 | Bob | HR | 50000 |
+
+#### **Solution:**
+```sql
+SELECT *             -- Asterisk selects every column available in the table
+FROM employees;      -- Specifies the table source
+```
+
+**Output:**
+| id | name | dept | salary |
+|---|---|---|---|
+| 1 | Alice | IT | 70000 |
+| 2 | Bob | HR | 50000 |
+
+---
+
+### **2. Select only `name` and `salary` of employees working in 'IT'**
+
+**Input (`employees`):**
+| id | name | dept | salary |
+|---|---|---|---|
+| 1 | Alice | IT | 70000 |
+| 2 | Bob | HR | 50000 |
+| 3 | Charlie | IT | 60000 |
+
+#### **Solution:**
+```sql
+SELECT name, salary  -- Select specific columns for better performance
+FROM employees       -- Source table
+WHERE dept = 'IT';  -- Filter rows where department is exactly 'IT' (Case-sensitive in Postgres)
+```
+
+**Output:**
+| name | salary |
+|---|---|
+| Alice | 70000 |
+| Charlie | 60000 |
+
+---
+
+### **3. Find employees whose salary is between 50,000 and 80,000**
+
+**Input (`employees`):**
+| id | name | salary |
+|---|---|---|
+| 1 | Alice | 70000 |
+| 2 | Bob | 40000 |
+| 3 | Charlie | 80000 |
+| 4 | David | 90000 |
+
+#### **Solution:**
+```sql
+SELECT *             -- Select all columns
+FROM employees       -- Source table
+WHERE salary BETWEEN 50000 AND 80000; -- BETWEEN is inclusive of both values
+```
+
+**Output:**
+| id | name | salary |
+|---|---|---|
+| 1 | Alice | 70000 |
+| 3 | Charlie | 80000 |
+
+---
+
+### **4. List unique departments from the `employees` table**
+
+**Input (`employees`):**
+| id | name | dept |
+|---|---|---|
+| 1 | Alice | IT |
+| 2 | Bob | HR |
+| 3 | Charlie | IT |
+| 4 | David | Sale |
+
+#### **Solution:**
+```sql
+SELECT DISTINCT dept -- DISTICT removes duplicate values from the output
+FROM employees;      -- Source table
+```
+
+**Output:**
+| dept |
+|---|
+| IT |
+| HR |
+| Sale |
+
+---
+
+### **5. Find employees whose names start with 'A'**
+
+**Input (`employees`):**
+| id | name |
+|---|---|
+| 1 | Alice |
+| 2 | Bob |
+| 3 | Amanda |
+| 4 | David |
+
+#### **Solution:**
+```sql
+SELECT *             -- Select all columns
+FROM employees       -- Source table
+WHERE name LIKE 'A%'; -- '%' is a wildcard matching any number of characters
+```
+
+**Output:**
+| id | name |
+|---|---|
+| 1 | Alice |
+| 3 | Amanda |
+
+---
+
+### **6. Find employees whose names contain 'an'**
+
+**Input (`employees`):**
+| id | name |
+|---|---|
+| 1 | Alice |
+| 2 | Frank |
+| 3 | Amanda |
+| 4 | Diana |
+
+#### **Solution:**
+```sql
+SELECT *              -- Select all columns from the matching rows
+FROM employees        -- Source from the employees table
+WHERE name LIKE '%an%'; -- Filter using wildcards; matches any occurrence of 'an'
+```
+
+**Output:**
+| id | name |
+|---|---|
+| 2 | Frank |
+| 3 | Amanda |
+| 4 | Diana |
+
+---
+
+### **7. Sort employees by salary in descending order**
+
+**Input (`employees`):**
+| id | name | salary |
+|---|---|---|
+| 1 | Alice | 70000 |
+| 2 | Bob | 50000 |
+| 3 | Charlie | 90000 |
+
+#### **Solution:**
+```sql
+SELECT *              -- Select all employee details
+FROM employees        -- Target table
+ORDER BY salary DESC; -- Sort records by salary; DESC specifies descending order
+```
+
+**Output:**
+| id | name | salary |
+|---|---|---|
+| 3 | Charlie | 90000 |
+| 1 | Alice | 70000 |
+| 2 | Bob | 50000 |
+
+---
+
+### **8. Check for employees who do NOT have a manager (ManagerID is NULL)**
+
+**Input (`employees`):**
+| id | name | manager_id |
+|---|---|---|
+| 1 | Alice | NULL |
+| 2 | Bob | 1 |
+| 3 | Charlie | NULL |
+
+#### **Solution:**
+```sql
+SELECT * 
+FROM employees 
+WHERE manager_id IS NULL; -- Always use IS NULL / IS NOT NULL, never = NULL
+```
+
+**Output:**
+| id | name | manager_id |
+|---|---|---|
+| 1 | Alice | NULL |
+| 3 | Charlie | NULL |
+
+---
+
+### **9. Find the first 5 highest-paid employees**
+
+**Input (`employees`):**
+| name | salary |
+|---|---|
+| A | 100 |
+| B | 200 |
+| C | 300 |
+| D | 400 |
+| E | 500 |
+| F | 50 |
+
+#### **Solution:**
+```sql
+SELECT * 
+FROM employees 
+ORDER BY salary DESC -- Sort high to low first
+LIMIT 5;             -- LIMIT restricts the result set to the top N rows
+```
+
+**Output:**
+| name | salary |
+|---|---|
+| E | 500 |
+| D | 400 |
+| C | 300 |
+| B | 200 |
+| A | 100 |
+
+---
+
+### **10. Find names of employees whose names are exactly 5 characters long**
+
+**Input (`employees`):**
+| name |
+|---|
+| Alice |
+| Bob |
+| Carol |
+| David |
+
+#### **Solution:**
+```sql
+SELECT name 
+FROM employees 
+WHERE name LIKE '_____'; -- Each underscore '_' represents exactly one character
+```
+
+**Output:**
+| name |
+|---|
+| Alice |
+| Carol |
+| David |
+
+---
+
+## **Section 2: Aggregate Functions & Grouping (Q11-20)**
+
+### **11. Count the total number of employees**
+
+**Input (`employees`):**
+| id | name |
+|---|---|
+| 1 | Alice |
+| 2 | Bob |
+| 3 | Charlie |
+
+#### **Solution:**
+```sql
+SELECT COUNT(*)      -- Built-in aggregate function to count all rows
+FROM employees;      -- Target source table
+```
+
+**Output:**
+| count |
+|---|
+| 3 |
+
+---
+
+### **12. Calculate the total salary spent by the company**
+
+**Input (`employees`):**
+| name | salary |
+|---|---|
+| Alice | 100 |
+| Bob | 200 |
+
+#### **Solution:**
+```sql
+SELECT SUM(salary)   -- Adds numeric values in the salary column
+FROM employees;      -- Target table
+```
+
+**Output:**
+| sum |
+|---|
+| 300 |
+
+---
+
+### **13. Find the maximum and minimum salary in the IT department**
+
+**Input (`employees`):**
+| name | dept | salary |
+|---|---|---|
+| Alice | IT | 1000 |
+| Bob | HR | 5000 |
+| Charlie | IT | 3000 |
+
+#### **Solution:**
+```sql
+SELECT MAX(salary) AS highest, -- Alias for cleaner output
+       MIN(salary) AS lowest   -- AS keyword helps name the result columns
+FROM employees 
+WHERE dept = 'IT';
+```
+
+**Output:**
+| highest | lowest |
+|---|---|
+| 3000 | 1000 |
+
+---
+
+### **14. Find the average salary per department**
+
+**Input (`employees`):**
+| dept | salary |
+|---|---|
+| IT | 1000 |
+| IT | 2000 |
+| HR | 5000 |
+
+#### **Solution:**
+```sql
+SELECT dept, AVG(salary)   -- Select the group key and the aggregate
+FROM employees 
+GROUP BY dept;             -- Required when mixing individual columns and aggregates
+```
+
+**Output:**
+| dept | avg |
+|---|---|
+| IT | 1500 |
+| HR | 5000 |
+
+---
+
+### **15. Find departments that have more than 10 employees**
+
+**Input (`employees`):** (Simplified for brevity)
+Suppose IT has 12 employees, HR has 5.
+
+#### **Solution:**
+```sql
+SELECT dept, COUNT(*) 
+FROM employees 
+GROUP BY dept             -- Group by column
+HAVING COUNT(*) > 10;     -- HAVING filters groups based on aggregate results (WHERE is for rows)
+```
+
+**Output:**
+| dept | count |
+|---|---|
+| IT | 12 |
+
+---
+
+### **16. Find the department and total salary, but only for departments spending > 100,000**
+
+**Input (`employees`):**
+| dept | salary |
+|---|---|
+| IT | 60000 |
+| IT | 50000 |
+| HR | 40000 |
+
+#### **Solution:**
+```sql
+SELECT dept, SUM(salary) 
+FROM employees 
+GROUP BY dept 
+HAVING SUM(salary) > 100000;
+```
+
+**Output:**
+| dept | sum |
+|---|---|
+| IT | 110000 |
+
+---
+
+### **17. Find the average salary of each department, sorted by average salary descending**
+
+**Input (`employees`):**
+| dept | salary |
+|---|---|
+| IT | 1000 |
+| HR | 5000 |
+
+#### **Solution:**
+```sql
+SELECT dept, AVG(salary) AS avg_sal
+FROM employees 
+GROUP BY dept 
+ORDER BY avg_sal DESC;     -- You can sort by the alias in most modern SQL databases
+```
+
+**Output:**
+| dept | avg_sal |
+|---|---|
+| HR | 5000 |
+| IT | 1000 |
+
+---
+
+### **18. Count how many employees have a manager**
+
+**Input (`employees`):**
+| name | manager_id |
+|---|---|
+| Boss | NULL |
+| Emp1 | 1 |
+| Emp2 | 1 |
+
+#### **Solution:**
+```sql
+SELECT COUNT(manager_id) -- COUNT(column) only counts non-NULL entries
+FROM employees;
+```
+
+**Output:**
+| count |
+|---|
+| 2 |
+
+---
+
+### **19. Find the number of employees in each department, but ignore 'HR'**
+
+**Input (`employees`):**
+| dept | name |
+|---|---|
+| IT | Alice |
+| HR | Bob |
+| IT | Charlie |
+
+#### **Solution:**
+```sql
+SELECT dept, COUNT(*) 
+FROM employees 
+WHERE dept != 'HR'       -- Filter done BEFORE grouping
+GROUP BY dept;
+```
+
+**Output:**
+| dept | count |
+|---|---|
+| IT | 2 |
+
+---
+
+### **20. Combine name and department into a single string (PostgreSQL syntax)**
+
+**Input (`employees`):**
+| name | dept |
+|---|---|
+| Alice | IT |
+
+#### **Solution:**
+```sql
+SELECT name || ' works in ' || dept AS description -- '||' is the concat operator in Postgres
+FROM employees;
+```
+
+**Output:**
+| description |
+|---|
+| Alice works in IT |
+
+---
+
+## **Section 3: Joins (Q21-30)**
+
+### **21. Select employee names and their department names using an INNER JOIN**
+
+**Input (`employees`):**
+| id | name | dept_id |
+|---|---|---|
+| 1 | Alice | 1 |
+| 2 | Bob | 2 |
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+| 2 | HR |
+
+#### **Solution:**
+```sql
+SELECT e.name, d.dept_name 
+FROM employees e            -- 'e' is an alias for the employees table
+INNER JOIN depts d          -- Specifies join type and the target table
+ON e.dept_id = d.id;        -- ON clause defines the join condition/relationship
+```
+
+**Output:**
+| name | dept_name |
+|---|---|
+| Alice | IT |
+| Bob | HR |
+
+---
+
+### **22. Select all employees and their department names, including those without a department**
+
+**Input (`employees`):**
+| id | name | dept_id |
+|---|---|---|
+| 1 | Alice | 1 |
+| 2 | Ghost | NULL |
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+
+#### **Solution:**
+```sql
+SELECT e.name, d.dept_name 
+FROM employees e 
+LEFT JOIN depts d           -- LEFT JOIN keeps all rows from the left table
+ON e.dept_id = d.id;        -- If no match exists, d.dept_name will be NULL
+```
+
+**Output:**
+| name | dept_name |
+|---|---|
+| Alice | IT |
+| Ghost | NULL |
+
+---
+
+### **23. List all departments and the names of employees in them, including empty departments**
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+| 2 | EmptyDept |
+
+**Input (`employees`):**
+| id | name | dept_id |
+|---|---|---|
+| 1 | Alice | 1 |
+
+#### **Solution:**
+```sql
+SELECT d.dept_name, e.name 
+FROM depts d 
+LEFT JOIN employees e       -- Starting from depts ensures we see every department
+ON d.id = e.dept_id;
+```
+
+**Output:**
+| dept_name | name |
+|---|---|
+| IT | Alice |
+| EmptyDept | NULL |
+
+---
+
+### **24. Perform a FULL OUTER JOIN between employees and departments**
+
+**Input (`employees`):**
+| name | dept_id |
+|---|---|
+| Alice | 1 |
+| Ghost | NULL |
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+| 2 | NoOneInside |
+
+#### **Solution:**
+```sql
+SELECT e.name, d.dept_name 
+FROM employees e 
+FULL OUTER JOIN depts d     -- Returns rows when there is a match in either table
+ON e.dept_id = d.id;        -- Combines results of LEFT and RIGHT joins
+```
+
+**Output:**
+| name | dept_name |
+|---|---|
+| Alice | IT |
+| Ghost | NULL |
+| NULL | NoOneInside |
+
+---
+
+### **25. Find employees who earn more than their managers (Self Join)**
+
+**Input (`employees`):**
+| id | name | salary | manager_id |
+|---|---|---|---|
+| 1 | Manager | 5000 | NULL |
+| 2 | Expert | 6000 | 1 |
+
+#### **Solution:**
+```sql
+SELECT e.name AS employee, m.name AS manager
+FROM employees e            -- Current employee
+INNER JOIN employees m      -- The manager (same table joined to itself)
+ON e.manager_id = m.id      -- Relationship: employee's manager ID equals manager's ID
+WHERE e.salary > m.salary;  -- Filter condition across joining rows
+```
+
+**Output:**
+| employee | manager |
+|---|---|
+| Expert | Manager |
+
+### **26. Find employees with no department assigned (ID doesn't exist in depts table)**
+
+**Input (`employees`):**
+| name | dept_id |
+|---|---|
+| Alice | 1 |
+| Ghost | 99 |
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+
+#### **Solution:**
+```sql
+SELECT e.name 
+FROM employees e 
+LEFT JOIN depts d ON e.dept_id = d.id 
+WHERE d.id IS NULL;         -- WHERE NULL filtering effectively finds missing matches
+```
+
+**Output:**
+| name |
+|---|
+| Ghost |
+
+---
+
+### **27. List every possible combination of Employees and Projects (Cross Join)**
+
+**Input (`employees`):**
+| name |
+|---|
+| Alice |
+| Bob |
+
+**Input (`projects`):**
+| project_name |
+|---|
+| Alpha |
+| Beta |
+
+#### **Solution:**
+```sql
+SELECT e.name, p.project_name 
+FROM employees e 
+CROSS JOIN projects p;      -- Produces a Cartesian Product (N * M rows)
+```
+
+**Output:**
+| name | project_name |
+|---|---|
+| Alice | Alpha |
+| Alice | Beta |
+| Bob | Alpha |
+| Bob | Beta |
+
+---
+
+## **Section 4: Subqueries & Set Operators (Q28-35)**
+
+### **28. Find employees whose salary is above the company average**
+
+**Input (`employees`):**
+| name | salary |
+|---|---|
+| Alice | 1000 |
+| Bob | 2000 |
+| Charlie | 3000 |
+
+#### **Solution:**
+```sql
+SELECT name, salary 
+FROM employees 
+WHERE salary > (            -- Outer query filters
+    SELECT AVG(salary)      -- Inner query (Subquery) calculates average
+    FROM employees
+);
+```
+
+**Output:**
+| name | salary |
+|---|---|
+| Charlie | 3000 |
+
+---
+
+### **29. Find employees working in the same department as 'Alice'**
+
+**Input (`employees`):**
+| name | dept_id |
+|---|---|
+| Alice | 1 |
+| Bob | 1 |
+| Charlie | 2 |
+
+#### **Solution:**
+```sql
+SELECT name 
+FROM employees 
+WHERE dept_id = (           -- Filter by the result of the subquery
+    SELECT dept_id 
+    FROM employees 
+    WHERE name = 'Alice'
+) AND name != 'Alice';      -- Don't include Alice in her own list
+```
+
+**Output:**
+| name |
+|---|
+| Bob |
+
+---
+
+### **30. Find departments that have at least one employee (Using EXISTS)**
+
+**Input (`depts`):**
+| id | dept_name |
+|---|---|
+| 1 | IT |
+| 2 | Empty |
+
+**Input (`employees`):**
+| name | dept_id |
+|---|---|
+| Alice | 1 |
+
+#### **Solution:**
+```sql
+SELECT dept_name 
+FROM depts d 
+WHERE EXISTS (              -- EXISTS checks for presence of rows
+    SELECT 1                -- 1 is constant for speed
+    FROM employees e 
+    WHERE e.dept_id = d.id  -- Correlated subquery linking e and d
+);
+```
+
+**Output:**
+| dept_name |
+|---|
+| IT |
+
+---
+
+### **31. Find employees who are also managers (Using IN)**
+
+**Input (`employees`):**
+| id | name | manager_id |
+|---|---|---|
+| 1 | Boss | NULL |
+| 2 | Emp1 | 1 |
+
+#### **Solution:**
+```sql
+SELECT name 
+FROM employees 
+WHERE id IN (               -- Checks if ID exists in the result set
+    SELECT manager_id       -- Get all manager IDs
+    FROM employees
+);
+```
+
+**Output:**
+| name |
+|---|
+| Boss |
+
+---
+
+### **32. Combine names of employees from `IT` and `HR` departments using UNION**
+
+**Input (`employees`):**
+| name | dept |
+|---|---|
+| Alice | IT |
+| Bob | HR |
+
+#### **Solution:**
+```sql
+SELECT name FROM employees WHERE dept = 'IT'
+UNION                       -- Combines results and REMOVES duplicates
+SELECT name FROM employees WHERE dept = 'HR';
+```
+
+**Output:**
+| name |
+|---|
+| Alice |
+| Bob |
+
+---
+
+### **33. List IDs of employees who are NOT managers (Using EXCEPT)**
+
+**Input (`employees`):**
+| id | name | manager_id |
+|---|---|---|
+| 1 | MGR | NULL |
+| 2 | EMP | 1 |
+
+#### **Solution:**
+```sql
+SELECT id FROM employees    -- All IDs
+EXCEPT                      -- Subtracts matching rows from the second set
+SELECT manager_id FROM employees; -- Manager IDs
+```
+
+**Output:**
+| id |
+|---|
+| 2 |
+
+---
+
+### **34. Find common employees between two projects (Using INTERSECT)**
+
+**Input (`project_team_A`):**
+| employee_id |
+|---|
+| 1 |
+| 2 |
+
+**Input (`project_team_B`):**
+| employee_id |
+|---|
+| 2 |
+| 3 |
+
+#### **Solution:**
+```sql
+SELECT employee_id FROM project_team_A
+INTERSECT                   -- Returns only rows present in both queries
+SELECT employee_id FROM project_team_B;
+```
+
+**Output:**
+| employee_id |
+|---|
+| 2 |
+
+---
+
+### **35. Find the second highest salary without using LIMIT**
+
+**Input (`employees`):**
+| salary |
+|---|
+| 1000 |
+| 2000 |
+| 3000 |
+
+#### **Solution:**
+```sql
+SELECT MAX(salary) 
+FROM employees 
+WHERE salary < (            -- Find max salary that is less than the actual max
+    SELECT MAX(salary) 
+    FROM employees
+);
+```
+
+**Output:**
+| max |
+|---|
+| 2000 |
+
+---
+
+## **Section 5: Conditional Logic & Strings (Q36-45)**
+
+### **36. Categorize employees based on salary ranges (CASE statement)**
+
+**Input (`employees`):**
+| name | salary |
+|---|---|
+| Alice | 90000 |
+| Bob | 60000 |
+| Charlie | 30000 |
+
+#### **Solution:**
+```sql
+SELECT name, salary,
+  CASE                      -- Start conditional logic
+    WHEN salary >= 80000 THEN 'High'
+    WHEN salary >= 50000 THEN 'Mid'
+    ELSE 'Low'              -- Default category
+  END AS salary_grade       -- End with alias
+FROM employees;
+```
+
+**Output:**
+| name | salary | salary_grade |
+|---|---|---|
+| Alice | 90000 | High |
+| Bob | 60000 | Mid |
+| Charlie | 30000 | Low |
+
+---
+
+### **37. Calculate a 10% bonus for IT and 5% for HR**
+
+**Input (`employees`):**
+| name | dept | salary |
+|---|---|---|
+| Alice | IT | 1000 |
+| Bob | HR | 1000 |
+
+#### **Solution:**
+```sql
+SELECT name, dept,
+  CASE 
+    WHEN dept = 'IT' THEN salary * 0.10
+    WHEN dept = 'HR' THEN salary * 0.05
+    ELSE 0 
+  END AS bonus
+FROM employees;
+```
+
+**Output:**
+| name | dept | bonus |
+|---|---|---|
+| Alice | IT | 100.0 |
+| Bob | HR | 50.0 |
+
+---
+
+### **38. Convert names to Uppercase**
+
+**Input (`employees`):**
+| name |
+|---|
+| alice |
+
+#### **Solution:**
+```sql
+SELECT UPPER(name) AS loud_name -- Built-in string function
+FROM employees;
+```
+
+**Output:**
+| loud_name |
+|---|
+| ALICE |
+
+---
+
+### **39. Get the first 3 characters of each name**
+
+**Input (`employees`):**
+| name |
+|---|
+| Elephant |
+
+#### **Solution:**
+```sql
+SELECT SUBSTRING(name, 1, 3) -- Start position 1, length 3
+FROM employees;
+```
+
+**Output:**
+| substring |
+|---|
+| Ele |
+
+---
+
+### **40. Find the position of 'a' in names**
+
+**Input (`employees`):**
+| name |
+|---|
+| Apple |
+
+#### **Solution:**
+```sql
+SELECT name, POSITION('a' IN name) -- Returns 1-based index or 0 if not found
+FROM employees;
+```
+
+**Output:**
+| name | position |
+|---|---|
+| Apple | 0 | (Since case-sensitive; 'a' is not 'A')
+
+---
+
+### **41. Trim whitespace from a string**
+
+**Input:** `'  hello  '`
+
+#### **Solution:**
+```sql
+SELECT TRIM('  hello world  '); -- Removes leading and trailing spaces
+```
+
+**Output:** `'hello world'`
+
+---
+
+### **42. Count how many characters are in a name**
+
+**Input (`employees`):**
+| name |
+|---|
+| Bob |
+
+#### **Solution:**
+```sql
+SELECT name, LENGTH(name)      -- Returns number of characters
+FROM employees;
+```
+
+**Output:**
+| name | length |
+|---|---|
+| Bob | 3 |
+
+---
+
+### **43. Replace 'IT' with 'Tech' in the department column**
+
+**Input (`employees`):**
+| dept |
+|---|
+| IT |
+
+#### **Solution:**
+```sql
+SELECT REPLACE(dept, 'IT', 'Tech') -- Replaces all occurrences
+FROM employees;
+```
+
+**Output:**
+| replace |
+|---|
+| Tech |
+
+---
+
+### **44. Extract the Year from a joining date**
+
+**Input (`employees`):**
+| joining_date |
+|---|
+| 2023-05-15 |
+
+#### **Solution:**
+```sql
+SELECT name, EXTRACT(YEAR FROM joining_date) -- Postgres/Standard syntax
+FROM employees;
+```
+
+**Output:**
+| date_part |
+|---|
+| 2023 |
+
+---
+
+### **45. Use COALESCE to replace NULL manager_id with 0**
+
+**Input (`employees`):**
+| manager_id |
+|---|
+| NULL |
+| 5 |
+
+#### **Solution:**
+```sql
+SELECT name, COALESCE(manager_id, 0) -- Returns first non-NULL argument
+FROM employees;
+```
+
+**Output:**
+| coalesce |
+|---|
+| 0 |
+| 5 |
+
+---
+
+## **Section 6: DDL & Updates (Q46-50)**
+
+### **46. Create a table for Projects**
+
+#### **Solution:**
+```sql
+CREATE TABLE projects (      -- Define table name
+    id SERIAL PRIMARY KEY,   -- SERIAL creates auto-incrementing integer in Postgres
+    title VARCHAR(100) NOT NULL, -- Mandatory string column
+    start_date DATE DEFAULT CURRENT_DATE -- Defaults to today
+);
+```
+
+**Effect:** Creates a new empty table structure.
+
+---
+
+### **47. Add a new column `email` to the employees table**
+
+#### **Solution:**
+```sql
+ALTER TABLE employees        -- Modify existing structure
+ADD COLUMN email VARCHAR(255); -- Add column with type
+```
+
+**Effect:** Adds a new column to the table.
+
+---
+
+### **48. Update the salary of 'Bob' to 55,000**
+
+**Input (`employees`):**
+| name | salary |
+|---|---|
+| Bob | 50000 |
+
+#### **Solution:**
+```sql
+UPDATE employees             -- Target table
+SET salary = 55000           -- New value
+WHERE name = 'Bob';          -- CRITICAL: Always use WHERE to avoid updating all rows
+```
+
+**Output Table (Post-Update):**
+| name | salary |
+|---|---|
+| Bob | 55000 |
+
+---
+
+### **49. Delete an employee with ID 10**
+
+**Input (`employees`):**
+| id | name |
+|---|---|
+| 10 | ToDelete |
+
+#### **Solution:**
+```sql
+DELETE FROM employees        -- Target table
+WHERE id = 10;               -- Specify row to remove
+```
+
+**Effect:** Row with ID 10 is removed.
+
+---
+
+### **50. Empty all data from a table without deleting the structure**
+
+#### **Solution:**
+```sql
+TRUNCATE TABLE logs;         -- Faster than DELETE for large tables; cannot be undone easily
+```
+
+**Effect:** All rows in `logs` are removed instantly.
+
+
+
+---
+
+> **✨ Created by Thiyagarajan Varadharajan ✨**  
+> *Python Full Stack Developer | Interview Prep Resources*
+> 
+> *Share this resource on LinkedIn!*
+
+---

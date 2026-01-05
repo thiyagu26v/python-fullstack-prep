@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!-- ========================================== -->
+<!-- Created by Thiyagarajan Varadharajan -->
+<!-- LinkedIn: Share this resource! -->
+<!-- ========================================== -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Mastery (Dual Approach) - Event Horizon</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        :root {
+            --bg: #050110;
+            --card-bg: rgba(20, 10, 50, 0.6);
+            --accent: #00e5ff;
+            --secondary: #d500f9;
+            --text: #c0b0d0;
+            --border: rgba(0, 229, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space+Grotesk', sans-serif;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 10% 10%, rgba(213, 0, 249, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #ffffff, #00e5ff, #d500f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 50px;
+            letter-spacing: 5px;
+            font-size: 0.9rem;
+        }
+
+        .section-header {
+            color: var(--secondary);
+            margin: 70px 0 30px;
+            font-size: 2rem;
+            border-left: 5px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 35px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(20px);
+        }
+
+        h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+
+        h4 {
+            margin: 25px 0 10px;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        pre {
+            background: #000 !important;
+            padding: 25px !important;
+            border-radius: 4px !important;
+            margin: 25px 0 !important;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 15px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 1rem !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        th {
+            background: rgba(0, 229, 255, 0.05);
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Advanced AI & LLMs</h1>
+        <p class="subtitle">Transformers • RAG Architecture • Event Horizon</p>
+        <div id="target"></div>
+    </div>
+
+    <script type="text/markdown" id="raw-markdown">
+## **Section 1: Transformers & LLMs (Q26-38)**
+
+### **26. Attention Mechanism**
+**Task:** Explain and implement the core concept of weighting word importance.
+
+#### **Method 1: Manual Dot-Product (Scratch)**
+```python
+import numpy as np
+# Logic: Query x Key = Weight. Weight x Value = Attention Result.
+Q = np.array([1, 0])
+K = np.array([1, 0])
+V = np.array([10, 20])
+score = np.dot(Q, K) # Result: 1 (High match)
+output = score * V # Focus on the first element
+```
+
+#### **Method 2: MultiHeadAttention (PyTorch/DL)**
+```python
+import torch.nn as nn
+# Logic: High-level layer that handles multiple 'heads' of attention simultaneously.
+attention = nn.MultiheadAttention(embed_dim=128, num_heads=8)
+```
+
+---
+
+### **27. Retrieval Augmented Generation (RAG)**
+**Task:** How to give an LLM private knowledge.
+
+#### **Method 1: Manual RAG (Python + Index)**
+```python
+# Logic: 
+# 1. Search text file for keywords. 
+# 2. Append matched lines to the prompt manually.
+prompt = f"Context: {found_lines}\nQuestion: {query}"
+```
+
+#### **Method 2: LangChain RAG (Modern Pipeline)**
+```python
+from langchain.chains import RetrievalQA
+# Logic: Automated orchestration of Embeddings -> VectorDB -> Prompt -> LLM.
+chain = RetrievalQA.from_chain_type(llm=openai, retriever=vectordb.as_retriever())
+```
+
+---
+
+### **28. Vector Search**
+**Task:** Find the most similar sentences.
+
+#### **Method 1: Cosine Similarity (Stat)**
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+# Logic: Mathematical calculation of the angle between two vectors.
+# 1.0 = Perfect match, 0.0 = No relation.
+score = cosine_similarity(vec1, vec2)
+```
+
+#### **Method 2: Vector DB (ChromaDB)**
+```python
+collection.query(query_embeddings=[vec1], n_results=2)
+# Logic: Uses HNSW or similar algorithms for lightning-fast search on millions of vectors.
+```
+
+---
+
+### **29. Model Deployment**
+**Task:** How to run an LLM for your users.
+
+#### **Method 1: Local Hosting (Llama-CPP)**
+```python
+from llama_cpp import Llama
+# Logic: Runs GGUF quantized models on your own CPU/GPU locally.
+llm = Llama(model_path="llama-2-7b.gguf")
+```
+
+#### **Method 2: API Hosting (OpenAI/Azure)**
+```python
+import openai
+# Logic: Managed service. No infrastructure management, pay-per-token.
+response = openai.ChatCompletion.create(model="gpt-4", messages=[...])
+```
+
+---
+
+### **30. Prompt Engineering**
+**Task:** Guiding the model to act as a specific persona.
+
+#### **Method 1: Single-Line instruction**
+```text
+"Solve this math problem: 2+2"
+```
+
+#### **Method 2: System Prompting (Modern)**
+```python
+# Logic: Setting a 'Mental State' for the model separate from the user query.
+messages = [
+    {"role": "system", "content": "You are a helpful math teacher who explains steps."},
+    {"role": "user", "content": "2+2"}
+]
+```
+
+---
+
+## **Section 2: RAG Micro-Project (Q36-45)**
+
+### **36. Full RAG Logic Comparison**
+
+| Phase | Approach A (Manual Scratch) | Approach B (LangChain/Framework) |
+|---|---|---|
+| **Chunking** | String slice by `\n\n` | RecursiveCharacterTextSplitter |
+| **Embeddings** | TF-IDF (Stat) | HuggingFaceEmbeddings (DL) |
+| **Search** | Loop through every line | Index-based (FAISS/Chroma) |
+| **LLM Inference**| `requests.post` to API | `llm_chain.run()` |
+
+---
+
+### **37. Handling Large Context**
+**Task:** What to do when the PDF is bigger than the "Context Window".
+
+#### **Method 1: Truncation (Chop)**
+```python
+# Logic: Simply only send the first 2000 words to the LLM.
+context = pdf_text[:2000]
+```
+
+#### **Method 2: Map-Reduce (Modern)**
+```python
+# Logic: 1. Summarize chunks separately. 2. Summarize the summaries.
+# This preserves the general meaning of the whole document.
+```
+
+---
+
+### **40. Error Handling (Hallucinations)**
+**Task:** Stop the AI from lying.
+
+#### **Approach 1: Self-Correct Loop**
+```python
+# Logic: Ask AI "Is this answer grounded in the context?". If "No", regenerate.
+```
+
+#### **Approach 2: Verification Chains (RAGAS / Evaluation)**
+```python
+# Logic: Use a second 'Guardian' model to verify the primary model's output.
+```
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+    <script>
+        const target = document.getElementById('target');
+        const rawMd = document.getElementById('raw-markdown').innerHTML;
+
+        marked.setOptions({
+            highlight: (code, lang) => {
+                if (Prism.languages[lang]) {
+                    return Prism.highlight(code, Prism.languages[lang], lang);
+                }
+                return code;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        target.innerHTML = marked.parse(rawMd);
+
+        function setupUI() {
+            target.querySelectorAll('h2').forEach(h2 => h2.classList.add('section-header'));
+            target.querySelectorAll('h3').forEach(h3 => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                let next = h3.nextElementSibling;
+                card.appendChild(h3.cloneNode(true));
+                h3.remove();
+                while (next && next.tagName !== 'H3' && next.tagName !== 'H2' && next.tagName !== 'HR') {
+                    let toMove = next;
+                    next = next.nextElementSibling;
+                    card.appendChild(toMove);
+                }
+                target.insertBefore(card, next);
+            });
+            target.querySelectorAll('pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.innerText = 'Copy';
+                btn.onclick = () => {
+                    const code = pre.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        btn.innerText = 'Copied!';
+                        setTimeout(() => btn.innerText = 'Copy', 2000);
+                    });
+                };
+                pre.appendChild(btn);
+            });
+        }
+        setupUI();
+    </script>
+
+<footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #30363d; background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);">
+    <p style="font-size: 1.2rem; color: #00ffa3; margin-bottom: 10px;">✨ Created by <strong>Thiyagarajan Varadharajan</strong> ✨</p>
+    <p style="font-size: 0.9rem; color: #8b949e;">Python Full Stack Developer | Interview Prep Resources</p>
+</footer>
+</body>
+
+
+</html>
